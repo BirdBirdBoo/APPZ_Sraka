@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <SpaRoot>..\client</SpaRoot>
+        <NoWarn>1591</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.25" />
+        <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.5">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.18.0" />
+        <PackageReference Include="StronglyTypedId" Version="0.2.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Models\Entities\UserEntity.cs">
+            <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+        </Compile>
+        <Compile Update="Models\Requests\LoginRequest.cs">
+          <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+        </Compile>
+        <Compile Update="Models\Requests\RegisterRequest.cs">
+          <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
+        </Compile>
+    </ItemGroup>
+
+    <!-- Include the newly-built files in the publish output -->
+    <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+        <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+        <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+        <!-- ... -->
+    </Target>
+
+</Project>
