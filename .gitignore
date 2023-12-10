@@ -1,0 +1,33 @@
+# Proteus
+*.workspace
+/**/Project Backups/
+
+# Qt
+*.user
+/**/build-*/
+
+# CLion
+/**/.idea/
+/**/cmake-build-*/
+
+# VS
+/**/.vs
+Debug/
+Release/
+bin/
+obj/
+app.db
+app.db-*
+
+# VS Code
+settings.json
+
+# Keil
+Objects/
+Listings/
+
+# Node.js
+package-lock.json
+
+# Notepad++
+*.bak
