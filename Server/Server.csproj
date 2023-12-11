@@ -19,6 +19,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
         <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.18.0" />
         <PackageReference Include="StronglyTypedId" Version="0.2.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
@@ -35,6 +36,10 @@
         <Compile Update="Models\Requests\RegisterRequest.cs">
           <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
     <!-- Include the newly-built files in the publish output -->

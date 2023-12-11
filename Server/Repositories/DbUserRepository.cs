@@ -6,9 +6,9 @@ namespace Server.Repositories;
 
 public class DbUserRepository : IUserRepository
 {
-    private readonly AppDbContext _appDbContext;
+    private readonly QualityLifeDbContext _appDbContext;
 
-    public DbUserRepository(AppDbContext appDbContext)
+    public DbUserRepository(QualityLifeDbContext appDbContext)
     {
         _appDbContext = appDbContext;
     }

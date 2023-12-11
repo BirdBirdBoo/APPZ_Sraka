@@ -15,9 +15,11 @@ var builder = WebApplication.CreateBuilder(args);
 IConfigProvider configProvider = new ConfigProvider(builder.Configuration);
 
 // Add services to the container.
+builder.Services.AddDbContext<QualityLifeDbContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("sql-server"));
+});
 
-builder.Services.AddScoped<IImageService, ImageService>();
-builder.Services.AddScoped<IImageRepository, DbImageRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddSingleton(configProvider);
@@ -25,6 +27,7 @@ builder.Services.AddSingleton(configProvider);
 if (configProvider.UserRepository.UseInMemoryRepository)
 {
     builder.Services.AddScoped<IUserRepository, InMemoryUserRepository>();
+    Console.WriteLine("inmemory");
 }
 else
 {
@@ -89,11 +92,6 @@ builder.Services.AddHttpContextAccessor();
                                                              .AllowCredentials()
     )
 );*/
-
-builder.Services.AddDbContext<AppDbContext>(opts =>
-{
-    opts.UseSqlite(configProvider.UserRepository.DatabaseConnectionString);
-});
 
 var app = builder.Build();
 
