@@ -1,12 +1,15 @@
 using System.Reflection;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Server.Contexts;
 using Server.Extensions.Swagger;
 using Server.Models.Entities;
+using Server.Models.Requests;
 using Server.Providers;
 using Server.Repositories;
 using Server.Services;
@@ -35,6 +38,7 @@ else
 }
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opts =>
@@ -73,6 +77,7 @@ builder.Services.AddSwaggerGen(opts =>
         });
     }
 );
+
 builder.Services
        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
        .AddJwtBearer(opts => opts.TokenValidationParameters = new TokenValidationParameters
@@ -85,7 +90,17 @@ builder.Services
            ValidAudience = configProvider.Jwt.Issuer,
            IssuerSigningKey = configProvider.Jwt.SecurityKey
        });
+
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddSwaggerGen(options =>
+    options.MapType<DateOnly>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "date",
+        Example = new OpenApiString("2022-01-01")
+    })
+);
 /*builder.Services.AddCors(opts => opts.AddDefaultPolicy(b => b.WithOrigins("https://localhost:3000")
                                                              .AllowAnyHeader()
                                                              .AllowAnyMethod()
