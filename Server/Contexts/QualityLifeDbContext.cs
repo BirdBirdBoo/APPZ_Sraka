@@ -10,6 +10,7 @@ namespace Server.Contexts
 
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<DoctorEntity> Doctors { get; set; }
+        public DbSet<PatientEntity> Patients { get; set; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
@@ -24,6 +25,9 @@ namespace Server.Contexts
             configurationBuilder.Properties<DoctorId>()
                                 .HaveConversion<DoctorIdConverter>();
 
+            configurationBuilder.Properties<PatientId>()
+                                .HaveConversion<PatientIdConverter>();
+
             configurationBuilder.Properties<DateOnly>()
                                 .HaveConversion<DateOnlyConverter>();
         }
@@ -34,6 +38,7 @@ namespace Server.Contexts
 
             modelBuilder.Entity<UserEntity>().ToTable("Users");
             modelBuilder.Entity<DoctorEntity>().ToTable("Doctors");
+            modelBuilder.Entity<PatientEntity>().ToTable("Patients");
         }
     }
 }
