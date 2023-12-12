@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, ThemeProvider} from "react-bootstrap";
+import {Button, Col, Form, Row, ThemeProvider} from "react-bootstrap";
 import $ from "jquery";
 import {authUrl, setStoredToken} from "./api";
 import AppNavbar from "./AppNavbar";
@@ -64,26 +64,39 @@ export class LoginForm extends React.Component {
     render() {
         return (
             <ThemeProvider>
-                <AppNavbar isLogin/>
-                <Form onSubmit={this.handleSubmit} className="mt-3 mb-3 border border-1 p-4 rounded-1 col-4 offset-4">
-                    <Form.Group className="mb-3">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control name="email" value={this.state.email}
-                                      onChange={this.handleValueChange}
-                                      required/>
+                <Form onSubmit={this.handleSubmit}
+                      className="mt-3 mb-3 rounded-0 col-4 offset-4 i-am-blue-labadibabada">
+                    <h4 className="text-center py-1" style={{background: '#82BBFF'}}>Авторизація</h4>
+                    <Form.Group className="p-4">
+                        <Form.Group className="mb-3">
+                            <Form.Label>Електронна пошта</Form.Label>
+                            <Form.Control name="email" value={this.state.email}
+                                          onChange={this.handleValueChange}
+                                          required/>
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>Пароль</Form.Label>
+                            <Form.Control type="password" name="password" value={this.state.password}
+                                          onChange={this.handleValueChange}
+                                          minLength="3" maxLength="120"/>
+                        </Form.Group>
+
+                        {this.state.isError && <p className="text-danger">Wrong username or password</p>}
+                        {this.state.isSuccessful && <Navigate to={ApplicationPaths.RootPath}/>}
+
+                        {/* place buttons side by side */}
+                        <Row className='mb-3 mx-1'>
+                            <button type="submit" className='btn-style-small submit'>Увійти</button>
+                        </Row>
+                        <Row className='mx-1'>
+                            <Button className='btn-style-small'
+                                    type="button"
+                                    href={ApplicationPaths.RegisterPage}>
+                                Реєстрація
+                            </Button>
+                        </Row>
                     </Form.Group>
-
-                    <Form.Group className="mb-3">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" value={this.state.password}
-                                      onChange={this.handleValueChange}
-                                      minLength="3" maxLength="120"/>
-                    </Form.Group>
-
-                    {this.state.isError && <p className="text-danger">Wrong username or password</p>}
-                    {this.state.isSuccessful && <Navigate to={ApplicationPaths.RootPath}/>}
-
-                    <Button variant="primary" type="submit">Login</Button>
                 </Form>
             </ThemeProvider>
         );
