@@ -1,8 +1,9 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import {Row, Col, Image, Card } from 'react-bootstrap';
-import VerticalPatientNavbar from './VerticalPatientNavbar';
+import VerticalDoctorNavbar from './VerticalDoctorNavbar';
 
-function PatientProfile() {
+function DoctorProfile() {
     return (
         <Row className="profile-container" style={{margin:'0px'}}>
             <Col xs={3} className="side-menu" style={{ 
@@ -10,7 +11,7 @@ function PatientProfile() {
                     display: 'flex',
                 }}
             >
-                <VerticalPatientNavbar />
+                <VerticalDoctorNavbar />
             </Col>
             <Col className="profile-content">
                 <Card>
@@ -32,11 +33,7 @@ function PatientProfile() {
                             <Card.Text>
                                 <strong>Дата народження:</strong> qweqweqwe
                             </Card.Text>
-
-                            {/* Doctor's name */}
-                            <Card.Text>
-                                <strong>Лікар:</strong>qweqwe
-                            </Card.Text>
+                            <Button className="btn-style" style={{width:'300px'}}>Додати пацієнта</Button>
                         </Col>
                     </Card.Body>
                 </Card>
@@ -46,4 +43,4 @@ function PatientProfile() {
 }
 
 
-export default PatientProfile;
+export default DoctorProfile;

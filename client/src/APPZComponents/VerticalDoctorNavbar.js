@@ -19,18 +19,6 @@ function VerticalDoctorNavbar() {
       <Button className="btn-style">Профіль</Button>
       <Button className="btn-style">Пацієнти</Button>
       <Button className="btn-style">Записи на прийом</Button>
-
-      <Dropdown as={ButtonGroup} show={showDropdown} style={{ width: '100%' }} onToggle={() => setShowDropdown(!showDropdown)} onSelect={handleSelect}>
-        <Dropdown.Toggle className="btn-style" id="dropdown-custom-components">
-          Аналізи
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu style={{ width: '100%', backgroundColor: '#79B7FF', borderRadius: '8px' }}>
-          <Dropdown.Item eventKey="1"  className="dropdown-item" >Аналіз крові</Dropdown.Item>
-          <Dropdown.Item eventKey="2"  className="dropdown-item" >Аналіз сечі</Dropdown.Item>
-          <Dropdown.Item eventKey="3"  className="dropdown-item" >Алергени</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
     </ButtonGroup>
     );
 }
