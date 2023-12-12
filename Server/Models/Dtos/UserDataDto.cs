@@ -19,13 +19,13 @@ public record UserDataDto(
 
 {
     public static UserDataDto? FromEntity(UserEntity? userEntity)
-{
-    if (userEntity is null)
     {
-        return null;
-    }
+        if (userEntity is null)
+        {
+            return null;
+        }
 
-    var (id, email, dateOfBirth, role, _, firstName, secondName, phoneNumber) = userEntity;
-    return new UserDataDto(id, email, dateOfBirth, role, firstName, secondName, phoneNumber);
-}
+        var (id, email, dateOfBirth, role, _, firstName, secondName, phoneNumber) = userEntity;
+        return new UserDataDto(id, email, dateOfBirth, role, firstName, secondName, phoneNumber);
+    }
 }

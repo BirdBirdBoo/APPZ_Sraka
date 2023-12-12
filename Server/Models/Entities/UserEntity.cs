@@ -20,20 +20,20 @@ public class UserEntity
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public UserId UserId { get; init; }
 
-    public string Email { get; init; }
+    public string Email { get; set; }
 
-    public Secret Secret { get; init; }
+    public Secret Secret { get; set; }
     
-    public UserRole Role { get; init; }
+    public UserRole Role { get; set; }
     
     [JsonConverter(typeof(DateOnlyConverter))]
-    public DateOnly BirthDate { get; init; }
+    public DateOnly BirthDate { get; set; }
 
-    public string FirstName { get; init; }
+    public string FirstName { get; set; }
 
-    public string SecondName { get; init; }
+    public string SecondName { get; set; }
 
-    public string PhoneNumber { get; init; }
+    public string PhoneNumber { get; set; }
 
 
     public UserEntity(UserId userId, string email, DateOnly birthDate, UserRole role,

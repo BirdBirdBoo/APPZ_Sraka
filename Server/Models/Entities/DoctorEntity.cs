@@ -14,13 +14,13 @@ namespace Server.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public DoctorId DoctorId { get; init; }
 
-        public UserId User { get; init; }
+        public UserId UserId { get; init; }
 
-        public float Rating { get; init; }
+        public float Rating { get; set; }
 
-        public string Proffesion { get; init; }
+        public string Proffesion { get; set; }
         
-        public float Experience { get; init; }
+        public float Experience { get; set; }
 
     }
 

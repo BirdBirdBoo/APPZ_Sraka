@@ -16,19 +16,19 @@ namespace Server.Models.Entities
         public PatientId PatientId { get; init; }
 
         [Required]
-        public UserEntity User { get; init; }
+        //public UserEntity UserId { get; init; }
 
-        public DoctorEntity Doctor { get; init; }
+        //public DoctorEntity DoctorId { get; init; }
 
-        //public UserId UserId { get; init; }
+        public UserId UserId { get; init; }
 
-        //public DoctorId DoctorId { get; init; }
+        public DoctorId DoctorId { get; init; }
 
-        public float Rating { get; init; }
+        public float Rating { get; set; }
 
-        public string BloodType { get; init; }
+        public string BloodType { get; set; }
 
-        public string Allergens { get; init; }
+        public string Allergens { get; set; }
     }
     internal class PatientIdConverter : ValueConverter<PatientId, Guid>
     {

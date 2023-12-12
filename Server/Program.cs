@@ -10,6 +10,8 @@ using Server.Models.Entities;
 using Server.Providers;
 using Server.Repositories;
 using Server.Services;
+using AutoMapper;
+using Server.Models.Mappers;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfigProvider configProvider = new ConfigProvider(builder.Configuration);
@@ -21,8 +23,12 @@ builder.Services.AddDbContext<QualityLifeDbContext>(opts =>
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddSingleton(configProvider);
+
+builder.Services.AddAutoMapper(typeof(DoctorProfile));
+
 
 if (configProvider.UserRepository.UseInMemoryRepository)
 {
@@ -32,6 +38,7 @@ if (configProvider.UserRepository.UseInMemoryRepository)
 else
 {
     builder.Services.AddScoped<IUserRepository, DbUserRepository>();
+    builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 }
 
 builder.Services.AddControllers();
