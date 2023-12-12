@@ -14,10 +14,10 @@ public class DbUserRepository : IUserRepository
     }
 
     public async Task<UserEntity> CreateUser(string email, DateOnly birthDate, string password,
-        CancellationToken cancellationToken)
+        string firstName, string lastName, string phoneNumber, CancellationToken cancellationToken)
     {
         var newEntity =
-            _appDbContext.Users.Add(new UserEntity(UserId.New(), email, birthDate,  UserRole.User, Secret.Create(password)));
+            _appDbContext.Users.Add(new UserEntity(UserId.New(), email, birthDate,  UserRole.Admin, Secret.Create(password), firstName, lastName, phoneNumber));
 
         await _appDbContext.SaveChangesAsync(cancellationToken);
 

@@ -11,8 +11,12 @@ public record UserDataDto(
     [property: JsonConverter(typeof(JsonDateOnlyConverter))]
     DateOnly DateOfBirth,
     [property: JsonConverter(typeof(JsonStringEnumConverter))]
-    UserRole Role
-)
+    UserRole Role,
+    string FirstName,
+    string SecondName,
+    string PhoneNumber
+    )
+
 {
     public static UserDataDto? FromEntity(UserEntity? userEntity)
     {
@@ -21,7 +25,7 @@ public record UserDataDto(
             return null;
         }
 
-        var (id, email, dateOfBirth, role, _) = userEntity;
-        return new UserDataDto(id, email, dateOfBirth, role);
+        var (id, email, dateOfBirth, role, _, firstName, secondName, phoneNumber) = userEntity;
+        return new UserDataDto(id, email, dateOfBirth, role, firstName, secondName, phoneNumber);
     }
 }

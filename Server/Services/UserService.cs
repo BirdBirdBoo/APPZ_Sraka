@@ -16,9 +16,9 @@ public class UserService : IUserService
 
     public async Task<(UserId, UserRole)> RegisterUser(RegisterRequest registerRequest, CancellationToken cancellationToken)
     {
-        var (email, password, birthDate) = registerRequest;
+        var (email, password, birthDate, firstName, lastName, phoneNumber) = registerRequest;
 
-        var newUser = await _userRepository.CreateUser(email, birthDate, password, cancellationToken);
+        var newUser = await _userRepository.CreateUser(email, birthDate, password, firstName, lastName, phoneNumber, cancellationToken);
 
         return (newUser.UserId, newUser.Role);
     }
