@@ -9,6 +9,7 @@ namespace Server.Contexts
         public QualityLifeDbContext(DbContextOptions<QualityLifeDbContext> options) : base(options) { }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<DoctorEntity> Doctors { get; set; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
@@ -19,6 +20,9 @@ namespace Server.Contexts
 
             configurationBuilder.Properties<UserId>()
                                 .HaveConversion<UserIdConverter>();
+            
+            configurationBuilder.Properties<DoctorId>()
+                                .HaveConversion<DoctorIdConverter>();
 
             configurationBuilder.Properties<DateOnly>()
                                 .HaveConversion<DateOnlyConverter>();
@@ -29,6 +33,7 @@ namespace Server.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<UserEntity>().ToTable("Users");
+            modelBuilder.Entity<DoctorEntity>().ToTable("Doctors");
         }
     }
 }
