@@ -4,6 +4,7 @@ import {Row, Col, Image, Card } from 'react-bootstrap';
 import DoctorProfile from './APPZComponents/DoctorProfile';
 import PatientProfile from './APPZComponents/PatientProfile';
 import VerticalPatientNavbar from './APPZComponents/VerticalPatientNavbar';
+import Chat from './APPZComponents/Chat';
 
 function App() {
     return <>
@@ -23,7 +24,8 @@ function App() {
                 <VerticalPatientNavbar />
             </Col>
             <Col className="content">
-                <PatientProfile/>
+                {/* <PatientProfile/> */}
+                <Chat/>
             </Col>
         </Row>
     </>;
