@@ -9,6 +9,7 @@ namespace Server.Contexts
         public QualityLifeDbContext(DbContextOptions<QualityLifeDbContext> options) : base(options) { }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<AnalysisEntity> Analyzes { get; set; }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
