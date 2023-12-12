@@ -9,5 +9,6 @@ namespace Server.Repositories
         Task<AnalysisEntity?> GetAnalysis(AnalysisId id, CancellationToken cancellationToken);
 
         Task<IEnumerable<AnalysisEntity>> GetAllAnalyzes(CancellationToken cancellationToken);
+        IQueryable<AnalysisEntity> GetAllAnalyzesQueryable();
     }
 }

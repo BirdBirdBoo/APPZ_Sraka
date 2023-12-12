@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Features;
-using Server.Contexts;
-using Server.Models.Dtos;
+﻿using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Repositories;
@@ -18,12 +16,17 @@ namespace Server.Services
         {
             var (name, description, type, date, provider, data) = analysisRequest;
             var analysis = await _analysisRepository.CreateAnalysis(name, description, type, date, provider, data, ct);
-            return analysis;
+            return analysis!;
         }
 
-        public Task<AnalysisArrayDto> GetAllAnalyzes(CancellationToken ct)
+        public async Task<AnalysisArrayDto> GetAllAnalyzes(CancellationToken ct)
         {
-            throw new NotImplementedException();
+            return new AnalysisArrayDto(await _analysisRepository.GetAllAnalyzes(ct));
+        }
+
+        public async Task<AnalysisEntity> GetAnalysis(AnalysisId analysisId, CancellationToken ct)
+        {
+            return await _analysisRepository.GetAnalysis(analysisId, ct);
         }
     }
 }

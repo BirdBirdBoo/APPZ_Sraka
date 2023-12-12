@@ -34,6 +34,11 @@ namespace Server.Repositories
             return await _appDbContext.Analyzes.ToListAsync();
         }
 
+        public IQueryable<AnalysisEntity> GetAllAnalyzesQueryable()
+        {
+            return _appDbContext.Analyzes.Where(a => true);
+        }
+
         public async Task<AnalysisEntity?> GetAnalysis(AnalysisId id, CancellationToken cancellationToken)
         {
             return await _appDbContext.Analyzes.FirstAsync(a => a.AnalysisId.Equals(id));

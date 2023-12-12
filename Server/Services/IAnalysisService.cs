@@ -7,7 +7,7 @@ namespace Server.Services
     public interface IAnalysisService
     {
         Task<AnalysisEntity> CreateAnalysis(NewAnalysisRequest analysisRequest, CancellationToken ct);
-
         Task<AnalysisArrayDto> GetAllAnalyzes(CancellationToken ct);
+        Task<AnalysisEntity> GetAnalysis(AnalysisId analysisId, CancellationToken ct);
     }
 }
