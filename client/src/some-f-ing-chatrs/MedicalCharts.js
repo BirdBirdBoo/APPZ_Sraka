@@ -116,7 +116,11 @@ const charts = [
 export default function MedicalCharts() {
     return (
         <>
-            <Col>
+            <Col style={{
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                height: '100%'
+            }}>
                 <h1 className="p-3">Графіки показників</h1>
 
                 <Row>

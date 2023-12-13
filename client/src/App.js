@@ -30,7 +30,7 @@ function App() {
         return <Navigate to={ApplicationPaths.PatientProfile}/>;
     }
     return (
-        <Row className="MOVIcontainer" style={{margin: '0px', height:'100%'}}>
+        <Row className="MOVIcontainer" style={{margin: '0px', height: '100%'}}>
             <Col xs={3} className="side-menu" style={{
                 backgroundColor: '#B5D7FF',
                 display: 'flex',
@@ -38,7 +38,7 @@ function App() {
             }}>
                 <VerticalPatientNavbar/>
             </Col>
-            <Col className="content"  style={{margin: '0px', height:'100%'}}>
+            <Col className="content" style={{margin: '0px', height: '100%', paddingRight: 0}}>
                 {targetLocation.isPatientProfile && <PatientProfile/>}
                 {targetLocation.isPatientChat && <Chat/>}
                 {targetLocation.isStatsPage && <MedicalCharts/>}
