@@ -5,7 +5,10 @@ import VerticalDoctorNavbar from './VerticalDoctorNavbar';
 
 function DoctorProfile() {
     return (
-        <Card>
+        <Card style={{
+            border: 'none', 
+            boxShadow: 'none' 
+        }}>
             <Card.Body style={{ height: '760px', display: 'flex', alignItems: 'start' }}>
                 {/* Image column */}
                 <Col xs={4}>

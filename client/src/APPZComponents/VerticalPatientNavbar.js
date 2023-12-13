@@ -7,27 +7,6 @@ import ApplicationPaths from '../paths';
 import '../styles/styles.css';
 
 function VerticalPatientNavbar() {
-  // const buttonStyle = {
-  //   backgroundColor: '#79B7FF',
-  //   borderColor: '#79B7FF',
-  //   marginBottom: '25px', // Adds space between the buttons
-  //   borderRadius: '8px', // Rounded corners
-  //   color: 'black',
-  //   boxShadow: 'none', // Removes any box shadow
-  //   fontSize: 25,
-  //   textAlign: 'center',
-  //   width: '100%',
-  // };
-
-  // const buttonGroupWrapperStyle = {
-  //   margin: '15px',
-  //   padding: '20px',
-  //   width: '100%',
-  //   boxSizing: 'border-box',
-  //   display: 'inline-block', // Allow the ButtonGroup to be only as tall as its content
-  //   verticalAlign: 'top'
-  // };
-
   const [showDropdown, setShowDropdown] = useState(false);
 
   // Function to handle item selection
