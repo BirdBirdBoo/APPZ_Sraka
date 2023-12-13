@@ -13,11 +13,8 @@ function Chat () {
                 <IncomingMessageComponent/>
                 <OutgoingMessageComponent/>
                 <IncomingMessageComponent/>
-                <OutgoingMessageComponent/>
                 <IncomingMessageComponent/>
-                <OutgoingMessageComponent/>
                 <IncomingMessageComponent/>
-                <OutgoingMessageComponent/>
                 <IncomingMessageComponent/>
                 <OutgoingMessageComponent/>
                 <IncomingMessageComponent/>
