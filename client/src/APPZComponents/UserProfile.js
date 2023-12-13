@@ -50,7 +50,7 @@ function UserProfile() {
                     {/* Doctor's name */}
                     {context.isPatient && <>
                         <Card.Text>
-                            <strong>Лікар:</strong> {context.patientDoctorInfo.firstName} {context.patientDoctorInfo.secondName}
+                            <strong>Лікар:</strong> {context.patientDoctorInfo?.userData?.firstName} {context.patientDoctorInfo?.userData?.secondName}
                         </Card.Text>
                     </>}
                 </Col>
