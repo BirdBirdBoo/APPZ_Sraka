@@ -10,6 +10,7 @@ import {useCallback, useContext, useEffect, useState} from "react";
 import AuthContext from "./AuthContext";
 import {Navigate, useLocation} from "react-router-dom";
 import ApplicationPaths from "./paths";
+import BloodAnalysisTable from './APPZComponents/BloodAnalysis';
 
 function App() {
     let context = useContext(AuthContext);
