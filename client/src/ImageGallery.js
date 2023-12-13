@@ -146,7 +146,7 @@ export default function ImageGallery(props) {
                 return {images: []};
             }
         }).then(images => setImageData(images));
-    }, [context]);
+    }, [context.isDesignMode]);
 
     useEffect(() => {
         loadImageData();

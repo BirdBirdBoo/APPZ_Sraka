@@ -39,6 +39,7 @@ root.render(
                 <Route path={ApplicationPaths.UserInfoPage} element={<UserInfo/>}/>
                 <Route path={ApplicationPaths.PatientProfile} element={<App/>}/>
                 <Route path={ApplicationPaths.PatientChat} element={<App/>}/>
+                <Route path={ApplicationPaths.StatsPage} element={<App/>}/>
             </Routes>
         </BrowserRouter>
     </DevSupport>

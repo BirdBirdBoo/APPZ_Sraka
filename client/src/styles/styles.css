@@ -132,3 +132,7 @@ html, body, #root {
   margin-left: 15%; /* Align text with the sender's name */
   padding-bottom: 10px;
 }
+
+.ms-6 {
+  margin-left: 4.5rem !important;
+}

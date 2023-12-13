@@ -16,7 +16,7 @@ function VerticalPatientNavbar() {
 
 
   return (
-    <ButtonGroup vertical size="lg"  className="button-group-wrapper">
+    <ButtonGroup vertical size="lg" className="button-group-wrapper">
       <Button className="btn-style" href={ApplicationPaths.PatientProfile}>Профіль</Button>
       <Button className="btn-style" href={ApplicationPaths.PatientChat}>Зв'язатись з лікарем</Button>
 
@@ -29,6 +29,7 @@ function VerticalPatientNavbar() {
           <Dropdown.Item eventKey="1"  className="dropdown-item" >Аналіз крові</Dropdown.Item>
           <Dropdown.Item eventKey="2"  className="dropdown-item" >Аналіз сечі</Dropdown.Item>
           <Dropdown.Item eventKey="3"  className="dropdown-item" >Алергени</Dropdown.Item>
+          <Dropdown.Item eventKey="4"  className="dropdown-item" href={ApplicationPaths.StatsPage}>Статистика КД</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>
