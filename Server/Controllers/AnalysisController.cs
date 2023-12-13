@@ -25,7 +25,7 @@ public class AnalysisController : ControllerBase
     //[Authorize]
     public async Task<IActionResult> CreateNewAnalysis(NewAnalysisRequest request, CancellationToken token)
     {
-        var analysis = await _analysisService.CreateAnalysis(request, token);
+        var analysis = await _analysisService.Create(request, token);
 
         return Ok(analysis);
     }
@@ -35,7 +35,7 @@ public class AnalysisController : ControllerBase
     //[Authorize]
     public async Task<IActionResult> GetAnalysis(AnalysisId id, CancellationToken token)
     {
-        IEnumerable<AnalysisDto> analysis = await _analysisService.GetAnalysis(id, token);
+        IEnumerable<AnalysisDto> analysis = await _analysisService.Get(id, token);
 
         return Ok(analysis);
     }
@@ -45,7 +45,7 @@ public class AnalysisController : ControllerBase
     //[Authorize]
     public async Task<IActionResult> GetAllAnalyzes(CancellationToken token)
     {
-        IEnumerable<AnalysisPreviewDto> analyzes = await _analysisService.GetAllAnalyzes(token);
+        IEnumerable<AnalysisPreviewDto> analyzes = await _analysisService.GetAll(token);
 
         return Ok(analyzes);
     }
