@@ -10,6 +10,8 @@ import {setStoredToken} from "./api";
 import AuthContext from "./AuthContext";
 import UserInfo from "./UserInfo";
 import ApplicationPaths from "./paths";
+import {DevSupport} from "@react-buddy/ide-toolbox";
+import {ComponentPreviews, useInitial} from "./dev";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -25,17 +27,21 @@ function Logout() {
 }
 
 root.render(
-    <BrowserRouter>
-        <Routes>
-            <Route path={ApplicationPaths.RootPath} element={<App/>}/>
-            <Route path={ApplicationPaths.RegisterPage} element={<RegisterForm/>}/>
-            <Route path={ApplicationPaths.LoginPage} element={<LoginForm/>}/>
-            <Route path={ApplicationPaths.LogoutPage} element={<Logout/>}/>
-            <Route path={ApplicationPaths.UserInfoPage} element={<UserInfo/>}/>
-            <Route path={ApplicationPaths.PatientProfile} element={<App/>}/>
-            <Route path={ApplicationPaths.PatientChat} element={<App/>}/>
-        </Routes>
-    </BrowserRouter>
+    <DevSupport ComponentPreviews={ComponentPreviews}
+                useInitialHook={useInitial}>
+        <BrowserRouter>
+            <Routes>
+                <Route path={ApplicationPaths.RootPath} element={
+                    <App/>}/>
+                <Route path={ApplicationPaths.RegisterPage} element={<RegisterForm/>}/>
+                <Route path={ApplicationPaths.LoginPage} element={<LoginForm/>}/>
+                <Route path={ApplicationPaths.LogoutPage} element={<Logout/>}/>
+                <Route path={ApplicationPaths.UserInfoPage} element={<UserInfo/>}/>
+                <Route path={ApplicationPaths.PatientProfile} element={<App/>}/>
+                <Route path={ApplicationPaths.PatientChat} element={<App/>}/>
+            </Routes>
+        </BrowserRouter>
+    </DevSupport>
 );
 
 // If you want to start measuring performance in your app, pass a function
