@@ -1,57 +1,72 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import axios from "axios";
 import { Container, Row, Col } from 'react-bootstrap';
 import IncomingMessageComponent from './IncomingMessageComponent';
 import OutgoingMessageComponent from './OutgoingMessageComponent';
 import MessageTextbox from './MessageTextbox';
 import { Card } from 'react-bootstrap';
+import AuthContext from "../AuthContext";
 
-function Chat () {
-  // Create a ref for the messages container
+function Chat() {
+  let context = useContext(AuthContext);
+
+  const [messages, setMessages] = useState([]);
+  const [sender, setSender] = useState([]);
+  const [receiver, setReceiver] = useState([]);
   const messagesEndRef = useRef(null);
 
-  // Function to scroll to the bottom of the messages container
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Use useEffect to scroll to the bottom whenever the component updates
-  useEffect(scrollToBottom, []); // The empty array ensures this only runs once after the initial render
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const responseAllMessages = await axios.post('https://localhost:7130/api/Chat/getAllMessages', {
+          "first": context.userId,
+          "second": context.doctorId
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const responseSender = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId:  context.userId } });
+        const responseReceiver = await axios.get('https://localhost:7130/api/Chat/getAllMessages');
+        setMessages(responseAllMessages.data);
+        scrollToBottom();
+      } catch (error) {
+        console.error("Could not fetch messages:", error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+
 
   return (
     <Card style={{
-      border: 'none', 
+      border: 'none',
       boxShadow: 'none',
-      height: '100%', // Ensure the Card takes up the full height of its container
-      display: 'flex', // Use flex layout
-      flexDirection: 'column' // Stack children vertically
-  }}>
-        <Card.Body style={{
-          flex: 1, // Allow Card.Body to fill the available space
-          padding: '1rem', // Give some padding around the messages
-          overflowY: 'auto' // Add scrollbar if content overflows
-        }}>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <IncomingMessageComponent/>
-            <IncomingMessageComponent/>
-            <IncomingMessageComponent/>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <IncomingMessageComponent/>
-            <OutgoingMessageComponent/>
-            <div ref={messagesEndRef} />
-        </Card.Body>
-        <MessageTextbox />
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
+    }}>
+      <Card.Body style={{
+        flex: 1,
+        padding: '1rem',
+        overflowY: 'auto'
+      }}>
+        // Fill messages from the request to the url: 'https://localhost:7130/api/Chat/getAllMessages'
+
+        {messages.map((msg, index) => (
+          <IncomingMessageComponent key={index} senderName={msg.senderName} message={msg.message} />
+        ))}
+        <div ref={messagesEndRef} />
+      </Card.Body>
+      <MessageTextbox />
     </Card>
   );
 };
+
 
 export default Chat;
