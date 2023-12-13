@@ -8,9 +8,11 @@ namespace Server.Services
     public class AnalysisService : IAnalysisService
     {
         private readonly IAnalysisRepository _analysisRepository;
-        public AnalysisService(IAnalysisRepository analysisRepository) 
+        private readonly ICriticalDefinerService _criticalDefinerService;
+        public AnalysisService(IAnalysisRepository analysisRepository, ICriticalDefinerService criticalDefinerService)
         {
             _analysisRepository = analysisRepository;
+            _criticalDefinerService = criticalDefinerService;
         }
         public async Task<AnalysisEntity> CreateAnalysis(NewAnalysisRequest analysisRequest, CancellationToken ct)
         {
@@ -24,9 +26,10 @@ namespace Server.Services
             return new AnalysisArrayDto(await _analysisRepository.GetAllAnalyzes(ct));
         }
 
-        public async Task<AnalysisEntity> GetAnalysis(AnalysisId analysisId, CancellationToken ct)
+        public async Task<IEnumerable<AnalysisDto>> GetAnalysis(AnalysisId analysisId, CancellationToken ct)
         {
-            return await _analysisRepository.GetAnalysis(analysisId, ct);
+            var analysis = await _analysisRepository.GetAnalysis(analysisId, ct);
+            return _criticalDefinerService.Define(analysis!);
         }
     }
 }

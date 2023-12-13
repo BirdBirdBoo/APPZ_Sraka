@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Contexts;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 
 namespace Server.Repositories
@@ -29,9 +30,12 @@ namespace Server.Repositories
             return analysisEntity;
         }
 
-        public async Task<IEnumerable<AnalysisEntity>> GetAllAnalyzes(CancellationToken cancellationToken)
+        public async Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken cancellationToken)
         {
-            return await _appDbContext.Analyzes.ToListAsync();
+            var analyzes = await _appDbContext.Analyzes
+                .Select(a => new AnalysisPreviewDto(a.AnalysisId, a.Name!, a.Description!, a.Type!, a.Date))
+                .ToListAsync();
+            return analyzes;
         }
 
         public IQueryable<AnalysisEntity> GetAllAnalyzesQueryable()

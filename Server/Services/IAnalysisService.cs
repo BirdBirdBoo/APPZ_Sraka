@@ -8,6 +8,6 @@ namespace Server.Services
     {
         Task<AnalysisEntity> CreateAnalysis(NewAnalysisRequest analysisRequest, CancellationToken ct);
         Task<AnalysisArrayDto> GetAllAnalyzes(CancellationToken ct);
-        Task<AnalysisEntity> GetAnalysis(AnalysisId analysisId, CancellationToken ct);
+        Task<IEnumerable<AnalysisDto>> GetAnalysis(AnalysisId analysisId, CancellationToken ct);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Server.Models.Entities;
+﻿using Server.Models.Dtos;
+using Server.Models.Entities;
 
 namespace Server.Repositories
 {
@@ -8,7 +9,7 @@ namespace Server.Repositories
 
         Task<AnalysisEntity?> GetAnalysis(AnalysisId id, CancellationToken cancellationToken);
 
-        Task<IEnumerable<AnalysisEntity>> GetAllAnalyzes(CancellationToken cancellationToken);
+        Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken cancellationToken);
         IQueryable<AnalysisEntity> GetAllAnalyzesQueryable();
     }
 }
