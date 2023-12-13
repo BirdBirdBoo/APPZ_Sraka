@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form, ThemeProvider} from "react-bootstrap";
+import {Button, Form, Row, ThemeProvider} from "react-bootstrap";
 import $ from "jquery";
 import {registerUrl, setStoredToken} from "./api";
 import AppNavbar from "./AppNavbar";
@@ -68,38 +68,76 @@ export class RegisterForm extends React.Component {
     render() {
         return (
             <ThemeProvider>
-                <AppNavbar isRegister/>
                 <div className="px-4 px-sm-0">
                     <Form onSubmit={this.handleSubmit}
-                          className="mt-4 border border-1 p-4 rounded-1 col-sm-6 offset-sm-3">
-                        <h2 className="mb-4">Register</h2>
+                          className="mt-3 mb-3 rounded-0 col-4 offset-4 i-am-blue-labadibabada">
+                        <h4 className="text-center py-1" style={{background: '#82BBFF'}}>Реєстрація</h4>
+                        <Form.Group className="p-4">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Електронна пошта</Form.Label>
+                                <Form.Control name="email" type="email" value={this.state.email}
+                                              onChange={this.handleValueChange}
+                                              required/>
+                            </Form.Group>
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control name="email" value={this.state.email}
-                                          onChange={this.handleValueChange}
-                                          required/>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Ім'я</Form.Label>
+                                <Form.Control name="firstName" value={this.state.firstName}
+                                              onChange={this.handleValueChange}
+                                              required/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Прізвище</Form.Label>
+                                <Form.Control name="lastName" value={this.state.lastName}
+                                              onChange={this.handleValueChange}
+                                              required/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Номер телефону</Form.Label>
+                                <Form.Control name="phoneNumber" value={this.state.phoneNumber}
+                                              onChange={this.handleValueChange}
+                                              required/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Дата народження</Form.Label>
+                                <Form.Control type="date" name="birthDate" value={this.state.birthDate}
+                                              onChange={this.handleValueChange}
+                                              max="2008-01-01"/>
+
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Пароль</Form.Label>
+                                <Form.Control type="password" name="password" value={this.state.password}
+                                              onChange={this.handleValueChange}
+                                              minLength="3" maxLength="120" required/>
+                            </Form.Group>
+
+                            <Form.Group className="mb-3">
+                                <Form.Label>Повторіть пароль</Form.Label>
+                                <Form.Control type="password" name="passwordRepeat" value={this.state.passwordRepeat}
+                                              onChange={this.handleValueChange}
+                                              isInvalid={this.state.password !== this.state.passwordRepeat}
+                                              minLength="3" maxLength="120" required/>
+                            </Form.Group>
+
+                            {this.state.isError && <p className="text-danger">Input is invalid</p>}
+                            {this.state.isSuccessful && <Navigate to={ApplicationPaths.RootPath}/>}
+
+                            <Row className='mb-3 mx-1'>
+                                <button type="submit" className='btn-style-small submit'>Зареєструватись</button>
+                            </Row>
+                            <Row className='mx-1'>
+                                <Button className='btn-style-small'
+                                        type="button"
+                                        href={ApplicationPaths.LoginPage}>
+                                    Увійти
+                                </Button>
+                            </Row>
                         </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>Date of birth</Form.Label>
-                            <Form.Control type="date" name="birthDate" value={this.state.birthDate}
-                                          onChange={this.handleValueChange}
-                                          max="2008-01-01"/>
-
-                        </Form.Group>
-
-                        <Form.Group className="mb-3">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" value={this.state.password}
-                                          onChange={this.handleValueChange}
-                                          minLength="3" maxLength="120" required/>
-                        </Form.Group>
-
-                        {this.state.isError && <p className="text-danger">Input is invalid</p>}
-                        {this.state.isSuccessful && <Navigate to={ApplicationPaths.RootPath}/>}
-
-                        <Button variant="primary" type="submit">Register</Button>
                     </Form>
                 </div>
             </ThemeProvider>

@@ -44,6 +44,24 @@
     width: 100%;
   }
 
+  .btn-style-small {
+    background-color: #79B7FF;
+    border: 1px solid #79B7FF !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    color: black;
+    box-shadow: none;
+    padding: 4px !important;
+    font-size: 24px !important;
+    text-align: center;
+    width: 100%;
+  }
+
+  .btn-style-small.submit {
+    background-color: #A6FFC5;
+    border: 1px solid #A6FFC5 !important;
+  }
+
   .btn-style:hover, .btn-style:focus {
     background-color: #459BFF;
     text-decoration: none;
@@ -57,6 +75,10 @@
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
+  }
+
+  .i-am-blue-labadibabada{
+    background: #B5D7FF;
   }
 
 /* Style for incoming message */
