@@ -10,5 +10,5 @@ public record NewAnalysisRequest(
     string type,
     DateTime date,
     string provider,
-    IEnumerable<AnalysisDto> data
+    IEnumerable<NewAnalysisDto> data
     );

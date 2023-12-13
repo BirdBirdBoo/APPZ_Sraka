@@ -21,7 +21,7 @@ namespace Server.Services
                     var number = analysisData.Number;
                     var delta = GetRandomNumber(-number * MockedDeltaInPercent, number * MockedDeltaInPercent);
                     analysisData.Delta = delta;
-                    analysisData.IsCritical = Math.Abs(delta) >= CriticalDeltaThreshold;
+                    analysisData.IsCritical = (Math.Abs(delta) / number) >= CriticalDeltaThreshold;
                 }
             }
 
