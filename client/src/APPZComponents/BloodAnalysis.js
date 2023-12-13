@@ -20,9 +20,12 @@ function BloodAnalysisTable(){
   ];
 
   return (
-    <Card>
+    <Card style={{
+      border: 'none', 
+      boxShadow: 'none' 
+  }}>
         <Card.Body>
-            <table style={{borderRadius: '10px', overflow: 'hidden'}}>
+            <table style={{borderRadius: '10px', overflow: 'hidden', width:'100%'}}>
                 <thead>
                     <tr style={{ backgroundColor: '#6D9EEB', color: 'white'}}>
                     <th style={{padding:'10px'}}>Показник</th>
