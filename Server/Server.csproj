@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
         <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.25" />
@@ -19,7 +20,9 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
         <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.18.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
         <PackageReference Include="StronglyTypedId" Version="0.2.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.18.0" />
@@ -35,6 +38,11 @@
         <Compile Update="Models\Requests\RegisterRequest.cs">
           <Generator>MSBuild:GenerateCodeFromAttributes</Generator>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions\JsonConverters\" />
+      <Folder Include="Migrations\" />
     </ItemGroup>
 
     <!-- Include the newly-built files in the publish output -->

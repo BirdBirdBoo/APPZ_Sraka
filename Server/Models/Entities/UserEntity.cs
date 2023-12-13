@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Extensions;
 
@@ -19,32 +20,46 @@ public class UserEntity
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public UserId UserId { get; init; }
 
-    public string Email { get; init; }
+    public string Email { get; set; }
 
+    public Secret Secret { get; set; }
+    
+    public UserRole Role { get; set; }
+    
     [JsonConverter(typeof(DateOnlyConverter))]
-    public DateOnly BirthDate { get; init; }
+    public DateOnly BirthDate { get; set; }
 
-    public UserRole Role { get; init; }
+    public string FirstName { get; set; }
 
-    public Secret Secret { get; init; }
+    public string SecondName { get; set; }
 
-    public UserEntity(UserId userId, string email, DateOnly birthDate, UserRole role, Secret secret)
+    public string PhoneNumber { get; set; }
+
+
+    public UserEntity(UserId userId, string email, DateOnly birthDate, UserRole role,
+        Secret secret, string firstName, string secondName, string phoneNumber)
     {
         UserId = userId;
         Email = email;
-        BirthDate = birthDate;
-        Role = role;
         Secret = secret;
+        Role = role;
+        BirthDate = birthDate;
+        FirstName = firstName;
+        SecondName = secondName;
+        PhoneNumber = phoneNumber;
     }
 
     public void Deconstruct(out UserId userId, out string email, out DateOnly birthDate, out UserRole role,
-        out Secret secret)
+        out Secret secret, out string firstName, out string secondName, out string phoneNumber)
     {
         userId = UserId;
         email = Email;
         birthDate = BirthDate;
         role = Role;
         secret = Secret;
+        firstName = FirstName;
+        secondName = SecondName;
+        phoneNumber = PhoneNumber;
     }
 }
 
@@ -78,8 +93,9 @@ public record Secret(byte[] Hash, string Salt)
 
 public enum UserRole
 {
-    User,
-    Admin
+    Admin,
+    Doctor,
+    Patient
 }
 
 // ReSharper disable once ClassNeverInstantiated.Global
