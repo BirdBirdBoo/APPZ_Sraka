@@ -19,13 +19,13 @@ namespace Server.Services
 
         public async Task<DoctorEntity> Create(DoctorCreateRequest doctor, CancellationToken cancellationToken)
         {
-            var (Email, Rating, Proffesion, Experince) = doctor;
+            var (UserId, Rating, Proffesion, Experince) = doctor;
 
 
-            var user = await _userRepository.GetUser(Email, cancellationToken);
+            var user = await _userRepository.GetUser(UserId, cancellationToken);
             if(user == null)
             {
-                throw new Exception("No user with this email");
+                throw new Exception("User doesnt exist");
             }
 
             var newDoctor = new DoctorEntity()
@@ -33,7 +33,7 @@ namespace Server.Services
                 Rating = Rating,
                 Proffesion = Proffesion,
                 Experience = Experince,
-                UserId = user.UserId,
+                UserId = UserId,
                 DoctorId = DoctorId.New()
             };
 

@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 namespace Server.Models.Requests
 {
     public record DoctorCreateRequest(
-        string Email,
+        UserId UserId,
         float Rating,
         string Proffesion,
         float Experience
