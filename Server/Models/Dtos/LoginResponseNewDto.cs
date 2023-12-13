@@ -12,6 +12,6 @@ public record LoginResponseNewDto(UserId UserId,
                                   DoctorId? PatientDoctorId = default,
                                   PatientId? UserAsPatientId = default,
                                   DoctorId? UserAsDoctorId = default,
-                                  DoctorEntity? PatientDoctorInfo = default,
+                                  DoctorEntityWithUserData? PatientDoctorInfo = default,
                                   PatientEntity? UserAsPatientInfo = default,
-                                  DoctorEntity? UserAsDoctorInfo = default);
+                                  DoctorEntityWithPatients? UserAsDoctorInfo = default);

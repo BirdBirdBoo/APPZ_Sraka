@@ -122,14 +122,14 @@ public class LoginController : ControllerBase
         CancellationToken cancellationToken)
     {
         var userAsPatient = await _patientService.GetByUserId(id, cancellationToken);
-        DoctorEntity? patientDoctor = null;
+        DoctorEntityWithUserData? patientDoctor = null;
 
         if (userAsPatient is not null)
         {
-            patientDoctor = await _doctorService.Get(userAsPatient.DoctorId, cancellationToken);
+            patientDoctor = await _doctorService.GetAsUser(userAsPatient.DoctorId, cancellationToken);
         }
 
-        var userAsDoctor = await _doctorService.GetByUserId(id, cancellationToken);
+        var userAsDoctor = await _doctorService.GetByUserIdWithPatients(id, cancellationToken);
 
         return new LoginResponseNewDto(
             UserId: id,
