@@ -2,7 +2,7 @@ import './App.css';
 import VerticalDoctorNavbar from './APPZComponents/VerticalDoctorNavbar';
 import {Row, Col, Image, Card} from 'react-bootstrap';
 import DoctorProfile from './APPZComponents/DoctorProfile';
-import PatientProfile from './APPZComponents/PatientProfile';
+import UserProfile from './APPZComponents/UserProfile';
 import VerticalPatientNavbar from './APPZComponents/VerticalPatientNavbar';
 import Chat from './APPZComponents/Chat';
 import Calendar from './APPZComponents/Calendar';
@@ -39,7 +39,7 @@ function App() {
                 <VerticalPatientNavbar/>
             </Col>
             <Col className="content" style={{margin: '0px', height: '100%', paddingRight: 0}}>
-                {targetLocation.isPatientProfile && <PatientProfile/>}
+                {targetLocation.isPatientProfile && <UserProfile/>}
                 {targetLocation.isPatientChat && <Chat/>}
                 {targetLocation.isStatsPage && <MedicalCharts/>}
             </Col>
