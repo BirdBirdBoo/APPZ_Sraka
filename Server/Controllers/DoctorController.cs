@@ -29,39 +29,75 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DoctorCreateRequest request, CancellationToken token)
         {
-            var result = await _doctorService.Create(request, token);
-            return Ok(result);
+            try
+            {
+                var result = await _doctorService.Create(request, token);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         [DefaultValue("doctorId", "44E2F46C-3972-47C3-9812-B60C46835714")]
         public async Task<IActionResult> Delete(DoctorId doctorId, CancellationToken token)
         {
-            var result = await _doctorService.Delete(doctorId, token);
-            return Ok(result);
+            try
+            {
+                var result = await _doctorService.Delete(doctorId, token);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         [DefaultValue("doctorId", "44E2F46C-3972-47C3-9812-B60C46835714")]
         public async Task<IActionResult> Get(DoctorId doctorId, CancellationToken token)
         {
-            var result = await _doctorService.Get(doctorId, token);
-            return Ok(result);
+            try
+            {
+                var result = await _doctorService.Get(doctorId, token);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> GetAll(CancellationToken token)
         {
-            var result = await _doctorService.GetAll(token);
-            return Ok(result);
+            try
+            {
+                var result = await _doctorService.GetAll(token);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]
         [DefaultValue("doctorId", "44E2F46C-3972-47C3-9812-B60C46835714")]
         public async Task<IActionResult> Update(DoctorId doctorId, DoctorUpdateRequest request, CancellationToken token)
         {
-            var result = await _doctorService.Update(doctorId, request, token);
-            return Ok(result);
+            try
+            {
+                var result = await _doctorService.Update(doctorId, request, token);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
