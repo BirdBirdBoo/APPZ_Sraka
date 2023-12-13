@@ -1,8 +1,9 @@
 ﻿import React, {useContext} from 'react';
-import {Row, Col, Image, Card} from 'react-bootstrap';
+import {Row, Col, Image, Card, Button} from 'react-bootstrap';
 import VerticalPatientNavbar from './VerticalPatientNavbar';
 import AuthContext from "../AuthContext";
 import authContext from "../AuthContext";
+import ApplicationPaths from "../paths";
 
 function UserProfile() {
     let context = useContext(AuthContext);
@@ -20,6 +21,8 @@ function UserProfile() {
                            width="240px"
                            height="240px"
                            roundedCircle/>
+
+                    <Button className='btn-style-small danger my-4' href={ApplicationPaths.LogoutPage}>Вийти</Button>
                 </Col>
 
                 {/* Text content column */}
