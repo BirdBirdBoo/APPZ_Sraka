@@ -72,5 +72,10 @@ namespace Server.Services
             var result = await _doctorRepository.Update(id, newDoctor, cancellationToken);
             return result;
         }
+
+        public async Task<DoctorEntity?> GetByUserId(UserId userId, CancellationToken cancellationToken)
+        {
+            return await _doctorRepository.GetByUserId(userId, cancellationToken);
+        }
     }
 }

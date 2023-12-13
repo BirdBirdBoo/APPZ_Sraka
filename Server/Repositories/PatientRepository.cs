@@ -52,7 +52,9 @@ namespace Server.Repositories
             return patients;
         }
 
-        public async Task<PatientEntity> Update(PatientId id, PatientEntity updatedPatient, CancellationToken cancellationToken)
+        public async Task<PatientEntity> Update(PatientId id,
+                                                PatientEntity updatedPatient,
+                                                CancellationToken cancellationToken)
         {
             var existingPatient = await _appDbContext.Patients.FirstOrDefaultAsync(x => x.PatientId == id);
 
@@ -65,6 +67,15 @@ namespace Server.Repositories
             existingPatient.Allergens = updatedPatient.Allergens;
 
             await _appDbContext.SaveChangesAsync(cancellationToken);
+
+            return existingPatient;
+        }
+
+        public async Task<PatientEntity?> GetByUserId(UserId userId, CancellationToken cancellationToken)
+        {
+            var existingPatient =
+                await _appDbContext.Patients.FirstOrDefaultAsync(x => x.UserId == userId,
+                                                                 cancellationToken: cancellationToken);
 
             return existingPatient;
         }

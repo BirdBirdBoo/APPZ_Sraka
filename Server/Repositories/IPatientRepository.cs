@@ -9,6 +9,6 @@ namespace Server.Repositories
         Task<PatientEntity> Get(PatientId id, CancellationToken cancellationToken);
         Task<List<PatientEntity>> GetAll(CancellationToken cancellationToken);
         Task<PatientEntity> Update(PatientId id, PatientEntity patient, CancellationToken cancellationToken);
-
+        Task<PatientEntity?> GetByUserId(UserId userId, CancellationToken cancellationToken);
     }
 }

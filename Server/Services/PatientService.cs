@@ -17,6 +17,11 @@ namespace Server.Services
             _patientRepository = patientRepository;
         }
 
+        public async Task<PatientEntity?> GetByUserId(UserId userId, CancellationToken cancellationToken)
+        {
+            return await _patientRepository.GetByUserId(userId, cancellationToken);
+        }
+
         public async Task<PatientEntity> Create(PatientCreateRequest patient, CancellationToken cancellationToken)
         {
             //var (DoctorId, UserId, BloodType, Allergens) = patient;

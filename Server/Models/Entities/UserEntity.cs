@@ -93,9 +93,10 @@ public record Secret(byte[] Hash, string Salt)
 
 public enum UserRole
 {
-    Admin,
-    Doctor,
-    Patient
+    Admin = 0,
+    Doctor = 1,
+    Patient = 2,
+    NoRole = 3
 }
 
 // ReSharper disable once ClassNeverInstantiated.Global

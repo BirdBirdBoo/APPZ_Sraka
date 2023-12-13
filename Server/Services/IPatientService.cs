@@ -6,7 +6,7 @@ namespace Server.Services
 {
     public interface IPatientService
     {
-
+        Task<PatientEntity?> GetByUserId(UserId userId, CancellationToken cancellationToken);
         Task<PatientEntity> Create(PatientCreateRequest patient, CancellationToken cancellationToken);
         Task<PatientEntity> Delete(PatientId id, CancellationToken cancellationToken);
         Task<PatientEntity> Get(PatientId id, CancellationToken cancellationToken);
