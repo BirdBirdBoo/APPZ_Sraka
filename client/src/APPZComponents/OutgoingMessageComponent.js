@@ -1,13 +1,19 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
+import '../styles/styles.css';
+
 function OutgoingMessageComponent(){
   return (
-    <Card bg="primary" text="white">
-      <Card.Body>
-        <Card.Text>blablalba</Card.Text>
-      </Card.Body>
-    </Card>
+    <div className="outgoing-message">
+      <Card bg="primary" text="white">
+        <Card.Body className="card-body-outgoing">
+          <Card.Text>
+            blablasdasdasdasdalba
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 
