@@ -35,7 +35,7 @@ function App() {
             }}>
                 <VerticalPatientNavbar/>
             </Col>
-            <Col className="content">
+            <Col className="content"  style={{margin: '0px', height:'100%'}}>
                 {location.pathname==ApplicationPaths.PatientProfile && <PatientProfile/>}
                 {location.pathname==ApplicationPaths.PatientChat && <Chat/>}
             </Col>

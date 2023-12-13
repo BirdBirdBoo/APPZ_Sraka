@@ -8,7 +8,7 @@ function PatientProfile() {
             border: 'none', 
             boxShadow: 'none' 
         }}>
-            <Card.Body style={{ height: '760px', display: 'flex', alignItems: 'start' }}>
+            <Card.Body style={{ display: 'flex', alignItems: 'start' }}>
                 {/* Image column */}
                 <Col xs={4}>
                     <Image src="https://shorturl.at/aoIL1" alt="Фото користувача" width="300px" height="300px" roundedCircle />
