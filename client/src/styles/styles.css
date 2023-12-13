@@ -1,138 +1,138 @@
 html, body, #root {
-  height: 100%;
-  margin: 0;
+    height: 100%;
+    margin: 0;
 }
 
 
 .dropdown-toggle::after {
-  display: none !important; 
+    display: none !important;
 }
 
-  /* Style for the dropdown items */
+
 .dropdown-item {
-  color: black; /* Text color */
-  background-color: #849FFF; /* Background color for the dropdown items */
-  text-align: center;
-  font-size: 20px;
-  display: block;
-  width: auto;
-  border: none; /* Removes the border */
-  padding: 10px; /* Adjust padding to match your design */
-  border-radius: 8px; /* Rounded corners for the dropdown items */
-  margin: 20px ; /* Spacing between dropdown items */
+    color: black;
+    background-color: #849FFF;
+    text-align: center;
+    font-size: 20px;
+    display: block;
+    width: auto;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 20px;
 }
 
-/* Style for the dropdown items on hover */
+
 .dropdown-item:hover, .dropdown-item:focus {
-  color: white; /* Text color for hover */
-  background-color: #3A65FF; /* Background color for hover */
-  text-decoration: none; /* Removes underline text on hover */
+    color: white;
+    background-color: #3A65FF;
+    text-decoration: none;
 }
 
 .dropdown-menu {
-  display: none; /* Use flexbox to center children */
-  flex-direction: column; /* Align children vertically */
-  align-items: center; /* Center children horizontally */
-  padding: 0; /* Remove padding if needed */
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
 }
 
 .btn-style {
-  background-color: #79B7FF;
-  border: 1px solid #79B7FF !important;
-  margin-bottom: 25px;
-  border-radius: 8px !important;
-  box-shadow: none !important; 
-  color: black;
-  box-shadow: none;
-  padding: 8px !important;
-  font-size: 25px !important;
-  text-align: center;
-  width: 100%;
+    background-color: #79B7FF;
+    border: 1px solid #79B7FF !important;
+    margin-bottom: 25px;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    color: black;
+    box-shadow: none;
+    padding: 8px !important;
+    font-size: 25px !important;
+    text-align: center;
+    width: 100%;
 }
 
 .btn-style-small {
-  background-color: #79B7FF;
-  border: 1px solid #79B7FF !important;
-  border-radius: 4px !important;
-  box-shadow: none !important;
-  color: black;
-  box-shadow: none;
-  padding: 4px !important;
-  font-size: 24px !important;
-  text-align: center;
-  width: 100%;
+    background-color: #79B7FF;
+    border: 1px solid #79B7FF !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    color: black;
+    box-shadow: none;
+    padding: 4px !important;
+    font-size: 24px !important;
+    text-align: center;
+    width: 100%;
 }
 
 .btn-style-small.submit {
-  background-color: #A6FFC5;
-  border: 1px solid #A6FFC5 !important;
+    background-color: #A6FFC5;
+    border: 1px solid #A6FFC5 !important;
 }
 
 .btn-style:hover, .btn-style:focus {
-  background-color: #459BFF;
-  text-decoration: none;
-  border-color: #459BFF;
+    background-color: #459BFF;
+    text-decoration: none;
+    border-color: #459BFF;
 }
 
 .button-group-wrapper {
-  margin: 15px;
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
-  display: inline-block;
-  vertical-align: top;
+    margin: 15px;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
 }
 
-.i-am-blue-labadibabada{
-  background: #B5D7FF;
+.i-am-blue-labadibabada {
+    background: #B5D7FF;
 }
 
-/* Style for incoming message */
+
 .incoming-message {
-  max-width: 25%; /* Maximum width of message */
-  margin-bottom: 15px; /* Space between messages */
-  align-self: flex-start;
+    max-width: 25%;
+    margin-bottom: 15px;
+    align-self: flex-start;
 }
 
-/* Style for outgoing message */
+
 .outgoing-message {
-  max-width: 25%; /* Maximum width of message */
-  margin-bottom: 15px; /* Space between messages */
-  margin-left: auto; /* Aligns the message to the right */
-  margin-right: 12px;
+    max-width: 25%;
+    margin-bottom: 15px;
+    margin-left: auto;
+    margin-right: 12px;
 }
 
-/* Card body styling to prevent stretching */
+
 .card-body-incoming, .card-body-outgoing {
-  display: inline-block; /* Only as wide as its content */
-  position: relative;
-  padding: 10px; /* Provide enough space for icon and name */
-  background-color: #EDEDED; /* Background color as specified */
-  border-radius: 10px; /* Rounded corners if needed */
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    background-color: #EDEDED;
+    border-radius: 10px;
 }
 
 .user-icon {
-  width: 30px; /* Width of the icon */
-  height: 30px; /* Height of the icon */
-  border-radius: 50%; /* Make it round */
-  position: absolute; /* Position it over the background */
-  left: 5%; /* Adjust as needed */
-  top: 35px; /* Adjust as needed */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    left: 5%;
+    top: 35px;
 }
 
 .sender-name {
-  font-size: 0.85rem; /* Smaller text size for the sender's name */
-  margin-left: 2%; /* Adjust so the text doesn't overlap the icon */
-  margin-bottom: 8px; /* Space between name and message */
-  color: #000000; /* Subdued text color for the name */
+    font-size: 0.85rem;
+    margin-left: 2%;
+    margin-bottom: 8px;
+    color: #000000;
 }
 
 .card-text-incoming, .card-text-outcoming {
-  color: #000000; /* Text color as specified */
-  margin-left: 15%; /* Align text with the sender's name */
-  padding-bottom: 10px;
+    color: #000000;
+    margin-left: 15%;
+    padding-bottom: 10px;
 }
 
 .ms-6 {
-  margin-left: 4.5rem !important;
+    margin-left: 4.5rem !important;
 }
