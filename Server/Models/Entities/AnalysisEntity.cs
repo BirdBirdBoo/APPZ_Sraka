@@ -21,7 +21,7 @@ namespace Server.Models.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public AnalysisId AnalysisId { get; init; }
-        //public PatientId PatientId { get; init; }
+        public PatientEntity Patient { get; init; } = null!;
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? Type { get; set; }

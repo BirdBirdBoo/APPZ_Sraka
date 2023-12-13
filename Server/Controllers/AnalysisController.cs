@@ -22,7 +22,7 @@ public class AnalysisController : ControllerBase
 
     [HttpPost]
     [Route("create")]
-    [Authorize]
+    //[Authorize]
     public async Task<IActionResult> CreateNewAnalysis(NewAnalysisRequest request, CancellationToken token)
     {
         var analysis = await _analysisService.CreateAnalysis(request, token);
@@ -32,7 +32,7 @@ public class AnalysisController : ControllerBase
 
     [HttpGet]
     [Route("get")]
-    [Authorize]
+    //[Authorize]
     public async Task<IActionResult> GetAnalysis(AnalysisId id, CancellationToken token)
     {
         IEnumerable<AnalysisDto> analysis = await _analysisService.GetAnalysis(id, token);
@@ -42,17 +42,17 @@ public class AnalysisController : ControllerBase
 
     [HttpGet]
     [Route("getAnalyzes")]
-    [Authorize]
+    //[Authorize]
     public async Task<IActionResult> GetAllAnalyzes(CancellationToken token)
     {
-        AnalysisArrayDto analyzes = await _analysisService.GetAllAnalyzes(token);
+        IEnumerable<AnalysisPreviewDto> analyzes = await _analysisService.GetAllAnalyzes(token);
 
         return Ok(analyzes);
     }
 
     [HttpPost]
     [Route("filter")]
-    [Authorize]
+    //[Authorize]
     public async Task<IActionResult> FilterAnalyzes(AnalysisFilterRequest request, CancellationToken token)
     {
         AnalyzesFilteredDto analyzesFiltered = await _analysisFilterService.Filter(request, token);

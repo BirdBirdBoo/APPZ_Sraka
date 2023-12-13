@@ -1,4 +1,6 @@
-﻿using Server.Models.Dtos;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Repositories;
@@ -16,8 +18,8 @@ namespace Server.Services
         }
         public async Task<AnalysisEntity> CreateAnalysis(NewAnalysisRequest analysisRequest, CancellationToken ct)
         {
-            var (name, description, type, date, provider, data) = analysisRequest;
-            var analysis = await _analysisRepository.CreateAnalysis(name, description, type, date, provider, data, ct);
+            var (patiendId, name, description, type, date, provider, data) = analysisRequest;
+            var analysis = await _analysisRepository.CreateAnalysis(patiendId, name, description, type, date, provider, JsonConvert.SerializeObject(data), ct);
             return analysis!;
         }
 

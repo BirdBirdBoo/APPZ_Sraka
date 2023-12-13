@@ -27,6 +27,11 @@ builder.Services.AddDbContext<QualityLifeDbContext>(opts =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IAnalysisService, AnalysisService>();
+
+builder.Services.AddScoped<IAnalysisFilterService, AnalysisFilterService>();
+builder.Services.AddScoped<ICriticalDefinerService, CriticalDefinerServiceMocked>();
+
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddSingleton(configProvider);
 
@@ -40,6 +45,7 @@ else
     builder.Services.AddScoped<IUserRepository, DbUserRepository>();
     builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
     builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+    builder.Services.AddScoped<IAnalysisRepository, DbAnalysisRepository>();
 }
 
 builder.Services.AddControllers();
@@ -127,7 +133,16 @@ builder.Services.
         Type = "string",
         Format = "uuid",
         Example = new OpenApiString("2F9E433F-B135-4597-804A-82849CD5F0E9")
+    }))
+    .AddSwaggerGen(options =>
+    options.MapType<AnalysisId>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "uuid",
+        Example = new OpenApiString("2229E9E4-BD00-4011-9643-AF872A662A14")
     }));
+
+
 /*builder.Services.AddCors(opts => opts.AddDefaultPolicy(b => b.WithOrigins("https://localhost:3000")
                                                              .AllowAnyHeader()
                                                              .AllowAnyMethod()

@@ -2,7 +2,6 @@
 
 namespace Server.Models.Dtos
 {
-    public record AnalyzesFilteredDto(
-        IEnumerable<AnalysisPreviewDto> analysisPreviews,
-        Dictionary<AnalysisId, IEnumerable<AnalysisDto>> analysisAndProps);
+    public record AnalyzesFilteredDto(IEnumerable<AnalysisPreviewDto> analysisPreviews,
+        IEnumerable<IEnumerable<AnalysisDto>> analysisProps);
 }

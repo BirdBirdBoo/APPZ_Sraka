@@ -33,17 +33,16 @@ public static class FilterExtensions
 
         return analysises.Where(a => a.Name == analysisFilterRequest.Name);
     }
-    //todo
-    //public static IQueryable<AnalysisEntity> FilterByPatient(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)
-    //{
-    //    if (analysisFilterRequest.PatientId.Equals(PatientId.Empty))
-    //    {
-    //        return analysises;
-    //    }
+    public static IQueryable<AnalysisEntity> FilterByPatient(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)
+    {
+        if (analysisFilterRequest.PatientId.Equals(PatientId.Empty))
+        {
+            return analysises;
+        }
 
-    //    return analysises.Where(a => a.PatientId == analysisFilterRequest.PatientId);
-    //}
-    
+        return analysises.Where(a => a.Patient.PatientId.Equals(analysisFilterRequest.PatientId));
+    }
+
 
     public static IQueryable<AnalysisEntity> FilterByType(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)
     {
@@ -55,8 +54,7 @@ public static class FilterExtensions
         return analysises.Where(a => a.Type == analysisFilterRequest.Type);
     }
 
-    //todo implement
-    public static async Task<(IEnumerable<AnalysisPreviewDto>, Dictionary<AnalysisId, IEnumerable<AnalysisDto>>?)> SelectOnlyBeyondNorm(
+    public static async Task<(IEnumerable<AnalysisPreviewDto>, IEnumerable<IEnumerable<AnalysisDto>>?)> SelectOnlyBeyondNorm(
         this IQueryable<AnalysisEntity> analysises, 
         AnalysisFilterRequest analysisFilterRequest, 
         ICriticalDefinerService criticalDefinerService)
@@ -68,8 +66,9 @@ public static class FilterExtensions
         }
 
         var fetchedAnalyzes = await analysises.ToListAsync();
+
         var analyzesBeyondNorm = new List<AnalysisEntity>();
-        var analysisAndProps = new Dictionary<AnalysisId, IEnumerable<AnalysisDto>>();
+        var analysisProps = new List<IEnumerable<AnalysisDto>>();
 
         foreach (var analysis in fetchedAnalyzes)
         {
@@ -77,13 +76,12 @@ public static class FilterExtensions
             if(definedAnalysis.Any(d => d.IsCritical))
             {
                 analyzesBeyondNorm.Add(analysis);
+                analysisProps.Add(definedAnalysis);
             }
-
-            analysisAndProps.Add(analysis.AnalysisId, definedAnalysis);
         }
 
         var previews = analyzesBeyondNorm.Select(a => a.ToPreview());
-        return (previews, analysisAndProps);
+        return (previews, analysisProps);
     }
 
     public static IQueryable<AnalysisEntity> OrderByDate(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)

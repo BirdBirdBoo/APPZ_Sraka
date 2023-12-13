@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Server.Extensions;
+﻿using Server.Extensions;
 using Server.Models.Dtos;
-using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Repositories;
 
@@ -22,8 +20,7 @@ namespace Server.Services
 
             var allAnalyzes = _analysisRepository.GetAllAnalyzesQueryable();
             var result = await allAnalyzes
-                //todo
-                //.FilterByPatient(analysisFilterRequest)
+                .FilterByPatient(analysisFilterRequest)
                 .FilterByName(analysisFilterRequest)
                 .FilterByDate(analysisFilterRequest)
                 .FilterByType(analysisFilterRequest)

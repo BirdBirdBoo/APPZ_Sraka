@@ -14,21 +14,23 @@ namespace Server.Repositories
         {
             _appDbContext = appDbContext;
         }
-        public async Task<AnalysisEntity?> CreateAnalysis(string name, string description, string type, DateTime date, string provider, string data, CancellationToken cancellationToken)
+        public async Task<AnalysisEntity?> CreateAnalysis(PatientId patiendId, string name, string description, string type, DateTime date, string provider, string data, CancellationToken cancellationToken)
         {
-            var analysisEntity = new AnalysisEntity
+            var result = _appDbContext.Analyzes.Add(new AnalysisEntity
             {
+                AnalysisId = AnalysisId.New(),
+                Patient = _appDbContext.Patients.FirstOrDefault(p => p.PatientId.Equals(patiendId)),
                 Name = name,
                 Description = description,
                 Type = type,
                 Date = date,
                 Provider = provider,
                 Data = data,
-            };
+            }); ;
 
-            await _appDbContext.Analyzes.AddAsync(analysisEntity);
+            await _appDbContext.SaveChangesAsync();
 
-            return analysisEntity;
+            return result.Entity;
         }
 
         public async Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken cancellationToken)
