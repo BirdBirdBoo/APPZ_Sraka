@@ -9,7 +9,7 @@ function MessageTextbox()
   return (
     <InputGroup className="mb-3" style={{ 
       borderRadius: '30px', 
-      border: '2px solid #459BFF', // Added border with the specified color
+      border: '2px solid #459BFF', 
       overflow: 'hidden', 
       marginTop: '20px',
       padding: '5px'
