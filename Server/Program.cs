@@ -29,6 +29,7 @@ builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<IAnnotationService, AnnotationService>();
 
 builder.Services.AddScoped<IAnalysisFilterService, AnalysisFilterService>();
 builder.Services.AddScoped<ICriticalDefinerService, CriticalDefinerServiceMocked>();

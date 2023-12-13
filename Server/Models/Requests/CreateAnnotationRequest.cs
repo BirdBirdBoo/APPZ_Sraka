@@ -1,6 +1,7 @@
-﻿using Server.Models.Entities;
+﻿using Server.Models.Dtos;
+using Server.Models.Entities;
 
 namespace Server.Models.Requests
 {
-    public record CreateAnnotationRequest(MessageEntity message, AnnotationEntity annotation);
+    public record CreateAnnotationRequest(MessageForAnnotationDto message, AnnotationEntity annotation);
 }
