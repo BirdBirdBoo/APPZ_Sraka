@@ -7,11 +7,10 @@ import MessageTextbox from './MessageTextbox';
 import { Card } from 'react-bootstrap';
 import AuthContext from "../AuthContext";
 
-function Chat() {
+function Chat(receiverId = null, isReceiverPatient = false) {
   let context = useContext(AuthContext);
 
   const [messages, setMessages] = useState([]);
-  const [sender, setSender] = useState([]);
   const [receiver, setReceiver] = useState([]);
   const messagesEndRef = useRef(null);
 
@@ -22,16 +21,21 @@ function Chat() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
+        if (isReceiverPatient) {
+          const response = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId:  receiverId } });
+          setReceiver(response.data);
+        }else{
+          setReceiver(context.doctorData);
+        }
+
         const responseAllMessages = await axios.post('https://localhost:7130/api/Chat/getAllMessages', {
           "first": context.userId,
-          "second": context.doctorId
+          "second": isReceiverPatient ? receiver : context.patientDoctorInfo.userId
         }, {
           headers: {
             'Content-Type': 'application/json'
           }
         });
-        const responseSender = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId:  context.userId } });
-        const responseReceiver = await axios.get('https://localhost:7130/api/Chat/getAllMessages');
         setMessages(responseAllMessages.data);
         scrollToBottom();
       } catch (error) {
@@ -56,10 +60,10 @@ function Chat() {
         padding: '1rem',
         overflowY: 'auto'
       }}>
-        // Fill messages from the request to the url: 'https://localhost:7130/api/Chat/getAllMessages'
-
         {messages.map((msg, index) => (
-          <IncomingMessageComponent key={index} senderName={msg.senderName} message={msg.message} />
+          msg["sender"]===context.userId 
+          ? <OutgoingMessageComponent key={index} senderName={context.userData.firstName + " " + context.userData.secondName} message={msg.text} /> 
+          : <IncomingMessageComponent key={index} senderName={receiver.firstName + " " + receiver.secondName} message={msg.text} />
         ))}
         <div ref={messagesEndRef} />
       </Card.Body>
