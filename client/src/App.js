@@ -38,9 +38,8 @@ function App() {
                 <VerticalPatientNavbar/>
             </Col>
             <Col className="content">
-                {/* {location.pathname==ApplicationPaths.PatientProfile && <PatientProfile/>}
-                {location.pathname==ApplicationPaths.PatientChat && <Chat/>} */}
-                <UrineAnalysisTable/>
+                {location.pathname==ApplicationPaths.PatientProfile && <PatientProfile/>}
+                {location.pathname==ApplicationPaths.PatientChat && <Chat/>}
             </Col>
         </Row>
     )
