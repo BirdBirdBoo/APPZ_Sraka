@@ -11,6 +11,7 @@ namespace Server.Contexts
         public DbSet<DoctorEntity> Doctors { get; set; } = null!;
         public DbSet<PatientEntity> Patients { get; set; } = null!;
         public DbSet<AnalysisEntity> Analyzes { get; set; } = null!;
+        public DbSet<MessageEntity> Messages { get; set; } = null!;
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
@@ -43,6 +44,7 @@ namespace Server.Contexts
             modelBuilder.Entity<DoctorEntity>().ToTable("Doctors");
             modelBuilder.Entity<PatientEntity>().ToTable("Patients");
             modelBuilder.Entity<AnalysisEntity>().ToTable("Analyzes");
+            modelBuilder.Entity<MessageEntity>().ToTable("Messages");
         }
     }
 }

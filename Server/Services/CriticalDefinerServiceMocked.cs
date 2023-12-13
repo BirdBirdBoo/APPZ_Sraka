@@ -12,7 +12,12 @@ namespace Server.Services
         public IEnumerable<AnalysisDto> Define(AnalysisEntity analysis)
 
         {
-            var data = JsonConvert.DeserializeObject<AnalysisDto[]>(analysis.Data);
+            var data = JsonConvert.DeserializeObject<AnalysisDto[]>(analysis.Data!);
+
+            if(data == null)
+            {
+                throw new NullReferenceException("Analysis data is empty");
+            }
 
             foreach (var analysisData in data)
             {

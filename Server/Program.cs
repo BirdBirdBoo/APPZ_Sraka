@@ -28,6 +28,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAnalysisService, AnalysisService>();
+builder.Services.AddScoped<IMessageService, MessageService>();
 
 builder.Services.AddScoped<IAnalysisFilterService, AnalysisFilterService>();
 builder.Services.AddScoped<ICriticalDefinerService, CriticalDefinerServiceMocked>();
@@ -46,6 +47,7 @@ else
     builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
     builder.Services.AddScoped<IPatientRepository, PatientRepository>();
     builder.Services.AddScoped<IAnalysisRepository, DbAnalysisRepository>();
+    builder.Services.AddScoped<IMessageRepository, DbMessageRepository>();
 }
 
 builder.Services.AddControllers();
