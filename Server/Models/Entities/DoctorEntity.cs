@@ -14,7 +14,7 @@ namespace Server.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public DoctorId DoctorId { get; init; }
 
-        public UserId UserId { get; init; }
+        public UserId UserId { get; set; }
 
         public float Rating { get; set; }
 

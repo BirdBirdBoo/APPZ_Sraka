@@ -20,6 +20,5 @@ namespace Server.Models.Dtos.Doctor
         float Experience
         )
     {
-        
     }
 }

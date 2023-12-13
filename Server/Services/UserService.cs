@@ -38,6 +38,13 @@ public class UserService : IUserService
         return UserDataDto.FromEntity(user);
     }
 
+    public async Task<UserDataDto?> GetUserInfo(string email, CancellationToken cancellationToken)
+    {
+        var user = await _userRepository.GetUser(email, cancellationToken);
+
+        return UserDataDto.FromEntity(user);
+    }
+
     public async Task<bool> IsInRole(UserId userId, UserRole role, CancellationToken ct)
     {
         var userData = await GetUserInfo(userId, ct);

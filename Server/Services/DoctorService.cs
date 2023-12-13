@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Server.Models.Dtos.Doctor;
 using Server.Models.Entities;
+using Server.Models.Requests;
 using Server.Repositories;
 
 namespace Server.Services
@@ -9,40 +10,67 @@ namespace Server.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IDoctorRepository _doctorRepository;
-        private readonly IMapper _mapper;
 
-        public DoctorService(IUserRepository userRepository, IDoctorRepository doctorRepository, IMapper mapper)
+        public DoctorService(IUserRepository userRepository, IDoctorRepository doctorRepository)
         {
             _userRepository = userRepository;
             _doctorRepository = doctorRepository;
-            _mapper = mapper;
         }
 
-        public async Task<DoctorDto> Create(DoctorDto doctor, CancellationToken cancellationToken)
+        public async Task<DoctorEntity> Create(DoctorCreateRequest doctor, CancellationToken cancellationToken)
         {
-            var resultEntity = await _doctorRepository.Create(_mapper.Map<DoctorEntity>(doctor), cancellationToken);
-            var resultDto = _mapper.Map<DoctorDto>(resultEntity);
-            return resultDto;
+            var (Email, Rating, Proffesion, Experince) = doctor;
+
+
+            var user = await _userRepository.GetUser(Email, cancellationToken);
+            if(user == null)
+            {
+                throw new Exception("No user with this email");
+            }
+
+            var newDoctor = new DoctorEntity()
+            {
+                Rating = Rating,
+                Proffesion = Proffesion,
+                Experience = Experince,
+                UserId = user.UserId,
+                DoctorId = DoctorId.New()
+            };
+
+            var resultEntity = await _doctorRepository.Create(newDoctor, cancellationToken);
+            return resultEntity;
         }
 
-        public Task<DoctorDto> Delete(DoctorId id, CancellationToken cancellationToken)
+        public async Task<DoctorEntity> Delete(DoctorId id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = await _doctorRepository.Delete(id, cancellationToken);
+            return result;
         }
 
-        public Task<DoctorDto> Get(DoctorId id, CancellationToken cancellationToken)
+        public async Task<DoctorEntity> Get(DoctorId id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = await _doctorRepository.Get(id, cancellationToken);
+            return result;
         }
 
-        public Task<List<DoctorDto>> GetAll(CancellationToken cancellationToken)
+        public async Task<List<DoctorEntity>> GetAll(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = await _doctorRepository.GetAll(cancellationToken);
+            return result;
         }
 
-        public Task<DoctorDto> Update(DoctorId id, DoctorDto doctor, CancellationToken cancellationToken)
+        public async Task<DoctorEntity> Update(DoctorId id, DoctorUpdateRequest doctor, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var (Rating, Proffesion, Experince) = doctor;
+            var newDoctor = new DoctorEntity()
+            {
+                Rating = Rating,
+                Proffesion = Proffesion,
+                Experience = Experince,
+            };
+
+            var result = await _doctorRepository.Update(id, newDoctor, cancellationToken);
+            return result;
         }
     }
 }

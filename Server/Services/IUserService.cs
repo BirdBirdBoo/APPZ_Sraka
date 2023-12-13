@@ -11,6 +11,7 @@ public interface IUserService
     Task<(UserId?, UserRole?)> TryLogIn(LoginRequest loginRequest, CancellationToken cancellationToken);
 
     Task<UserDataDto?> GetUserInfo(UserId userId, CancellationToken cancellationToken);
+    Task<UserDataDto?> GetUserInfo(string email, CancellationToken cancellationToken);
 
     Task<bool> IsInRole(UserId userId, UserRole role, CancellationToken ct);
 }
