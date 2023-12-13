@@ -8,18 +8,31 @@ import { Card } from 'react-bootstrap';
 function Chat () {
   return (
     <Card>
-        <Card.Body style={{ height: '760px', display: 'flex', alignItems: 'start' }}>
-            <Row>
-                <Col>
-                    <IncomingMessageComponent/>
-                    <OutgoingMessageComponent/>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <MessageTextbox />
-                </Col>
-            </Row>
+        <Card.Body style={{ height: '760px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div style={{ overflowY: 'auto', flex: 1 }}>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                <IncomingMessageComponent/>
+                <OutgoingMessageComponent/>
+                {/* Add more message components here */}
+            </div>
+            <MessageTextbox />
         </Card.Body>
     </Card>
   );
