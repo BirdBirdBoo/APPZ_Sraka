@@ -136,3 +136,12 @@ html, body, #root {
 .ms-6 {
     margin-left: 4.5rem !important;
 }
+
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+    border: 1px dotted black;
+    border-radius: 4px;
+    background-color: #B5D7FF;
+    padding: 0.25rem;
+}

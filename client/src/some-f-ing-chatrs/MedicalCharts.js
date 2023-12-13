@@ -117,7 +117,7 @@ export default function MedicalCharts() {
     return (
         <>
             <Col>
-                <h1>MedicalCharts</h1>
+                <h1 className="p-3">Графіки показників</h1>
 
                 <Row>
                     {charts.map((data, index) => {

@@ -22,14 +22,6 @@ const formatData = data =>
         };
     });
 
-const Box = styled.div`
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-`;
-
 const BtnBox = styled.div`
     display: flex;
 `;
@@ -46,7 +38,13 @@ const BtnDateUnit = styled.p`
     }
 `;
 
-export const DateSeriesChart = ({getData, endTime = undefined}) => {
+export const DateSeriesChart = (
+    {
+        getData,
+        endTime = undefined,
+        title = "A chart, what more could you want",
+        tooltipFormatFunc
+    }) => {
     // Constants
     const oneMonth = 30;
     const threeMonths = 90;
@@ -75,7 +73,6 @@ export const DateSeriesChart = ({getData, endTime = undefined}) => {
             endTime = moment();
         }
     }
-    console.log(endTime);
     const filteredData = formattedData.filter(({time}) =>
         moment(time).isAfter(endTime.subtract(getDateUnit, "days"))
     );
@@ -83,7 +80,9 @@ export const DateSeriesChart = ({getData, endTime = undefined}) => {
 
     // JSX
     return (
-        <Col style={{minWidth: "24vw", maxWidth: "24vw", height: "40vh", marginBottom: 48}}>
+        <Col style={{minWidth: "24vw", maxWidth: "24vw", height: "40vh", marginBottom: 64}}
+             className='py-2'>
+            <h5 className='ms-4'>{title}</h5>
             <ResponsiveContainer>
                 <ScatterChart>
                     <XAxis
@@ -101,7 +100,7 @@ export const DateSeriesChart = ({getData, endTime = undefined}) => {
                         lineJointType="monotoneX"
                         name="Values"
                     />
-                    <Tooltip content={<CustomTooltip/>}/>
+                    <Tooltip content={<CustomTooltip fmtFunc={defaultFormat}/>}/>
                     <CartesianGrid strokeDasharray="3 3"/>
                 </ScatterChart>
             </ResponsiveContainer>
@@ -131,4 +130,9 @@ export const DateSeriesChart = ({getData, endTime = undefined}) => {
             </BtnBox>
         </Col>
     );
+
+    function defaultFormat(time, value) {
+        console.log("value", value, "time", time)
+        return [`Amt: ${value}`, `Date: ${moment(time).format("DD-MM-YYYY")}`];
+    }
 };
