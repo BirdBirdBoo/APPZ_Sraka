@@ -5,6 +5,7 @@ import DoctorProfile from './APPZComponents/DoctorProfile';
 import PatientProfile from './APPZComponents/PatientProfile';
 import VerticalPatientNavbar from './APPZComponents/VerticalPatientNavbar';
 import Chat from './APPZComponents/Chat';
+import Calendar from './APPZComponents/Calendar';
 
 function App() {
     return <>
@@ -21,11 +22,13 @@ function App() {
             <Col xs={3} className="side-menu" style={{ 
                     backgroundColor: '#B5D7FF', 
                     display: 'flex'}}>
-                <VerticalPatientNavbar />
+                {/* <VerticalPatientNavbar /> */}
+                <VerticalDoctorNavbar/>
             </Col>
             <Col className="content">
                 {/* <PatientProfile/> */}
-                <Chat/>
+                {/* <Chat/> */}
+                <Calendar/>
             </Col>
         </Row>
     </>;
