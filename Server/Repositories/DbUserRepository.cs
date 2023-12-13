@@ -29,6 +29,12 @@ public class DbUserRepository : IUserRepository
         return await _appDbContext.Users.FindAsync(new object?[] { id }, cancellationToken);
     }
 
+    public async Task<UserEntity?> GetUser(string email, CancellationToken cancellationToken)
+    {
+        return await _appDbContext.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+    }
+
+
     public async Task<UserEntity?> FindByEmailPassword(string email, string password, CancellationToken cancellationToken)
     {
         var userByEmail = await _appDbContext.Users.SingleOrDefaultAsync(u => u.Email == email, cancellationToken);

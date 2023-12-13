@@ -15,14 +15,14 @@ namespace Server.Models.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public PatientId PatientId { get; init; }
 
-        [Required]
         //public UserEntity UserId { get; init; }
 
         //public DoctorEntity DoctorId { get; init; }
 
-        public UserId UserId { get; init; }
+        [Required]
+        public UserId UserId { get; set; }
 
-        public DoctorId DoctorId { get; init; }
+        public DoctorId DoctorId { get; set; }
 
         public float Rating { get; set; }
 

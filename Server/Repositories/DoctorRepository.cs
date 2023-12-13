@@ -25,7 +25,7 @@ namespace Server.Repositories
 
         public async Task<DoctorEntity> Delete(DoctorId id, CancellationToken cancellationToken)
         {
-            var doctor = await _appDbContext.Doctors.FindAsync(id.Value);
+            var doctor = await _appDbContext.Doctors.FirstOrDefaultAsync(x => x.DoctorId == id);
 
             if (doctor != null)
             {
@@ -38,7 +38,7 @@ namespace Server.Repositories
 
         public async Task<DoctorEntity> Get(DoctorId id, CancellationToken cancellationToken)
         {
-            var doctor = await _appDbContext.Doctors.FindAsync(id.Value);
+            var doctor = await _appDbContext.Doctors.FirstOrDefaultAsync(x=>x.DoctorId == id);
 
             if (doctor == null)
             {
@@ -57,7 +57,7 @@ namespace Server.Repositories
 
         public async Task<DoctorEntity> Update(DoctorId id, DoctorEntity updatedDoctor, CancellationToken cancellationToken)
         {
-            var existingDoctor = await _appDbContext.Doctors.FindAsync(id.Value);
+            var existingDoctor = await _appDbContext.Doctors.FirstOrDefaultAsync(x => x.DoctorId == id);
 
             if (existingDoctor == null)
             {

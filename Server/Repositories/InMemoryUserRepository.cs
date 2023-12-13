@@ -55,6 +55,11 @@ public class InMemoryUserRepository : IUserRepository
         return Task.FromResult<UserEntity?>(null);
     }
 
+    public Task<UserEntity?> GetUser(string email, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
     private UserEntity? FindByName(string email)
     {
         return _userStore.FirstOrDefault(kp => kp.Value.Email == email).Value;
