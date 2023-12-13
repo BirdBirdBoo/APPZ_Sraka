@@ -11,6 +11,7 @@ import AuthContext from "./AuthContext";
 import {Navigate, useLocation} from "react-router-dom";
 import ApplicationPaths from "./paths";
 import BloodAnalysisTable from './APPZComponents/BloodAnalysis';
+import UrineAnalysisTable from './APPZComponents/UrineAnalysis';
 
 import "./styles/styles.css";
 
