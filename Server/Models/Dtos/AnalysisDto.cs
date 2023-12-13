@@ -6,5 +6,6 @@
         public double Number { get; set; }
         public string? Metric { get; set; }
         public double Delta { get; set; }
+        public bool IsCritical { get; set; }
     }
 }

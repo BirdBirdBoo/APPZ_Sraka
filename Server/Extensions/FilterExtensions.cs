@@ -1,5 +1,7 @@
-﻿using Server.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Server.Models.Entities;
 using Server.Models.Requests;
+using Server.Services;
 
 namespace Server.Extensions;
 
@@ -30,6 +32,17 @@ public static class FilterExtensions
 
         return analysises.Where(a => a.Name == analysisFilterRequest.Name);
     }
+    //todo
+    //public static IQueryable<AnalysisEntity> FilterByPatient(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)
+    //{
+    //    if (analysisFilterRequest.PatientId.Equals(PatientId.Empty))
+    //    {
+    //        return analysises;
+    //    }
+
+    //    return analysises.Where(a => a.PatientId == analysisFilterRequest.PatientId);
+    //}
+    
 
     public static IQueryable<AnalysisEntity> FilterByType(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)
     {
@@ -42,14 +55,29 @@ public static class FilterExtensions
     }
 
     //todo implement
-    public static IQueryable<AnalysisEntity> SelectOnlyBeyondNorm(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)
+    public static async Task<IEnumerable<AnalysisEntity>> SelectOnlyBeyondNorm(
+        this IQueryable<AnalysisEntity> analysises, 
+        AnalysisFilterRequest analysisFilterRequest, 
+        ICriticalDefinerService criticalDefinerService)
     {
         if (!analysisFilterRequest.OnlyBeyondNorm)
         {
-            return analysises;
+            return await analysises.ToListAsync();
         }
 
-        return analysises.Where(a => a.Type == analysisFilterRequest.Type);
+        var fetchedAnalyzes = await analysises.ToListAsync();
+        var analyzesBeyondNorm = new List<AnalysisEntity>();
+
+        foreach (var analysis in fetchedAnalyzes)
+        {
+            var definedAnalysis = criticalDefinerService.Define(analysis);
+            if(definedAnalysis.Any(d => d.IsCritical))
+            {
+                analyzesBeyondNorm.Add(analysis);
+            }
+        }
+
+        return analyzesBeyondNorm;
     }
 
     public static IQueryable<AnalysisEntity> OrderByDate(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)

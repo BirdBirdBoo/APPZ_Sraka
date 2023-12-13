@@ -9,19 +9,24 @@ namespace Server.Services
     public class AnalysisFilterService : IAnalysisFilterService
     {
         private IAnalysisRepository _analysisRepository;
-        public AnalysisFilterService(IAnalysisRepository analysisRepository)
+        private ICriticalDefinerService _criticalDefinerService;
+        public AnalysisFilterService(IAnalysisRepository analysisRepository, ICriticalDefinerService criticalDefinerService)
         {
             _analysisRepository = analysisRepository;
+            _criticalDefinerService = criticalDefinerService;
         }
 
         public async Task<IEnumerable<AnalysisEntity>> Filter(AnalysisFilterRequest analysisFilterRequest, CancellationToken token)
         {
             var allAnalyzes = _analysisRepository.GetAllAnalyzesQueryable();
-            allAnalyzes.FilterByName(analysisFilterRequest)
+            allAnalyzes
+                //todo
+                //.FilterByPatient(analysisFilterRequest)
+                .FilterByName(analysisFilterRequest)
                 .FilterByDate(analysisFilterRequest)
                 .FilterByType(analysisFilterRequest)
-                .SelectOnlyBeyondNorm(analysisFilterRequest)
-                .OrderByDate(analysisFilterRequest);
+                .OrderByDate(analysisFilterRequest)
+                .SelectOnlyBeyondNorm(analysisFilterRequest, _criticalDefinerService);
 
             throw new NotImplementedException();
 

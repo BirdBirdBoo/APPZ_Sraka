@@ -7,15 +7,22 @@ namespace Server.Services
 {
     public class CriticalDefinerServiceMocked : ICriticalDefinerService
     {
+        private const double MockedDeltaInPercent = 0.5;
+        private const double CriticalDeltaThreshold = 0.3;
+
         public IEnumerable<AnalysisDto> Define(AnalysisEntity analysis)
         {
             var data = JsonConvert.DeserializeObject<AnalysisDto[]>(analysis.Data);
 
             foreach (var analysisData in data)
             {
-                var number = analysisData.Number;
-                var delta = GetRandomNumber(-number * 0.3, number * 0.3);
-                analysisData.Delta = delta;
+                if (DoCreateMock())
+                {
+                    var number = analysisData.Number;
+                    var delta = GetRandomNumber(-number * MockedDeltaInPercent, number * MockedDeltaInPercent);
+                    analysisData.Delta = delta;
+                    analysisData.IsCritical = Math.Abs(delta) >= CriticalDeltaThreshold;
+                }
             }
 
             return data;
