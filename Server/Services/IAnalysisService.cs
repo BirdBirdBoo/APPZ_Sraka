@@ -6,8 +6,8 @@ namespace Server.Services
 {
     public interface IAnalysisService
     {
-        Task<AnalysisEntity> CreateAnalysis(NewAnalysisRequest analysisRequest, CancellationToken ct);
-        Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken ct);
-        Task<IEnumerable<AnalysisDto>> GetAnalysis(AnalysisId analysisId, CancellationToken ct);
+        Task<AnalysisEntity> Create(NewAnalysisRequest analysisRequest, CancellationToken ct);
+        Task<IEnumerable<AnalysisPreviewDto>> GetAll(CancellationToken ct);
+        Task<IEnumerable<AnalysisDto>> Get(AnalysisId analysisId, CancellationToken ct);
     }
 }

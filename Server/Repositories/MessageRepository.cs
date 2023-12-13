@@ -7,9 +7,9 @@ namespace Server.Repositories
     public class DbMessageRepository : IMessageRepository
     {
         private readonly QualityLifeDbContext _qualityLifeDbContext;
-        public DbMessageRepository(QualityLifeDbContext qualityLifeDbContext) 
+        public DbMessageRepository(QualityLifeDbContext qualityLifeDbContext)
         {
-            _qualityLifeDbContext= qualityLifeDbContext;
+            _qualityLifeDbContext = qualityLifeDbContext;
         }
         public async Task<MessageEntity> Create(MessageEntity messageEntity, CancellationToken cancellationToken)
         {
@@ -21,7 +21,7 @@ namespace Server.Repositories
         public async Task<bool> Delete(int messageId, CancellationToken cancellationToken)
         {
             var message = await _qualityLifeDbContext.Messages.FirstOrDefaultAsync(m => m.Id == messageId);
-            if(message != null)
+            if (message != null)
             {
                 _qualityLifeDbContext.Messages.Remove(message);
                 await _qualityLifeDbContext.SaveChangesAsync(cancellationToken);

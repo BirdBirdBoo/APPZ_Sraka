@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Server.Models.Entities;
 
@@ -11,6 +12,7 @@ public enum MessageType
 public class MessageEntity
 {
     [Key]
+    [JsonIgnore]
     public int Id { get; set; }
     public MessageType MessageType { get; set; }
     public UserId Sender { get; set; } 

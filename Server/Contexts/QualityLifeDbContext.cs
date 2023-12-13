@@ -12,6 +12,7 @@ namespace Server.Contexts
         public DbSet<PatientEntity> Patients { get; set; } = null!;
         public DbSet<AnalysisEntity> Analyzes { get; set; } = null!;
         public DbSet<MessageEntity> Messages { get; set; } = null!;
+        public DbSet<AnnotationEntity> Annotations { get; set; } = null!;
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
         {
@@ -22,7 +23,7 @@ namespace Server.Contexts
 
             configurationBuilder.Properties<UserId>()
                                 .HaveConversion<UserIdConverter>();
-            
+
             configurationBuilder.Properties<DoctorId>()
                                 .HaveConversion<DoctorIdConverter>();
 
@@ -45,6 +46,7 @@ namespace Server.Contexts
             modelBuilder.Entity<PatientEntity>().ToTable("Patients");
             modelBuilder.Entity<AnalysisEntity>().ToTable("Analyzes");
             modelBuilder.Entity<MessageEntity>().ToTable("Messages");
+            modelBuilder.Entity<MessageEntity>().ToTable("Annotations");
         }
     }
 }
