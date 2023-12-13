@@ -24,8 +24,6 @@ namespace Server.Models.Entities
 
         public DoctorId DoctorId { get; set; }
 
-        public float Rating { get; set; }
-
         public string BloodType { get; set; }
 
         public string Allergens { get; set; }

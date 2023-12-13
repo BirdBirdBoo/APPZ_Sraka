@@ -4,11 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace Server.Models.Requests
 {
-    public record DoctorCreateRequest(
-        UserId UserId,
-        float Rating,
-        string Proffesion,
-        float Experience
+    public record PatientUpdateRequest(
+        string BloodType,
+        string Allergens
         )
     {
     }

@@ -34,7 +34,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        [DefaultValue("doctorId", "\"44E2F46C-3972-47C3-9812-B60C46835714\"")]
+        [DefaultValue("doctorId", "44E2F46C-3972-47C3-9812-B60C46835714")]
         public async Task<IActionResult> Delete(DoctorId doctorId, CancellationToken token)
         {
             var result = await _doctorService.Delete(doctorId, token);
@@ -42,7 +42,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        [DefaultValue("doctorId", "\"44E2F46C-3972-47C3-9812-B60C46835714\"")]
+        [DefaultValue("doctorId", "44E2F46C-3972-47C3-9812-B60C46835714")]
         public async Task<IActionResult> Get(DoctorId doctorId, CancellationToken token)
         {
             var result = await _doctorService.Get(doctorId, token);
@@ -57,7 +57,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        [DefaultValue("doctorId", "\"44E2F46C-3972-47C3-9812-B60C46835714\"")]
+        [DefaultValue("doctorId", "44E2F46C-3972-47C3-9812-B60C46835714")]
         public async Task<IActionResult> Update(DoctorId doctorId, DoctorUpdateRequest request, CancellationToken token)
         {
             var result = await _doctorService.Update(doctorId, request, token);
