@@ -85,6 +85,7 @@
 .incoming-message {
   max-width: 25%; /* Maximum width of message */
   margin-bottom: 15px; /* Space between messages */
+  align-self: flex-start;
 }
 
 /* Style for outgoing message */
@@ -98,4 +99,30 @@
 /* Card body styling to prevent stretching */
 .card-body-incoming, .card-body-outgoing {
   display: inline-block; /* Only as wide as its content */
+  position: relative;
+  padding: 10px; /* Provide enough space for icon and name */
+  background-color: #EDEDED; /* Background color as specified */
+  border-radius: 10px; /* Rounded corners if needed */
+}
+
+.user-icon {
+  width: 30px; /* Width of the icon */
+  height: 30px; /* Height of the icon */
+  border-radius: 50%; /* Make it round */
+  position: absolute; /* Position it over the background */
+  left: 5%; /* Adjust as needed */
+  top: 35px; /* Adjust as needed */
+}
+
+.sender-name {
+  font-size: 0.85rem; /* Smaller text size for the sender's name */
+  margin-left: 2%; /* Adjust so the text doesn't overlap the icon */
+  margin-bottom: 8px; /* Space between name and message */
+  color: #000000; /* Subdued text color for the name */
+}
+
+.card-text-incoming, .card-text-outcoming {
+  color: #000000; /* Text color as specified */
+  margin-left: 15%; /* Align text with the sender's name */
+  padding-bottom: 10px;
 }
