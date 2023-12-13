@@ -32,6 +32,8 @@ root.render(
             <Route path={ApplicationPaths.LoginPage} element={<LoginForm/>}/>
             <Route path={ApplicationPaths.LogoutPage} element={<Logout/>}/>
             <Route path={ApplicationPaths.UserInfoPage} element={<UserInfo/>}/>
+            <Route path={ApplicationPaths.PatientProfile} element={<App/>}/>
+            <Route path={ApplicationPaths.PatientChat} element={<App/>}/>
         </Routes>
     </BrowserRouter>
 );

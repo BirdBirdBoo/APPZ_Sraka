@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
+import ApplicationPaths from '../paths';
 
 import '../styles/styles.css';
 
@@ -37,8 +38,8 @@ function VerticalPatientNavbar() {
 
   return (
     <ButtonGroup vertical size="lg"  className="button-group-wrapper">
-      <Button className="btn-style">Профіль</Button>
-      <Button className="btn-style">Зв'язатись з лікарем</Button>
+      <Button className="btn-style" href={ApplicationPaths.PatientProfile}>Профіль</Button>
+      <Button className="btn-style" href={ApplicationPaths.PatientChat}>Зв'язатись з лікарем</Button>
 
       <Dropdown as={ButtonGroup} show={showDropdown} style={{ width: '100%' }} onToggle={() => setShowDropdown(!showDropdown)} onSelect={handleSelect}>
         <Dropdown.Toggle className="btn-style" id="dropdown-custom-components">

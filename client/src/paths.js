@@ -6,6 +6,9 @@ const ApplicationPaths = {
     RegisterPage: `${RootPath}/register`,
     LogoutPage: `${RootPath}/logout`,
     UserInfoPage: `${RootPath}/userInfo`,
+    PatientProfile: `${RootPath}/patientProfile`,
+    PatientChat: `${RootPath}/patientChat`,
+    
 }
 
 Object.seal(ApplicationPaths);

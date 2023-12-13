@@ -8,26 +8,24 @@ import Chat from './APPZComponents/Chat';
 import Calendar from './APPZComponents/Calendar';
 import {useCallback, useContext, useEffect, useState} from "react";
 import AuthContext from "./AuthContext";
-import {Navigate} from "react-router-dom";
+import {Navigate, useLocation} from "react-router-dom";
 import ApplicationPaths from "./paths";
 
 function App() {
     let context = useContext(AuthContext);
 
+    let location = useLocation();
+
+    console.log(location);
+
     if (!context.isLoggedIn) {
         return <Navigate to={ApplicationPaths.LoginPage}/>;
     }
-
-    return <>
-        {/*
-        <AppNavbar/>
-        <ImageGallery/>
-        
-         Warning!
-         message prop requires a string 
-     */}
-        {/* <DoctorProfile/>*/}
-
+    else if(location.pathname!=ApplicationPaths.PatientProfile && location.pathname!=ApplicationPaths.PatientChat)
+    {
+        return <Navigate to={ApplicationPaths.PatientProfile}/>;
+    }
+    return (
         <Row className="MOVIcontainer" style={{margin: '0px'}}>
             <Col xs={3} className="side-menu" style={{
                 backgroundColor: '#B5D7FF',
@@ -36,10 +34,11 @@ function App() {
                 <VerticalPatientNavbar/>
             </Col>
             <Col className="content">
-                <PatientProfile/>
+                {location.pathname==ApplicationPaths.PatientProfile && <PatientProfile/>}
+                {location.pathname==ApplicationPaths.PatientChat && <Chat/>}
             </Col>
         </Row>
-    </>;
+    )
 }
 
 export default App;
