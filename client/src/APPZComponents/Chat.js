@@ -7,9 +7,12 @@ import { Card } from 'react-bootstrap';
 
 function Chat () {
   return (
-    <Card>
-        <Card.Body style={{ height: '760px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div style={{ overflowY: 'auto', flex: 1 }}>
+    <Card style={{
+      border: 'none', 
+      boxShadow: 'none' 
+  }}>
+        <Card.Body>
+            <div style={{ overflowY: 'auto', flex: 1, height: '88vh' }}>
                 <IncomingMessageComponent/>
                 <OutgoingMessageComponent/>
                 <IncomingMessageComponent/>

@@ -11,6 +11,8 @@ import AuthContext from "./AuthContext";
 import {Navigate, useLocation} from "react-router-dom";
 import ApplicationPaths from "./paths";
 
+import "./styles/styles.css";
+
 function App() {
     let context = useContext(AuthContext);
 
@@ -26,7 +28,7 @@ function App() {
         return <Navigate to={ApplicationPaths.PatientProfile}/>;
     }
     return (
-        <Row className="MOVIcontainer" style={{margin: '0px'}}>
+        <Row className="MOVIcontainer" style={{margin: '0px', height:'100%'}}>
             <Col xs={3} className="side-menu" style={{
                 backgroundColor: '#B5D7FF',
                 display: 'flex'
