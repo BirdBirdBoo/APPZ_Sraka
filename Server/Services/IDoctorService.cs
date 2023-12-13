@@ -13,5 +13,7 @@ namespace Server.Services
         Task<List<DoctorEntity>> GetAll(CancellationToken cancellationToken);
         Task<DoctorEntity> Update(DoctorId id, DoctorUpdateRequest doctor, CancellationToken cancellationToken);
         Task<DoctorEntity?> GetByUserId(UserId userId, CancellationToken cancellationToken);
+        Task<DoctorEntityWithUserData?> GetAsUser(DoctorId doctorId, CancellationToken cancellationToken);
+        Task<DoctorEntityWithPatients?> GetByUserIdWithPatients(UserId id, CancellationToken cancellationToken);
     }
 }

@@ -79,5 +79,12 @@ namespace Server.Repositories
 
             return existingPatient;
         }
+
+        public async Task<List<PatientEntity>> GetPatientsOfDoctor(DoctorId doctorId, CancellationToken cancellationToken)
+        {
+            var patients = await _appDbContext.Patients.Where(x => x.DoctorId == doctorId).ToListAsync(cancellationToken);
+
+            return patients;
+        }
     }
 }
