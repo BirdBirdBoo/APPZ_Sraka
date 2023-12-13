@@ -10,6 +10,6 @@ namespace Server.Models.Entities
         public int Id { get; set; }
         public AnalysisId AnalysisId { get; set; }
         public string NameOfProperty { get; set; } = string.Empty;
-        public MessageEntity Message { get; set; } = null!;
+        public int MessageId { get; set; }
     }
 }

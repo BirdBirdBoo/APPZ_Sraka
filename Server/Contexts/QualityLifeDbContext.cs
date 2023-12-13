@@ -46,7 +46,7 @@ namespace Server.Contexts
             modelBuilder.Entity<PatientEntity>().ToTable("Patients");
             modelBuilder.Entity<AnalysisEntity>().ToTable("Analyzes");
             modelBuilder.Entity<MessageEntity>().ToTable("Messages");
-            modelBuilder.Entity<MessageEntity>().ToTable("Annotations");
+            modelBuilder.Entity<AnnotationEntity>().ToTable("Annotations");
         }
     }
 }

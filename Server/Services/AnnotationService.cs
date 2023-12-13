@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Contexts;
 using Server.Models.Entities;
+using Server.Models.Requests;
 using Server.Repositories;
 
 namespace Server.Services
@@ -15,9 +16,10 @@ namespace Server.Services
             _qualityLifeDbContext = dbContext;
             _messageRepository = messageRepository;
         }
-        public async Task<AnnotationEntity> Create(AnnotationEntity annotation, CancellationToken cancellationToken)
+        public async Task<AnnotationEntity> Create(CreateAnnotationRequest request, CancellationToken cancellationToken)
         {
-            await _messageRepository.Create(annotation.Message, cancellationToken);
+            var (message, annotation) = request;
+            await _messageRepository.Create(message, cancellationToken);
             var annotationCreated = _qualityLifeDbContext.Annotations.Add(annotation);
             await _qualityLifeDbContext.SaveChangesAsync();
 

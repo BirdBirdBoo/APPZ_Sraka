@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Server.Models.Entities;
+using Server.Models.Requests;
 using Server.Services;
 
 namespace Server.Controllers
@@ -18,9 +19,9 @@ namespace Server.Controllers
         [HttpPost]
         [Route("create")]
         //[Authorize]
-        public async Task<IActionResult> CreateNewAnalysis(AnnotationEntity annotationEntity, CancellationToken token)
+        public async Task<IActionResult> CreateNewAnalysis(CreateAnnotationRequest request, CancellationToken token)
         {
-            var annotation = await _annotationService.Create(annotationEntity, token);
+            var annotation = await _annotationService.Create(request, token);
 
             return Ok(annotation);
         }
