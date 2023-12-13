@@ -80,3 +80,22 @@
   .i-am-blue-labadibabada{
     background: #B5D7FF;
   }
+
+/* Style for incoming message */
+.incoming-message {
+  max-width: 25%; /* Maximum width of message */
+  margin-bottom: 15px; /* Space between messages */
+}
+
+/* Style for outgoing message */
+.outgoing-message {
+  max-width: 25%; /* Maximum width of message */
+  margin-bottom: 15px; /* Space between messages */
+  margin-left: auto; /* Aligns the message to the right */
+  margin-right: 12px;
+}
+
+/* Card body styling to prevent stretching */
+.card-body-incoming, .card-body-outgoing {
+  display: inline-block; /* Only as wide as its content */
+}
