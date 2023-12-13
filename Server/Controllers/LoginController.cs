@@ -96,7 +96,7 @@ public class LoginController : ControllerBase
     [HttpGet("getInfo")]
     [DefaultValue("userId", "\"2f863dca-b5a4-457e-9138-04cc6ce261dd\"")]
     [ProducesResponseType(typeof(UserDataDto), (int)HttpStatusCode.OK)]
-    [Authorize]
+    // [Authorize]
     public async Task<IActionResult> GetUserInfo(UserId userId, CancellationToken token)
     {
         var canAccessUserData = await HttpContext.User.CanAccessUserData(_authorizationService, userId, token);
