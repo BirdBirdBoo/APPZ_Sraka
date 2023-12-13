@@ -21,9 +21,9 @@ namespace Server.Services
             return analysis!;
         }
 
-        public async Task<AnalysisArrayDto> GetAllAnalyzes(CancellationToken ct)
+        public async Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken ct)
         {
-            return new AnalysisArrayDto(await _analysisRepository.GetAllAnalyzes(ct));
+            return await _analysisRepository.GetAllAnalyzes(ct);
         }
 
         public async Task<IEnumerable<AnalysisDto>> GetAnalysis(AnalysisId analysisId, CancellationToken ct)

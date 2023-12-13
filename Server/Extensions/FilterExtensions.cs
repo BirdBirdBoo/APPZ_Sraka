@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Services;
@@ -55,18 +56,20 @@ public static class FilterExtensions
     }
 
     //todo implement
-    public static async Task<IEnumerable<AnalysisEntity>> SelectOnlyBeyondNorm(
+    public static async Task<(IEnumerable<AnalysisPreviewDto>, Dictionary<AnalysisId, IEnumerable<AnalysisDto>>?)> SelectOnlyBeyondNorm(
         this IQueryable<AnalysisEntity> analysises, 
         AnalysisFilterRequest analysisFilterRequest, 
         ICriticalDefinerService criticalDefinerService)
     {
         if (!analysisFilterRequest.OnlyBeyondNorm)
         {
-            return await analysises.ToListAsync();
+            var list = await analysises.ToListAsync();
+            return (list.Select(a => a.ToPreview()), null);
         }
 
         var fetchedAnalyzes = await analysises.ToListAsync();
         var analyzesBeyondNorm = new List<AnalysisEntity>();
+        var analysisAndProps = new Dictionary<AnalysisId, IEnumerable<AnalysisDto>>();
 
         foreach (var analysis in fetchedAnalyzes)
         {
@@ -75,9 +78,12 @@ public static class FilterExtensions
             {
                 analyzesBeyondNorm.Add(analysis);
             }
+
+            analysisAndProps.Add(analysis.AnalysisId, definedAnalysis);
         }
 
-        return analyzesBeyondNorm;
+        var previews = analyzesBeyondNorm.Select(a => a.ToPreview());
+        return (previews, analysisAndProps);
     }
 
     public static IQueryable<AnalysisEntity> OrderByDate(this IQueryable<AnalysisEntity> analysises, AnalysisFilterRequest analysisFilterRequest)

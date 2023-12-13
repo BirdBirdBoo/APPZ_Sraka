@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Server.Models.Dtos;
 using Server.Models.Entities;
 
@@ -11,6 +10,7 @@ namespace Server.Services
         private const double CriticalDeltaThreshold = 0.3;
 
         public IEnumerable<AnalysisDto> Define(AnalysisEntity analysis)
+
         {
             var data = JsonConvert.DeserializeObject<AnalysisDto[]>(analysis.Data);
 

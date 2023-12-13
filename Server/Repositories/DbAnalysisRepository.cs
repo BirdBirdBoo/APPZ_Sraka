@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Contexts;
+using Server.Extensions;
 using Server.Models.Dtos;
 using Server.Models.Entities;
 
@@ -33,7 +34,7 @@ namespace Server.Repositories
         public async Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken cancellationToken)
         {
             var analyzes = await _appDbContext.Analyzes
-                .Select(a => new AnalysisPreviewDto(a.AnalysisId, a.Name!, a.Description!, a.Type!, a.Date))
+                .Select(a => a.ToPreview())
                 .ToListAsync();
             return analyzes;
         }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Models.Entities;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Server.Contexts
 {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Services;
@@ -34,7 +35,7 @@ public class AnalysisController : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetAnalysis(AnalysisId id, CancellationToken token)
     {
-        var analysis = await _analysisService.GetAnalysis(id, token);
+        IEnumerable<AnalysisDto> analysis = await _analysisService.GetAnalysis(id, token);
 
         return Ok(analysis);
     }
@@ -44,7 +45,7 @@ public class AnalysisController : ControllerBase
     [Authorize]
     public async Task<IActionResult> GetAllAnalyzes(CancellationToken token)
     {
-        var analyzes = await _analysisService.GetAllAnalyzes(token);
+        AnalysisArrayDto analyzes = await _analysisService.GetAllAnalyzes(token);
 
         return Ok(analyzes);
     }
@@ -54,8 +55,8 @@ public class AnalysisController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FilterAnalyzes(AnalysisFilterRequest request, CancellationToken token)
     {
-        var analysis = await _analysisFilterService.Filter(request, token);
+        AnalyzesFilteredDto analyzesFiltered = await _analysisFilterService.Filter(request, token);
 
-        return Ok(analysis);
+        return Ok(analyzesFiltered);
     }
 }

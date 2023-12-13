@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Extensions;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Repositories;
@@ -16,10 +17,11 @@ namespace Server.Services
             _criticalDefinerService = criticalDefinerService;
         }
 
-        public async Task<IEnumerable<AnalysisEntity>> Filter(AnalysisFilterRequest analysisFilterRequest, CancellationToken token)
+        public async Task<AnalyzesFilteredDto> Filter(AnalysisFilterRequest analysisFilterRequest, CancellationToken token)
         {
+
             var allAnalyzes = _analysisRepository.GetAllAnalyzesQueryable();
-            allAnalyzes
+            var result = await allAnalyzes
                 //todo
                 //.FilterByPatient(analysisFilterRequest)
                 .FilterByName(analysisFilterRequest)
@@ -28,9 +30,8 @@ namespace Server.Services
                 .OrderByDate(analysisFilterRequest)
                 .SelectOnlyBeyondNorm(analysisFilterRequest, _criticalDefinerService);
 
-            throw new NotImplementedException();
-
-            return await allAnalyzes.ToListAsync();
+            var analyzesFilteredDto = new AnalyzesFilteredDto(result.Item1, result.Item2!);
+            return analyzesFilteredDto;
         }
     }
 }
