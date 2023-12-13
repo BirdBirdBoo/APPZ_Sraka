@@ -1,15 +1,19 @@
 using System.Reflection;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Server.Contexts;
 using Server.Extensions.Swagger;
 using Server.Models.Entities;
+using Server.Models.Requests;
 using Server.Providers;
 using Server.Repositories;
 using Server.Services;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfigProvider configProvider = new ConfigProvider(builder.Configuration);
@@ -21,6 +25,8 @@ builder.Services.AddDbContext<QualityLifeDbContext>(opts =>
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IAuthorizationService, AuthorizationService>();
 builder.Services.AddSingleton(configProvider);
 
@@ -32,9 +38,12 @@ if (configProvider.UserRepository.UseInMemoryRepository)
 else
 {
     builder.Services.AddScoped<IUserRepository, DbUserRepository>();
+    builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+    builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 }
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opts =>
@@ -73,6 +82,7 @@ builder.Services.AddSwaggerGen(opts =>
         });
     }
 );
+
 builder.Services
        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
        .AddJwtBearer(opts => opts.TokenValidationParameters = new TokenValidationParameters
@@ -85,7 +95,39 @@ builder.Services
            ValidAudience = configProvider.Jwt.Issuer,
            IssuerSigningKey = configProvider.Jwt.SecurityKey
        });
+
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.
+    AddSwaggerGen(options =>
+    options.MapType<DateOnly>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "date",
+        Example = new OpenApiString("2022-01-01")
+    })
+    )
+    .AddSwaggerGen(options =>
+    options.MapType<DoctorId>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "uuid",
+        Example = new OpenApiString("44E2F46C-3972-47C3-9812-B60C46835714")
+    }))
+    .AddSwaggerGen(options =>
+    options.MapType<PatientId>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "uuid",
+        Example = new OpenApiString("44E2F46C-3972-47C3-9812-B60C46835714")
+    }))
+    .AddSwaggerGen(options =>
+    options.MapType<UserId>(() => new OpenApiSchema
+    {
+        Type = "string",
+        Format = "uuid",
+        Example = new OpenApiString("2F9E433F-B135-4597-804A-82849CD5F0E9")
+    }));
 /*builder.Services.AddCors(opts => opts.AddDefaultPolicy(b => b.WithOrigins("https://localhost:3000")
                                                              .AllowAnyHeader()
                                                              .AllowAnyMethod()

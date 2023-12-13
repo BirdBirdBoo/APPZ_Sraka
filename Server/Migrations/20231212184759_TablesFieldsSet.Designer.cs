@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Contexts;
 
@@ -11,9 +12,10 @@ using Server.Contexts;
 namespace Server.Migrations
 {
     [DbContext(typeof(QualityLifeDbContext))]
-    partial class QualityLifeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231212184759_TablesFieldsSet")]
+    partial class TablesFieldsSet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +39,7 @@ namespace Server.Migrations
                     b.Property<float>("Rating")
                         .HasColumnType("real");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("User")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DoctorId");
@@ -61,10 +63,17 @@ namespace Server.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
+
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("PatientId");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Patients", (string)null);
                 });
@@ -103,6 +112,25 @@ namespace Server.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Server.Models.Entities.PatientEntity", b =>
+                {
+                    b.HasOne("Server.Models.Entities.DoctorEntity", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.Models.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

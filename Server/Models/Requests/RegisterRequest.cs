@@ -8,5 +8,8 @@ public record RegisterRequest(
     string Email,
     string Password,
     [Required] [property: JsonConverter(typeof(JsonDateOnlyConverter))]
-    DateOnly BirthDate
+    DateOnly BirthDate,
+    string FirstName,
+    string LastName,
+    string PhoneNumber
 ) : LoginRequest(Email, Password);
