@@ -135,6 +135,16 @@ function AnalysisList({patientIdFromDoctor = null}) {
             .catch(err => console.log(err));
     }
 
+    function reset() {
+        setSortByName(null);
+        setCritical(null);
+        setSortByOrder(null);
+        setDate1(null);
+        setDate2(null);
+        setType(null);
+        formPromt()
+    }
+
     useEffect(() => {
         const patientIdDoctorOrPatientView = patientIdFromDoctor ? patientIdFromDoctor : authContext.userAsPatientInfo.patientId;
          console.log(patientIdDoctorOrPatientView)
@@ -188,6 +198,9 @@ function AnalysisList({patientIdFromDoctor = null}) {
                         <Form.Control value={date2} onChange={handleDate2ByChange} type="date"/>
                         <Button variant="primary" id="button-addon1" onClick={formPromt}>
                             Застосувати
+                        </Button>
+                        <Button variant="danger" id="button-addon1" onClick={reset}>
+                            Скинути
                         </Button>
                     </InputGroup>
                     
