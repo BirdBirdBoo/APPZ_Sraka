@@ -33,7 +33,7 @@ function VerticalNavbar() {
 
                 {context.isDoctor && <>
                     <Button className="btn-style" href={ApplicationPaths.PatientsPage}>Пацієнти</Button>
-                    <Button className="btn-style">Записи на прийом</Button>
+                    <Button className="btn-style" href={ApplicationPaths.CalendarPage}>Записи на прийом</Button>
                 </>}
 
                 <Button className='btn-style danger' href={ApplicationPaths.LogoutPage}>Вийти</Button>
