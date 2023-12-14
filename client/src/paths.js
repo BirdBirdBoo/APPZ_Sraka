@@ -6,9 +6,10 @@ const ApplicationPaths = {
     RegisterPage: `${RootPath}/register`,
     LogoutPage: `${RootPath}/logout`,
     UserInfoPage: `${RootPath}/userInfo`,
-    PatientProfile: `${RootPath}/patientProfile`,
+    ProfilePage: `${RootPath}/patientProfile`,
     PatientChat: `${RootPath}/patientChat`,
     StatsPage: `${RootPath}/statsPage`,
+    PatientsPage: `${RootPath}/patientsPage`,
     AnalysisPage: `${RootPath}/analysisPage`
 }
 

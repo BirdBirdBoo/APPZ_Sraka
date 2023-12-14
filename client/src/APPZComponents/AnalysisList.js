@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import { Button, Card, CardBody, Modal } from "react-bootstrap";
+import { Button, Card, Modal } from "react-bootstrap";
 import AnalysisCard from "./AnalysisCard";
 import BloodAnalysisTable from "./BloodAnalysis";
 
 
 function AnalysisList()
 {
-
     const [arr, setArr] = useState(null);
 
     function AddAnalysis()
@@ -39,9 +38,9 @@ function AnalysisList()
             height: '100%', // Ensure the Card takes up the full height of its container
             display: 'flex', // Use flex layout
             flexDirection: 'column'}}>
-            <CardBody>
+            <Card.Body>
                 <AnalysisCard name={'Analiz gavna'} description={'duzhe podrobnyj analiz gavna'} date={'14.12.2023'} onClick={()=> handleOpenModal(<BloodAnalysisTable/>)}/>
-            </CardBody>
+            </Card.Body>
         </Card>
         <Modal size="lg" show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>

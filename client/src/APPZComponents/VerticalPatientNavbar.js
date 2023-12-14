@@ -17,7 +17,7 @@ function VerticalPatientNavbar() {
 
   return (
     <ButtonGroup vertical size="lg" className="button-group-wrapper">
-      <Button className="btn-style" href={ApplicationPaths.PatientProfile}>Профіль</Button>
+      <Button className="btn-style" href={ApplicationPaths.ProfilePage}>Профіль</Button>
       <Button className="btn-style" href={ApplicationPaths.PatientChat}>Зв'язатись з лікарем</Button>
       <Button className="btn-style" href={ApplicationPaths.AnalysisPage}>Аналізи</Button>
 

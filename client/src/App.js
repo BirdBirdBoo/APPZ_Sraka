@@ -16,6 +16,7 @@ import UrineAnalysisTable from './APPZComponents/UrineAnalysis';
 import AnalysisList from './APPZComponents/AnalysisList';
 
 import "./styles/styles.css";
+import DoctorPatientsList from "./APPZComponents/DoctorPatientsList";
 
 function App() {
     let context = useContext(AuthContext);
@@ -28,8 +29,21 @@ function App() {
     if (!context.isLoggedIn) {
         return <Navigate to={ApplicationPaths.LoginPage}/>;
     } else if (targetLocation.isRoot) {
-        return <Navigate to={ApplicationPaths.PatientProfile}/>;
+        return <Navigate to={ApplicationPaths.ProfilePage}/>;
     }
+
+    function getChat() {
+        if (location.search) {
+            const params = new URLSearchParams(location.search);
+            const receiverId = params.get('receiver_id');
+            
+            if (receiverId) {
+                return <Chat receiverId={receiverId}/>;
+            }
+        }
+        return <Chat/>;
+    }
+
     return (
         <Row className="MOVIcontainer" style={{margin: '0px', height: '100%'}}>
             <Col xs={3} className="side-menu" style={{
@@ -37,12 +51,14 @@ function App() {
                 display: 'flex',
 
             }}>
-                <VerticalPatientNavbar/>
+                {!context.isDoctor && <VerticalPatientNavbar/>}
+                {context.isDoctor && <VerticalDoctorNavbar/>}
             </Col>
             <Col className="content" style={{margin: '0px', height: '100%', paddingRight: 0}}>
                 {targetLocation.isPatientProfile && <UserProfile/>}
-                {targetLocation.isPatientChat && <Chat/>}
+                {targetLocation.isPatientChat && getChat()}
                 {targetLocation.isStatsPage && <MedicalCharts/>}
+                {targetLocation.isPatientsPage && <DoctorPatientsList/>}
                 {targetLocation.isAnalysisPage && <AnalysisList/>}
             </Col>
         </Row>
@@ -54,9 +70,10 @@ function parseTargetLocation(location) {
 
     return {
         isRoot: pathname === ApplicationPaths.RootPath,
-        isPatientProfile: pathname === ApplicationPaths.PatientProfile,
+        isPatientProfile: pathname === ApplicationPaths.ProfilePage,
         isPatientChat: pathname === ApplicationPaths.PatientChat,
         isStatsPage: pathname === ApplicationPaths.StatsPage,
+        isPatientsPage: pathname === ApplicationPaths.PatientsPage,
         isAnalysisPage: pathname === ApplicationPaths.AnalysisPage,
     }
 }

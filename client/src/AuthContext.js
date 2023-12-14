@@ -64,6 +64,51 @@ if (isDesignMode) {
         phoneNumber: "+380 99 999 99 99",
         dateOfBirth: "1999-09-09",
     };
+
+    if (isDoctor) {
+        userAsDoctorId = "test-user-as-doctor-id";
+        userAsDoctorInfo = {
+            "doctorId": "503a7d52-7965-4d94-bfe1-cf903c8c0a5f",
+            "userId": "51185347-28e0-4cf6-805a-42c0ee289f35",
+            "rating": 4.8,
+            "proffesion": "Нейрохірург",
+            "experience": 12,
+            "patients": [
+                {
+                    "patientId": "dd3a8501-b1b0-4cf2-acb2-0690244882c6",
+                    "userId": "82e526ed-c408-4606-b5d7-ce142fac1025",
+                    "doctorId": "503a7d52-7965-4d94-bfe1-cf903c8c0a5f",
+                    "bloodType": "1-",
+                    "allergens": "молоко",
+                    "userData": {
+                        "userId": "82e526ed-c408-4606-b5d7-ce142fac1025",
+                        "email": "dmytro.pat@gmail.com",
+                        "dateOfBirth": "2016-01-25",
+                        "role": "Patient",
+                        "firstName": "Дмитро",
+                        "secondName": "Вишневецький",
+                        "phoneNumber": "+380 97 000 00 15"
+                    }
+                },
+                {
+                    "patientId": "7648ac56-ae5c-45a0-8c69-402f0cb9b0c4",
+                    "userId": "c00d7002-2bcd-4d15-9bfb-8faea694ced8",
+                    "doctorId": "503a7d52-7965-4d94-bfe1-cf903c8c0a5f",
+                    "bloodType": "3+",
+                    "allergens": "горіхи",
+                    "userData": {
+                        "userId": "c00d7002-2bcd-4d15-9bfb-8faea694ced8",
+                        "email": "maksym.pat@gmail.com",
+                        "dateOfBirth": "1990-07-07",
+                        "role": "Patient",
+                        "firstName": "Максим",
+                        "secondName": "Оса",
+                        "phoneNumber": "+380 97 000 00 14"
+                    }
+                }
+            ]
+        }
+    }
 }
 
 const AuthContext = React.createContext({
