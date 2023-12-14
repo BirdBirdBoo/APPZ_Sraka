@@ -19,8 +19,9 @@ function VerticalPatientNavbar() {
     <ButtonGroup vertical size="lg" className="button-group-wrapper">
       <Button className="btn-style" href={ApplicationPaths.PatientProfile}>Профіль</Button>
       <Button className="btn-style" href={ApplicationPaths.PatientChat}>Зв'язатись з лікарем</Button>
+      <Button className="btn-style" href={ApplicationPaths.AnalysisPage}>Аналізи</Button>
 
-      <Dropdown as={ButtonGroup} show={showDropdown} style={{ width: '100%' }} onToggle={() => setShowDropdown(!showDropdown)} onSelect={handleSelect}>
+      {/* <Dropdown as={ButtonGroup} show={showDropdown} style={{ width: '100%' }} onToggle={() => setShowDropdown(!showDropdown)} onSelect={handleSelect}>
         <Dropdown.Toggle className="btn-style" id="dropdown-custom-components">
           Аналізи
         </Dropdown.Toggle>
@@ -31,7 +32,7 @@ function VerticalPatientNavbar() {
           <Dropdown.Item eventKey="3"  className="dropdown-item" >Алергени</Dropdown.Item>
           <Dropdown.Item eventKey="4"  className="dropdown-item" href={ApplicationPaths.StatsPage}>Статистика КД</Dropdown.Item>
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
     </ButtonGroup>
   );
 }
