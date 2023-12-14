@@ -1,4 +1,4 @@
-import {DateSeriesChart} from "./stolen-chart";
+import {DateSeriesChart, TimeSeriesChart} from "./stolen-chart";
 import {Col, Row} from "react-bootstrap";
 
 const someData = [
@@ -193,6 +193,10 @@ const charts = [
     someData, someData, hemoglobin_data, meanDailyHeartRate
 ]
 
+const timeChart = [
+    realisticBodyTemperatureData
+]
+
 export default function MedicalCharts() {
     return (
         <>
@@ -208,7 +212,11 @@ export default function MedicalCharts() {
                         return (
                             <DateSeriesChart key={index} getData={data}/>
                         )
-                    })}
+                    }).concat(timeChart.map((data, index) => {
+                        return (
+                            <TimeSeriesChart key={index + charts.length} getData={data}/>
+                        )
+                    }))}
                 </Row>
             </Col>
         </>
