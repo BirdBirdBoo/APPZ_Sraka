@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Button, Card, CardBody, Modal } from "react-bootstrap";
 import AnalysisCard from "./AnalysisCard";
-import BloodAnalysisTable from "./BloodAnalysis";
+import AnalysisTable from "./AnalysisTable";
 import axios from "axios";
 
 function AnalysisList()
@@ -30,7 +30,7 @@ function AnalysisList()
                 const allAnalysisProps = res.data;
                 setAnalysisProps(allAnalysisProps);
                 console.log(allAnalysisProps);
-                handleOpenModal(<BloodAnalysisTable data={allAnalysisProps}/>);
+                handleOpenModal(<AnalysisTable data={allAnalysisProps}/>);
             })
             .catch(err => console.log(err));
     }

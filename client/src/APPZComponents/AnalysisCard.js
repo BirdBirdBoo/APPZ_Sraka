@@ -11,11 +11,17 @@ function AnalysisCard(props) {
         justifyContent: 'space-between',
         alignItems: 'center',
       };
+    const formatDateString = (dateString) => {
+    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+    return formattedDate;
+    };
+
     return (
         <CardGroup style={{padding:'10px'}} onClick={() => props.onClick(props.analysisId)}>
             <Card>
                 <Card.Body style={cardBodyStyle}>
-                    <Card.Img style={{height:'50px', width:'50px'}} src='https://img.freepik.com/premium-vector/poop-pixel-style-vector-illustration_658931-84.jpg'/>
+                    <Card.Img style={{height:'50px', width:'50px'}} src='https://cdn-icons-png.flaticon.com/512/205/205916.png'/>
                     <Card.Text style={{ ...cardTextStyle}}>{props.name}</Card.Text>
                 </Card.Body>
             </Card>
@@ -26,7 +32,7 @@ function AnalysisCard(props) {
             </Card>
             <Card>
                 <Card.Body style={cardBodyStyle}>
-                    <Card.Text style={{ ...cardTextStyle}}>{props.date}</Card.Text>
+                    <Card.Text style={{ ...cardTextStyle}}>{formatDateString(props.date)}</Card.Text>
                 </Card.Body>
             </Card>
         </CardGroup>
