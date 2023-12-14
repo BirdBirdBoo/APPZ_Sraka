@@ -70,7 +70,7 @@ function Chat({receiverId = null}) {
     useEffect(() => {
         fetchMessages();
 
-        const interval = setInterval(fetchMessages, 15000);
+        const interval = setInterval(fetchMessages, 5000);
         
         return () => clearInterval(interval);
     }, [receiver, receiverId]); 
