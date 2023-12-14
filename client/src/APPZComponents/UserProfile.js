@@ -52,6 +52,7 @@ function UserProfile() {
                             <strong>Лікар:</strong> {context.patientDoctorInfo?.userData?.firstName} {context.patientDoctorInfo?.userData?.secondName}
                         </Card.Text>
                     </>}
+                    <Button className="btn-style" style={{width:'300px'}}>Редагувати Профіль</Button>
                 </Col>
             </Card.Body>
         </Card>
