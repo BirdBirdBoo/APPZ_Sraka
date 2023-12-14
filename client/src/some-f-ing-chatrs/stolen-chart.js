@@ -22,6 +22,16 @@ const formatData = data =>
         };
     });
 
+
+const formatTimeData = data =>
+    data.map(({id, amount, hourOfDay, minuteOfHour=0}) => {
+        return {
+            id,
+            value: amount,
+            time: moment().hour(hourOfDay).minute(minuteOfHour).toDate().getTime()
+        };
+    });
+
 const BtnBox = styled.div`
     display: flex;
 `;
@@ -65,7 +75,7 @@ export const DateSeriesChart = (
     const handleOneYear = handleDateUnit(oneYear, oneYearStr);
     // Filter data
     const formattedData = formatData(getData);
-    console.log("formattedData", formattedData)
+
     if (endTime === undefined) {
         if (formattedData.length > 0) {
             endTime = moment(max(formattedData, ({time}) => time));
@@ -134,5 +144,112 @@ export const DateSeriesChart = (
     function defaultFormat(time, value) {
         console.log("value", value, "time", time)
         return [`Amt: ${value}`, `Date: ${moment(time).format("DD-MM-YYYY")}`];
+    }
+};
+
+export const TimeSeriesChart = (
+    {
+        getData,
+        endTime = undefined,
+        title = "A time chart, what more could you want",
+        tooltipFormatFunc
+    }) => {
+    // Constants
+    const oneHour = 60;
+    const threeHours = 180;
+    const oneDay = 60 * 24;
+    const oneHourStr = "one-hour";
+    const threeHoursStr = "three-hours";
+    const oneDayStr = "one-day";
+    // State
+    const [getDateUnit, setDateUnit] = useState(threeHours);
+    const [getActiveKey, setActiveKey] = useState(threeHoursStr);
+    // Click handlers
+    const handleTimeUnit = (minutes, activeKey) => () => {
+        setActiveKey(activeKey);
+        setDateUnit(minutes);
+    };
+    const handleOneHour = handleTimeUnit(oneHour, oneHourStr);
+    const handleThreeHours = handleTimeUnit(threeHours, threeHoursStr);
+    const handleOneDay = handleTimeUnit(oneDay, oneDayStr);
+
+    // Filter data
+    const formattedData = formatTimeData(getData);
+    console.log("formattedData", formattedData);
+
+    if (endTime === undefined) {
+        if (formattedData.length > 0) {
+            endTime = moment(max(formattedData, ({time}) => time));
+        } else {
+            endTime = moment();
+        }
+    }
+    const filteredData = formattedData.filter(({time}) =>
+        moment(time).isAfter(endTime.subtract(getDateUnit, "minutes"))
+    );
+    console.log("filteredData", filteredData)
+    const sortedData = filteredData.sort((a, b) => b.time - a.time);
+
+    // JSX
+    return (
+        <Col style={{minWidth: "24vw", maxWidth: "24vw", height: "40vh", marginBottom: 64}}
+             className='py-2'>
+            <h5 className='ms-4'>{title}</h5>
+            <ResponsiveContainer>
+                <ScatterChart>
+                    <XAxis
+                        dataKey="time"
+                        domain={["auto", "auto"]}
+                        name="Time"
+                        tickFormatter={unixTime => moment(unixTime).format("HH:MM")}
+                        type="number"
+                    />
+                    <YAxis dataKey="value" name="Value"/>
+                    <Scatter
+                        data={sortedData}
+                        line={{stroke: "#d3d3d3"}}
+                        lineType="joint"
+                        lineJointType="monotoneX"
+                        name="Values"
+                    />
+                    <Tooltip content={<CustomTooltip fmtFunc={defaultTimeFormat}/>}/>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                </ScatterChart>
+            </ResponsiveContainer>
+
+            <BtnBox className='justify-content-center ms-6'>
+                <BtnDateUnit
+                    getactivekey={getActiveKey}
+                    activekey={oneHourStr}
+                    onClick={handleOneHour}
+                >
+                    1H
+                </BtnDateUnit>
+                <BtnDateUnit
+                    getactivekey={getActiveKey}
+                    activekey={threeHoursStr}
+                    onClick={handleThreeHours}
+                >
+                    3H
+                </BtnDateUnit>
+                <BtnDateUnit
+                    getactivekey={getActiveKey}
+                    activekey={oneDayStr}
+                    onClick={handleOneDay}
+                >
+                    1D
+                </BtnDateUnit>
+            </BtnBox>
+        </Col>
+    );
+
+    function defaultDateFormat(time, value) {
+        console.log("value", value, "time", time)
+        return [`Amt: ${value}`, `Date: ${moment(time).format("DD-MM-YYYY")}`];
+    }
+
+    function defaultTimeFormat(time, value) {
+        console.log("value", value, "time", time)
+        return [`Amt: ${value}`, `Date: ${moment(time).format("HH:MM")}`];
     }
 };
