@@ -14,6 +14,7 @@ function VerticalDoctorNavbar() {
             <Button className="btn-style" href={ApplicationPaths.ProfilePage}>Профіль</Button>
             <Button className="btn-style" href={ApplicationPaths.PatientsPage}>Пацієнти</Button>
             <Button className="btn-style">Записи на прийом</Button>
+            <Button className='btn-style-logout' href={ApplicationPaths.LogoutPage}>Вийти</Button>
         </ButtonGroup>
     );
 }

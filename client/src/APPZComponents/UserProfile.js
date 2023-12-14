@@ -22,7 +22,6 @@ function UserProfile() {
                            height="240px"
                            roundedCircle/>
 
-                    <Button className='btn-style-small danger my-4' href={ApplicationPaths.LogoutPage}>Вийти</Button>
                 </Col>
 
                 {/* Text content column */}

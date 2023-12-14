@@ -50,6 +50,26 @@ html, body, #root {
     width: 100%;
 }
 
+.btn-style-logout {
+  background-color: red;
+  border: 1px solid red !important;
+  margin-bottom: 25px;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: black;
+  box-shadow: none;
+  padding: 8px !important;
+  font-size: 25px !important;
+  text-align: center;
+  width: 100%;
+}
+
+.btn-style-logout:hover, .btn-style-logout:focus {
+  background-color: rgb(170, 16, 16);
+  text-decoration: none;
+  border: 1px solid rgb(170, 16, 16) !important;
+}
+
 .btn-style-small {
     background-color: #79B7FF;
     border: 1px solid #79B7FF !important;
@@ -66,6 +86,12 @@ html, body, #root {
 .btn-style-small.submit {
     background-color: #A6FFC5;
     border: 1px solid #A6FFC5 !important;
+}
+
+.btn-style-small.submit:hover, .btn-style-small.submit:focus {
+  background-color: #55ee8b;
+  color: white;
+  border: 1px solid #55ee8b !important;
 }
 
 .btn-style-small.danger {

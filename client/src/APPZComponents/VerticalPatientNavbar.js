@@ -33,6 +33,7 @@ function VerticalPatientNavbar() {
           <Dropdown.Item eventKey="4"  className="dropdown-item" href={ApplicationPaths.StatsPage}>Статистика КД</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown> */}
+      <Button className='btn-style-logout' href={ApplicationPaths.LogoutPage}>Вийти</Button>
     </ButtonGroup>
   );
 }
