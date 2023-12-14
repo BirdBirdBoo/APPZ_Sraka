@@ -49,6 +49,8 @@ else
     builder.Services.AddScoped<IPatientRepository, PatientRepository>();
     builder.Services.AddScoped<IAnalysisRepository, DbAnalysisRepository>();
     builder.Services.AddScoped<IMessageRepository, DbMessageRepository>();
+
+    builder.Services.AddScoped<IChartsRepository, InMemoryChartRepository>();
 }
 
 builder.Services.AddControllers();

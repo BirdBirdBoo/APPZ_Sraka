@@ -43,9 +43,9 @@ public class AnalysisController : ControllerBase
     [HttpGet]
     [Route("getAnalyzes")]
     //[Authorize]
-    public async Task<IActionResult> GetAllAnalyzes(CancellationToken token)
+    public async Task<IActionResult> GetAllAnalyzes(PatientId patientId, CancellationToken token)
     {
-        IEnumerable<AnalysisPreviewDto> analyzes = await _analysisService.GetAll(token);
+        IEnumerable<AnalysisPreviewDto> analyzes = await _analysisService.GetAll(patientId, token);
 
         return Ok(analyzes);
     }
