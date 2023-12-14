@@ -1,13 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Button, Card, CardBody, Modal } from "react-bootstrap";
 import AnalysisCard from "./AnalysisCard";
 import BloodAnalysisTable from "./BloodAnalysis";
-
+import axios from "axios";
 
 function AnalysisList()
 {
 
-    const [arr, setArr] = useState(null);
+
+    const [analyzes, setAnalyzes] = useState([]);
+    const [analysisProps, setAnalysisProps] = useState([]);
 
     function AddAnalysis()
     {
@@ -16,8 +18,36 @@ function AnalysisList()
 
     async function GetAnalysis()
     {
-
     }
+
+    function fetchAnalysisProperties(id) {
+            axios.get('https://localhost:7130/api/Analysis/get', {
+                params: {
+                    "id": id
+                }
+              })
+              .then(res => {
+                const allAnalysisProps = res.data;
+                setAnalysisProps(allAnalysisProps);
+                console.log(allAnalysisProps);
+                handleOpenModal(<BloodAnalysisTable data={allAnalysisProps}/>);
+            })
+            .catch(err => console.log(err));
+    }
+
+    function fetchPreviewAnalyzes(){
+        axios.get("https://localhost:7130/api/Analysis/getAnalyzes")
+            .then(res => {
+                const allAnalyzes = res.data;
+                setAnalyzes(allAnalyzes);
+                console.log(allAnalyzes);
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        fetchPreviewAnalyzes();
+    }, []);
 
     const [showModal, setShowModal] = useState(false);
     const [analysisData, setAnalysisData] = useState(null);
@@ -40,7 +70,21 @@ function AnalysisList()
             display: 'flex', // Use flex layout
             flexDirection: 'column'}}>
             <CardBody>
-                <AnalysisCard name={'Analiz gavna'} description={'duzhe podrobnyj analiz gavna'} date={'14.12.2023'} onClick={()=> handleOpenModal(<BloodAnalysisTable/>)}/>
+            {
+            analyzes.map(analysis => 
+                <AnalysisCard 
+                analysisId={analysis.analysisId} 
+                name={analysis.name} 
+                description={analysis.description} 
+                date={analysis.date} 
+                onClick={(analysisId) => 
+                    {
+                        fetchAnalysisProperties(analysisId)
+                    }
+                }
+                />)
+              }
+                {/* <AnalysisCard name={'Analiz gavna'} description={'duzhe podrobnyj analiz gavna'} date={'14.12.2023'} onClick={()=> handleOpenModal(<BloodAnalysisTable/>)}/> */}
             </CardBody>
         </Card>
         <Modal size="lg" show={showModal} onHide={handleCloseModal}>
@@ -53,6 +97,23 @@ function AnalysisList()
         </Modal>
         </>
     )
+
+    // return (
+    //     <div className="wrapper">
+    //       {posts.length > 0 ? (
+    //         <div className="content">
+    //           {posts.map((post) => (
+    //             <div className="post">
+    //               <h2>{post.title}</h2>
+    //               <p>{post.body}</p>
+    //             </div>
+    //           ))}
+    //         </div>
+    //       ) : (
+    //         <p className="loading">Loading... </p>
+    //       )}
+    //     </div>
+    //   );
 }
 
 export default AnalysisList;

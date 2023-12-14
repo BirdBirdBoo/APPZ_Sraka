@@ -1,23 +1,27 @@
-import React from 'react';
+import { React, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 
-function BloodAnalysisTable(){
-  // Data for the table
-  const data = [
-    { Показник: 'Еритроцити (RBC)', Результати: 'gamno' },
-    { Показник: 'Гемоглобін (Hb)', Результати: 'gamno' },
-    { Показник: 'Гематокрит (Hct)', Результати: 'gamno' },
-    { Показник: 'Лейкоцити (WBC)', Результати: 'gamno' },
-    { Показник: 'Тромбоцити (Plt)', Результати: 'gamno' },
-    { Показник: 'Сердній об\'єм еритроцитів (MVC)', Результати: 'gamno' },
-    { Показник: 'Середній об\'єм гемоглобіну в еритроцитах (MCH)', Результати: 'gamno' },
-    { Показник: 'Середній об\'єм гемоглобіну в еритроцитах (MCHC)', Результати: 'gamno' },
-    { Показник: 'Лімфоцити (%)', Результати: 'gamno' },
-    { Показник: 'Нейтрофіли (%)', Результати: 'gamno' },
-    { Показник: 'Моноцити (%)', Результати: 'gamno' },
-    { Показник: 'Еонизофіли (%)', Результати: 'gamno' },
-    { Показник: 'Базофіли (%)', Результати: 'gamno' },
-  ];
+function BloodAnalysisTable(props){
+      // Data for the table
+      const testData = [
+        { Показник: 'Еритроцити (RBC)', Результати: 'gamno' },
+        { Показник: 'Гемоглобін (Hb)', Результати: 'gamno' },
+        { Показник: 'Гематокрит (Hct)', Результати: 'gamno' },
+        { Показник: 'Лейкоцити (WBC)', Результати: 'gamno' },
+        { Показник: 'Тромбоцити (Plt)', Результати: 'gamno' },
+        { Показник: 'Сердній об\'єм еритроцитів (MVC)', Результати: 'gamno' },
+        { Показник: 'Середній об\'єм гемоглобіну в еритроцитах (MCH)', Результати: 'gamno' },
+        { Показник: 'Середній об\'єм гемоглобіну в еритроцитах (MCHC)', Результати: 'gamno' },
+        { Показник: 'Лімфоцити (%)', Результати: 'gamno' },
+        { Показник: 'Нейтрофіли (%)', Результати: 'gamno' },
+        { Показник: 'Моноцити (%)', Результати: 'gamno' },
+        { Показник: 'Еонизофіли (%)', Результати: 'gamno' },
+        { Показник: 'Базофіли (%)', Результати: 'gamno' },
+      ];
+             
+      useEffect(() => {
+        console.log(props.data);
+    }, []);
 
   return (
     <Card style={{
@@ -33,10 +37,10 @@ function BloodAnalysisTable(){
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item, index) => (
-                    <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#9FC5E8' : '#95BDE3' }}>
-                        <td style={{padding:'10px'}}>{item['Показник']}</td>
-                        <td style={{padding:'10px'}}>{item['Результати']}</td>
+                    {props.data.map((analysisProps) => (
+                    <tr style={{ backgroundColor: '#9FC5E8' }}>
+                        <td style={{padding:'10px'}}>{analysisProps.nameOfProperty}</td>
+                        <td style={{padding:'10px'}}>{analysisProps.number}</td>
                     </tr>
                     ))}
                 </tbody>

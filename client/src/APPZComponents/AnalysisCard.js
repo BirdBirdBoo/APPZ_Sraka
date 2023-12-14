@@ -12,7 +12,7 @@ function AnalysisCard(props) {
         alignItems: 'center',
       };
     return (
-        <CardGroup style={{padding:'10px'}} onClick={props.onClick}>
+        <CardGroup style={{padding:'10px'}} onClick={() => props.onClick(props.analysisId)}>
             <Card>
                 <Card.Body style={cardBodyStyle}>
                     <Card.Img style={{height:'50px', width:'50px'}} src='https://img.freepik.com/premium-vector/poop-pixel-style-vector-illustration_658931-84.jpg'/>
