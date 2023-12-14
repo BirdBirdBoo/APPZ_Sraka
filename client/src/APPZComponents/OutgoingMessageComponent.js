@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 import '../styles/styles.css';
 import img_user from '../icons/chat/user.png'
 
-function OutgoingMessageComponent(senderName, message){
+function OutgoingMessageComponent({senderName, message}){
   return (
     <div className="outgoing-message">
       <Card style={{ border: 'none', boxShadow: 'none' }}>

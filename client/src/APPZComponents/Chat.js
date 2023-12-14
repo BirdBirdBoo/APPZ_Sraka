@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import axios from "axios";
 import { Container, Row, Col } from 'react-bootstrap';
 import IncomingMessageComponent from './IncomingMessageComponent';
@@ -7,11 +7,11 @@ import MessageTextbox from './MessageTextbox';
 import { Card } from 'react-bootstrap';
 import AuthContext from "../AuthContext";
 
-function Chat(receiverId = null, isReceiverPatient = false) {
+function Chat({receiverId=null, isReceiverPatient=false}) {
   let context = useContext(AuthContext);
 
   const [messages, setMessages] = useState([]);
-  const [receiver, setReceiver] = useState([]);
+  const [receiver, setReceiver] = useState(null);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -25,7 +25,7 @@ function Chat(receiverId = null, isReceiverPatient = false) {
           const response = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId:  receiverId } });
           setReceiver(response.data);
         }else{
-          setReceiver(context.doctorData);
+          setReceiver(context.patientDoctorInfo.userData);
         }
 
         const responseAllMessages = await axios.post('https://localhost:7130/api/Chat/getAllMessages', {
@@ -44,7 +44,7 @@ function Chat(receiverId = null, isReceiverPatient = false) {
     };
 
     fetchMessages();
-  }, []);
+  }, [receiver]);
 
 
   return (
@@ -61,7 +61,7 @@ function Chat(receiverId = null, isReceiverPatient = false) {
         overflowY: 'auto'
       }}>
         {messages.map((msg, index) => (
-          msg["sender"]===context.userId 
+          msg.sender===context.userId 
           ? <OutgoingMessageComponent key={index} senderName={context.userData.firstName + " " + context.userData.secondName} message={msg.text} /> 
           : <IncomingMessageComponent key={index} senderName={receiver.firstName + " " + receiver.secondName} message={msg.text} />
         ))}
