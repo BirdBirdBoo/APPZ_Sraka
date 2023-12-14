@@ -1,9 +1,7 @@
 import { React, useEffect } from 'react';
 import { Card } from 'react-bootstrap';
 
-function AnalysisTable(props){
-      // Data for the table
-             
+function AnalysisTable(props){             
       useEffect(() => {
         console.log(props.data);
     }, []);
