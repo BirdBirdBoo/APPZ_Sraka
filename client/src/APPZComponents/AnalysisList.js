@@ -1,5 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
-import React, {useState, useEffect, useContext} from "react";
+import {React, useState, useEffect, useContext} from "react";
 import {Button, Card, InputGroup, Modal} from "react-bootstrap";
 import AnalysisCard from "./AnalysisCard";
 import AnalysisTable from "./AnalysisTable";
@@ -7,7 +6,6 @@ import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import AuthContext from "../AuthContext";
 import AuthContext from "../AuthContext";
 
 function AnalysisList({patientIdFromDoctor = null}) {
@@ -66,10 +64,10 @@ function AnalysisList({patientIdFromDoctor = null}) {
     function formPromt() {
         let requestData = {}
         
-        if(patientId){
+        if(patientIdFromDoctor){
             requestData = {
                 ...requestData,
-                "patientId": patientId ? patientId : context.userAsPatientId,
+                "patientId": patientIdFromDoctor ? patientIdFromDoctor : context.userAsPatientId,
             }
         }
         if(sortByName){
@@ -122,9 +120,13 @@ function AnalysisList({patientIdFromDoctor = null}) {
             .catch(err => console.log(err));
     }
 
-    function fetchPreviewAnalyzes()
+    function fetchPreviewAnalyzes(id)
     {
-        axios.get("https://localhost:7130/api/Analysis/getAnalyzes")
+        axios.get("https://localhost:7130/api/Analysis/getAnalyzes", {
+            params: {
+                "patientId": id
+            }
+        })
             .then(res => {
                 const allAnalyzes = res.data;
                 setAnalyzes(allAnalyzes);
@@ -136,7 +138,7 @@ function AnalysisList({patientIdFromDoctor = null}) {
     useEffect(() => {
         const patientIdDoctorOrPatientView = patientIdFromDoctor ? patientIdFromDoctor : authContext.userAsPatientInfo.patientId;
          console.log(patientIdDoctorOrPatientView)
-        fetchPreviewAnalyzes(patientIdDoctorOrPatientView);
+         fetchPreviewAnalyzes(patientIdDoctorOrPatientView);
     }, []);
 
     const [showModal, setShowModal] = useState(false);
