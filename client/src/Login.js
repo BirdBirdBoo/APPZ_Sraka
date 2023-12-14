@@ -47,10 +47,22 @@ export class LoginForm extends React.Component {
                 console.log(`Received GUID ${response.userId}`);
 
                 setStoredToken(response.token);
-
+                
                 this.context.isLoggedIn = true;
                 this.context.userId = response.userId;
+                this.context.userData = response.userData;
                 this.context.isAdmin = response.role === "Admin";
+                this.context.isDoctor = response.role === "Doctor";
+                this.context.isPatient = response.role === "Patient";
+    
+                this.context.userAsDoctorId = response.userAsDoctorId;
+                this.context.userAsDoctorInfo = response.userAsDoctorInfo;
+    
+                this.context.userAsPatientId = response.userAsPatientId;
+                this.context.userAsPatientInfo = response.userAsPatientInfo;
+    
+                this.context.patientDoctorId = response.patientDoctorId;
+                this.context.patientDoctorInfo = response.patientDoctorInfo;
 
                 this.handleResponse(true);
             })
