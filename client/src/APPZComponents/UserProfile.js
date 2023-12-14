@@ -1,6 +1,6 @@
 ﻿import React, {useContext} from 'react';
 import {Row, Col, Image, Card, Button} from 'react-bootstrap';
-import VerticalNavbar from './VerticalNavbar';
+import VerticalPatientNavbar from './VerticalPatientNavbar';
 import AuthContext from "../AuthContext";
 import authContext from "../AuthContext";
 import ApplicationPaths from "../paths";
@@ -48,14 +48,14 @@ function UserProfile() {
                             <strong>Дата народження:</strong> {context.userData.dateOfBirth}
                         </Card.Text>
 
-                        {/* Doctor's name */}
-                        {context.isPatient && <>
-                            <Card.Text>
-                                <strong>Лікар:</strong> {context.patientDoctorInfo?.userData?.firstName} {context.patientDoctorInfo?.userData?.secondName}
-                            </Card.Text>
-                        </>}
-                    </Col>
-                </Row>
+                    {/* Doctor's name */}
+                    {context.isPatient && <>
+                        <Card.Text>
+                            <strong>Лікар:</strong> {context.patientDoctorInfo?.userData?.firstName} {context.patientDoctorInfo?.userData?.secondName}
+                        </Card.Text>
+                    </>}
+                    <Button className="btn-style" style={{width:'300px'}}>Редагувати Профіль</Button>
+                </Col>
             </Card.Body>
         </Card>
     );
