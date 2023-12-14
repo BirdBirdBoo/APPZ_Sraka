@@ -1,14 +1,27 @@
 ﻿import AuthContext from "../AuthContext";
 import {useContext} from "react";
 import {Button, Col, Image, Row, Stack} from "react-bootstrap";
+import {useMediaQuery} from "react-responsive";
 import img_send from '../icons/chat/send.png'
 import Paths from "../paths";
+import {Component} from "@react-buddy/ide-toolbox";
+import {useBootstrapBreakpoints} from "react-bootstrap/ThemeProvider";
+import {useTheme} from "styled-components";
 
+
+const smallActionButtonStyle = {
+    border: 1,
+    padding: '0.3rem',
+    backgroundColor: '#459BFF',
+    margin: '0 0.5rem',
+    fontSize: '0.8rem',
+}
 
 export default function DoctorPatientsList() {
     let authContext = useContext(AuthContext);
+    let isLg = useMediaQuery({minWidth: 992})
+    console.log("isLg", isLg)
 
-    console.log("patients: ", authContext.userAsDoctorInfo);
 
     return (
         <div>
@@ -17,31 +30,30 @@ export default function DoctorPatientsList() {
             <Stack gap={3} className='mx-4'>
                 {authContext.userAsDoctorInfo.patients.map((patient, index) => {
                     return (
-                        <Row key={index} className='border-1 p-3 me-2 mb-4 i-am-blue-labadibabada'
+                        <Row key={index} className='border-1 py-3 me-2 mb-4 i-am-blue-labadibabada'
                              style={{borderStyle: 'solid'}}>
-                            <Stack direction='horizontal'>
-                                <Stack xs='6'>
+                            <Col xs={false} md={12} lg={5} className='px-3'>
+                                <Stack>
                                     <h6>{patient.userData.firstName} {patient.userData.secondName}</h6>
                                     <span>Дата народження: <strong>{patient.userData.dateOfBirth}</strong></span>
                                 </Stack>
-                                <Stack className='align-self-center ms-auto' direction='horizontal' gap={3}>
-                                    <Button style={{
-                                        border: 1,
-                                        padding: '0.4rem',
-                                        backgroundColor: '#459BFF',
-                                    }} href={`${Paths.AnalysisPage}?patient_id=${patient.patientId}`}>Аналізи</Button>
-                                    <Button style={{
-                                        border: 1,
-                                        padding: '0.4rem',
-                                        backgroundColor: '#459BFF',
-                                    }} href={`${Paths.ChartsPage}?patient_id=${patient.patientId}`}>Графіки</Button>
-                                    <Button style={{
-                                        border: 1,
-                                        padding: '0.4rem',
-                                        backgroundColor: '#459BFF',
-                                    }} href={`${Paths.PatientChat}?receiver_id=${patient.userId}`}>Перейти до чату</Button>
-                                </Stack>
-                            </Stack>
+                            </Col>
+                            <Col xs={false} md={false} lg={7} className={['px-3', isLg ? 'my-auto' : '']} style={
+                                {
+                                    textAlign: isLg ? 'right' : 'center',
+                                    marginTop: isLg ? '0' : '0.5rem'
+                                }
+                            }>
+                                {/*<Stack className='align-self-end ms-auto' direction='horizontal' gap={3}>*/}
+                                <Button style={smallActionButtonStyle}
+                                        href={`${Paths.AnalysisPage}?patient_id=${patient.patientId}`}>Аналізи</Button>
+                                <Button style={smallActionButtonStyle}
+                                        href={`${Paths.ChartsPage}?patient_id=${patient.patientId}`}>Графіки</Button>
+                                <Button style={smallActionButtonStyle}
+                                        href={`${Paths.PatientChat}?receiver_id=${patient.userId}`}>Перейти до
+                                    чату</Button>
+                                {/*</Stack>*/}
+                            </Col>
                         </Row>
                     )
                 })}
