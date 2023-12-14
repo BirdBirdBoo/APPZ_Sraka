@@ -3,6 +3,7 @@ import {Row, Col, Image, Card, Button} from 'react-bootstrap';
 import AuthContext from "../AuthContext";
 import authContext from "../AuthContext";
 import ApplicationPaths from "../paths";
+import moment from "moment";
 
 function UserProfile() {
     let context = useContext(AuthContext);
@@ -44,7 +45,7 @@ function UserProfile() {
 
                         {/* Date of birth */}
                         <Card.Text>
-                            <strong>Дата народження:</strong> {context.userData.dateOfBirth}
+                            <strong>Дата народження:</strong> {moment(context.userData.dateOfBirth).format("DD-MM-YYYY")}
                         </Card.Text>
 
                     {/* Doctor's name */}
