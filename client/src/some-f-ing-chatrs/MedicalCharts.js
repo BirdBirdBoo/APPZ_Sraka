@@ -1,5 +1,10 @@
 import {DateSeriesChart, TimeSeriesChart} from "./stolen-chart";
 import {Col, Row} from "react-bootstrap";
+import {React, useContext, useEffect, useState} from "react";
+import AuthContext from "../AuthContext";
+import axios from "axios";
+import AnalysisTable from "../APPZComponents/AnalysisTable";
+import moment from "moment";
 
 const someData = [
     {
@@ -197,7 +202,53 @@ const timeChart = [
     realisticBodyTemperatureData
 ]
 
-export default function MedicalCharts() {
+export default function MedicalCharts({patient_id: patientid}) {
+    let authContext = useContext(AuthContext);
+    let [charts, setCharts] = useState([]);
+
+    function fetchCharts(id) {
+        console.log("id", patientid)
+
+        axios.get('https://localhost:7130/api/Charts/getAnalyzes', {
+            params: {
+                "patientId": id
+            }
+        })
+            .then(res => {
+                const _charts = res.data;
+                setCharts(_charts);
+                console.log(_charts);
+            })
+            .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        if (!patientid) {
+            patientid = authContext.userAsPatientId;
+        }
+        fetchCharts(patientid);
+    }, []);
+
+    function selectUnitFmt(units) {
+        if (String(units).toLowerCase() === "celsius") {
+            return (value) => `${value}°C`;
+        }
+
+        return (value) => `${value}`;
+    }
+
+    function selectTooltipFmt(units) {
+        if (String(units).toLowerCase() === "celsius") {
+            return celsiusTimeFormat;
+        }
+
+        return (time, value) => [`${value}`, `Time: ${moment(time).format("HH:MM")}`];
+    }
+
+    function celsiusTimeFormat(time, value) {
+        return [`${value} °C`, `Time: ${moment(time).format("HH:MM")}`];
+    }
+
     return (
         <>
             <Col style={{
@@ -208,15 +259,19 @@ export default function MedicalCharts() {
                 <h1 className="p-3">Графіки показників</h1>
 
                 <Row>
-                    {charts.map((data, index) => {
+                    {charts.map((c, index) => {
+                        let title = c.name;
+                        const data = c.properties;
+                        const units = data[0].metric;
+                        const unitFormatFunc = selectUnitFmt(units);
+                        const tooltipFormatFunc = selectTooltipFmt(units);
+                        console.log(data)
                         return (
-                            <DateSeriesChart key={index} getData={data}/>
+                            <TimeSeriesChart key={index} getData={data} title={title}
+                                             tooltipFormatFunc={tooltipFormatFunc}
+                                             unitFormatFunc={unitFormatFunc}/>
                         )
-                    }).concat(timeChart.map((data, index) => {
-                        return (
-                            <TimeSeriesChart key={index + charts.length} getData={data}/>
-                        )
-                    }))}
+                    })}
                 </Row>
             </Col>
         </>

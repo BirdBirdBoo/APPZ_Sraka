@@ -54,6 +54,18 @@ function App() {
         return <AnalysisList/>;
     }
 
+    function getMedicalCharts() {
+        if (location.search) {
+            const params = new URLSearchParams(location.search);
+            const patientId = params.get('patient_id');
+
+            if (patientId) {
+                return <MedicalCharts patientid={patientId}/>;
+            }
+        }
+        return <MedicalCharts/>;
+    }
+
     return (
         <Row className="MOVIcontainer" style={{margin: '0px', height: '100%'}}>
             <VerticalNavbar/>
@@ -61,7 +73,7 @@ function App() {
             <Col className="content" style={{margin: '0px', height: '100%', paddingRight: 0}}>
                 {targetLocation.isPatientProfile && <UserProfile/>}
                 {targetLocation.isPatientChat && getChat()}
-                {targetLocation.isStatsPage && <MedicalCharts/>}
+                {targetLocation.isStatsPage && getMedicalCharts()}
                 {targetLocation.isPatientsPage && <DoctorPatientsList/>}
                 {targetLocation.isAnalysisPage && getAnalyzes()}
                 {targetLocation.isCalendarPage && <Calendar/>}

@@ -24,7 +24,7 @@ const formatData = data =>
 
 
 const formatTimeData = data =>
-    data.map(({id, amount, hourOfDay, minuteOfHour=0}) => {
+    data.map(({id, amount, hourOfDay, minuteOfHour = 0}) => {
         return {
             id,
             value: amount,
@@ -53,7 +53,7 @@ export const DateSeriesChart = (
         getData,
         endTime = undefined,
         title = "A chart, what more could you want",
-        tooltipFormatFunc
+        tooltipFormatFunc = defaultDateFormat
     }) => {
     // Constants
     const oneMonth = 30;
@@ -84,7 +84,7 @@ export const DateSeriesChart = (
         }
     }
     const filteredData = formattedData.filter(({time}) =>
-        moment(time).isAfter(endTime.subtract(getDateUnit, "days"))
+        moment(time).isAfter(endTime.clone().subtract(getDateUnit, "days"))
     );
     const sortedData = filteredData.sort((a, b) => b.time - a.time);
 
@@ -110,7 +110,7 @@ export const DateSeriesChart = (
                         lineJointType="monotoneX"
                         name="Values"
                     />
-                    <Tooltip content={<CustomTooltip fmtFunc={defaultFormat}/>}/>
+                    <Tooltip content={<CustomTooltip fmtFunc={tooltipFormatFunc}/>}/>
                     <CartesianGrid strokeDasharray="3 3"/>
                 </ScatterChart>
             </ResponsiveContainer>
@@ -141,7 +141,7 @@ export const DateSeriesChart = (
         </Col>
     );
 
-    function defaultFormat(time, value) {
+    function defaultDateFormat(time, value) {
         console.log("value", value, "time", time)
         return [`Amt: ${value}`, `Date: ${moment(time).format("DD-MM-YYYY")}`];
     }
@@ -152,7 +152,8 @@ export const TimeSeriesChart = (
         getData,
         endTime = undefined,
         title = "A time chart, what more could you want",
-        tooltipFormatFunc
+        unitFormatFunc = (v) => `${v}`,
+        tooltipFormatFunc = defaultTimeFormat
     }) => {
     // Constants
     const oneHour = 60;
@@ -179,13 +180,15 @@ export const TimeSeriesChart = (
 
     if (endTime === undefined) {
         if (formattedData.length > 0) {
-            endTime = moment(max(formattedData, ({time}) => time));
+            endTime = moment();
         } else {
             endTime = moment();
         }
     }
+    console.log('endTime', endTime, "startTime", endTime.clone().subtract(getDateUnit, "minutes"), "getDateUnit", getDateUnit, "minutes")
     const filteredData = formattedData.filter(({time}) =>
-        moment(time).isAfter(endTime.subtract(getDateUnit, "minutes"))
+        moment(time).isAfter(endTime.clone().subtract(getDateUnit, "minutes")) &&
+        moment(time).isBefore(endTime)
     );
     console.log("filteredData", filteredData)
     const sortedData = filteredData.sort((a, b) => b.time - a.time);
@@ -204,7 +207,7 @@ export const TimeSeriesChart = (
                         tickFormatter={unixTime => moment(unixTime).format("HH:MM")}
                         type="number"
                     />
-                    <YAxis dataKey="value" name="Value"/>
+                    <YAxis dataKey="value" name="Value" tickFormatter={unitFormatFunc}/>
                     <Scatter
                         data={sortedData}
                         line={{stroke: "#d3d3d3"}}
@@ -212,7 +215,7 @@ export const TimeSeriesChart = (
                         lineJointType="monotoneX"
                         name="Values"
                     />
-                    <Tooltip content={<CustomTooltip fmtFunc={defaultTimeFormat}/>}/>
+                    <Tooltip content={<CustomTooltip fmtFunc={tooltipFormatFunc}/>}/>
                     <CartesianGrid strokeDasharray="3 3"/>
                 </ScatterChart>
             </ResponsiveContainer>
@@ -242,11 +245,6 @@ export const TimeSeriesChart = (
             </BtnBox>
         </Col>
     );
-
-    function defaultDateFormat(time, value) {
-        console.log("value", value, "time", time)
-        return [`Amt: ${value}`, `Date: ${moment(time).format("DD-MM-YYYY")}`];
-    }
 
     function defaultTimeFormat(time, value) {
         console.log("value", value, "time", time)
