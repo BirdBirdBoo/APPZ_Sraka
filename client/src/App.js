@@ -47,13 +47,13 @@ function App() {
     function getAnalyzes() {
         if (location.search) {
             const params = new URLSearchParams(location.search);
-            const receiverId = params.get('patient_id');
+            const patientId = params.get('patient_id');
             
-            if (receiverId) {
-                return <Chat receiverId={receiverId}/>;
+            if (patientId) {
+                return <AnalysisList patientIdFromDoctor={patientId}/>;
             }
         }
-        return <Chat/>;
+        return <AnalysisList/>;
     }
 
     return (
@@ -71,7 +71,7 @@ function App() {
                 {targetLocation.isPatientChat && getChat()}
                 {targetLocation.isStatsPage && <MedicalCharts/>}
                 {targetLocation.isPatientsPage && <DoctorPatientsList/>}
-                {targetLocation.isAnalysisPage && <AnalysisList/>}
+                {targetLocation.isAnalysisPage && getAnalyzes()}
             </Col>
         </Row>
     )

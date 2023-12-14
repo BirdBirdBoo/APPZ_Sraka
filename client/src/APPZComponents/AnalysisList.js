@@ -5,7 +5,7 @@ import AnalysisTable from "./AnalysisTable";
 import axios from "axios";
 import AuthContext from "../AuthContext";
 
-function AnalysisList() {
+function AnalysisList({patientIdFromDoctor = null}) {
     const [analyzes, setAnalyzes] = useState([]);
     const [analysisProps, setAnalysisProps] = useState([]);
     
@@ -49,8 +49,9 @@ function AnalysisList() {
     }
 
     useEffect(() => {
-        console.log(authContext.userAsPatientInfo.patientId)
-        fetchPreviewAnalyzes(authContext.userAsPatientInfo.patientId);
+        const patientIdDoctorOrPatientView = patientIdFromDoctor ? patientIdFromDoctor : authContext.userAsPatientInfo.patientId;
+         console.log(patientIdDoctorOrPatientView)
+        fetchPreviewAnalyzes(patientIdDoctorOrPatientView);
     }, []);
 
     const [showModal, setShowModal] = useState(false);

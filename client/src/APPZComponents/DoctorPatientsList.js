@@ -29,7 +29,7 @@ export default function DoctorPatientsList() {
                                         border: 1,
                                         padding: '0.4rem',
                                         backgroundColor: '#459BFF',
-                                    }}>Аналізи</Button>
+                                    }} href={`${Paths.AnalysisPage}?patient_id=${patient.patientId}`}>Аналізи</Button>
                                     <Button style={{
                                         border: 1,
                                         padding: '0.4rem',
