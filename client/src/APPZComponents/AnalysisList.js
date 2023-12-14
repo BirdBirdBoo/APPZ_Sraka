@@ -64,12 +64,11 @@ function AnalysisList({patientIdFromDoctor = null}) {
     function formPromt() {
         let requestData = {}
         
-        if(patientIdFromDoctor){
-            requestData = {
-                ...requestData,
-                "patientId": patientIdFromDoctor ? patientIdFromDoctor : context.userAsPatientId,
-            }
+        requestData = {
+            ...requestData,
+            "patientId": patientIdFromDoctor ? patientIdFromDoctor : context.userAsPatientId,
         }
+
         if(sortByName){
             requestData = {
                 ...requestData,
