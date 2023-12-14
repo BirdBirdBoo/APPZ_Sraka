@@ -68,9 +68,9 @@ export class RegisterForm extends React.Component {
     render() {
         return (
             <ThemeProvider>
-                <div className="px-4 px-sm-0">
+                <div className="px-0 px-sm-0">
                     <Form onSubmit={this.handleSubmit}
-                          className="mt-3 mb-3 rounded-0 col-4 offset-4 i-am-blue-labadibabada">
+                          className="mt-3 mb-3 rounded-0 col-md-4 col-sm-8 offset-md-4 offset-sm-2 i-am-blue-labadibabada">
                         <h4 className="text-center py-1" style={{background: '#82BBFF'}}>Реєстрація</h4>
                         <Form.Group className="p-4">
                             <Form.Group className="mb-3">
@@ -128,10 +128,10 @@ export class RegisterForm extends React.Component {
                             {this.state.isSuccessful && <Navigate to={ApplicationPaths.RootPath}/>}
 
                             <Row className='mb-3 mx-1'>
-                                <button type="submit" className='btn-style-small submit'>Зареєструватись</button>
+                                <button type="submit" className='btn-style small submit'>Зареєструватись</button>
                             </Row>
                             <Row className='mx-1'>
-                                <Button className='btn-style-small'
+                                <Button className='btn-style small'
                                         type="button"
                                         href={ApplicationPaths.LoginPage}>
                                     Увійти
