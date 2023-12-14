@@ -72,7 +72,7 @@ function parseTargetLocation(location) {
         isRoot: pathname === ApplicationPaths.RootPath,
         isPatientProfile: pathname === ApplicationPaths.ProfilePage,
         isPatientChat: pathname === ApplicationPaths.PatientChat,
-        isStatsPage: pathname === ApplicationPaths.StatsPage,
+        isStatsPage: pathname === ApplicationPaths.ChartsPage,
         isPatientsPage: pathname === ApplicationPaths.PatientsPage,
         isAnalysisPage: pathname === ApplicationPaths.AnalysisPage,
     }

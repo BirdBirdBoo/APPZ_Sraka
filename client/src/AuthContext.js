@@ -109,6 +109,26 @@ if (isDesignMode) {
             ]
         }
     }
+
+    if (isPatient) {
+        userAsPatientInfo = {
+            "patientId": "test-user-as-patient-id",
+            "userId": "c00d7002-2bcd-4d15-9bfb-8faea694ced8",
+            "doctorId": "503a7d52-7965-4d94-bfe1-cf903c8c0a5f",
+            "bloodType": "3+",
+            "allergens": "горіхи",
+            "userData": {
+                "userId": "c00d7002-2bcd-4d15-9bfb-8faea694ced8",
+                "email": "maksym.pat@gmail.com",
+                "dateOfBirth": "1990-07-07",
+                "role": "Patient",
+                "firstName": "Максим",
+                "secondName": "Оса",
+                "phoneNumber": "+380 97 000 00 14"
+            }
+        }
+        userAsPatientId = "test-user-as-patient-id";
+    }
 }
 
 const AuthContext = React.createContext({

@@ -1,4 +1,5 @@
-﻿using Server.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using Server.Extensions;
 using Server.Models.Dtos;
 using Server.Models.Requests;
 using Server.Repositories;
@@ -25,6 +26,7 @@ namespace Server.Services
                 .FilterByDate(analysisFilterRequest)
                 .FilterByType(analysisFilterRequest)
                 .OrderByDate(analysisFilterRequest)
+                .Include(a => a.Patient)
                 .SelectOnlyBeyondNorm(analysisFilterRequest, _criticalDefinerService);
 
             var analyzesFilteredDto = new AnalyzesFilteredDto(result.Item1, result.Item2!);

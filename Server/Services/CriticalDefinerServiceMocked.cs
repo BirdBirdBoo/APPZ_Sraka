@@ -10,21 +10,21 @@ namespace Server.Services
         private const double CriticalDeltaThreshold = 0.3;
 
         public IEnumerable<AnalysisDto> Define(AnalysisEntity analysis)
-
         {
             var data = JsonConvert.DeserializeObject<AnalysisDto[]>(analysis.Data!);
+            var random = CreateSeededMockRandom(analysis);
 
-            if(data == null)
+            if (data == null)
             {
                 throw new NullReferenceException("Analysis data is empty");
             }
 
             foreach (var analysisData in data)
             {
-                if (DoCreateMock())
+                if (DoCreateMock(random))
                 {
                     var number = analysisData.Number;
-                    var delta = GetRandomNumber(-number * MockedDeltaInPercent, number * MockedDeltaInPercent);
+                    var delta = GetRandomNumber(random, -number * MockedDeltaInPercent, number * MockedDeltaInPercent);
                     analysisData.Delta = delta;
                     analysisData.IsCritical = (Math.Abs(delta) / number) >= CriticalDeltaThreshold;
                 }
@@ -33,17 +33,21 @@ namespace Server.Services
             return data;
         }
 
-        private bool DoCreateMock()
+        private Random CreateSeededMockRandom(AnalysisEntity entity)
         {
-            Random random = new();
-            random.Next(1, 100);
+            var seed = entity.Patient.PatientId.Value.GetHashCode();
+            seed += entity.Date.Date.GetHashCode();
+            seed += entity.Date.Hour;
+            return new Random(seed);
+        }
 
+        private bool DoCreateMock(Random random)
+        {
             return random.Next(1, 100) <= 50;
         }
 
-        public double GetRandomNumber(double minimum, double maximum)
+        private double GetRandomNumber(Random random, double minimum, double maximum)
         {
-            Random random = new Random();
             return random.NextDouble() * (maximum - minimum) + minimum;
         }
     }

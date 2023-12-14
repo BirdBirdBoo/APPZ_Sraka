@@ -109,8 +109,25 @@ const someData = [
     },
 ]
 
+const meanDailyHeartRate = [
+    {"id": 1, "amount": 70, "day": 1, "month": 1, "year": 2019},
+    {"id": 2, "amount": 75, "day": 2, "month": 1, "year": 2019},
+    {"id": 3, "amount": 80, "day": 3, "month": 1, "year": 2019},
+    {"id": 4, "amount": 72, "day": 4, "month": 1, "year": 2019},
+    {"id": 5, "amount": 78, "day": 5, "month": 1, "year": 2019},
+    {"id": 6, "amount": 85, "day": 6, "month": 1, "year": 2019},
+    {"id": 7, "amount": 88, "day": 7, "month": 1, "year": 2019},
+    {"id": 8, "amount": 90, "day": 8, "month": 1, "year": 2019},
+    {"id": 9, "amount": 82, "day": 9, "month": 1, "year": 2019},
+    {"id": 10, "amount": 79, "day": 10, "month": 1, "year": 2019},
+    {"id": 11, "amount": 75, "day": 11, "month": 1, "year": 2019},
+    {"id": 12, "amount": 70, "day": 12, "month": 1, "year": 2019},
+    {"id": 13, "amount": 68, "day": 13, "month": 1, "year": 2019},
+    {"id": 14, "amount": 72, "day": 14, "month": 1, "year": 2019}
+]
+
 const charts = [
-    someData, someData, someData, someData
+    someData, someData, someData, meanDailyHeartRate
 ]
 
 export default function MedicalCharts() {

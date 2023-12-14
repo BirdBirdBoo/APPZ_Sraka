@@ -11,8 +11,8 @@ namespace Server.Controllers;
 [Route("api/[controller]")]
 public class AnalysisController : ControllerBase
 {
-    private IAnalysisService _analysisService;
-    private IAnalysisFilterService _analysisFilterService;
+    private readonly IAnalysisService _analysisService;
+    private readonly IAnalysisFilterService _analysisFilterService;
 
     public AnalysisController(IAnalysisService analysisService, IAnalysisFilterService analysisFilterService)
     {

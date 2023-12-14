@@ -39,7 +39,7 @@ root.render(
                 <Route path={ApplicationPaths.UserInfoPage} element={<UserInfo/>}/>
                 <Route path={ApplicationPaths.ProfilePage} element={<App/>}/>
                 <Route path={ApplicationPaths.PatientChat} element={<App/>}/>
-                <Route path={ApplicationPaths.StatsPage} element={<App/>}/>
+                <Route path={ApplicationPaths.ChartsPage} element={<App/>}/>
                 <Route path={ApplicationPaths.PatientsPage} element={<App/>}/>
                 <Route path={ApplicationPaths.AnalysisPage} element={<App/>}/>
             </Routes>
