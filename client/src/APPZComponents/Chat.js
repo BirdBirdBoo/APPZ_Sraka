@@ -7,7 +7,7 @@ import MessageTextbox from './MessageTextbox';
 import { Card } from 'react-bootstrap';
 import AuthContext from "../AuthContext";
 
-function Chat({receiverId=null, isReceiverPatient=false}) {
+function Chat({receiverId=null}) {
   let context = useContext(AuthContext);
 
   const [messages, setMessages] = useState([]);
@@ -18,31 +18,49 @@ function Chat({receiverId=null, isReceiverPatient=false}) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        if (isReceiverPatient) {
-          const response = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId:  receiverId } });
-          setReceiver(response.data);
-        }else{
-          setReceiver(context.patientDoctorInfo.userData);
-        }
+  const fetchMessages = async () => {
+    try {
+      if (receiverId) {
+        const response = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId:  receiverId } });
+        setReceiver(response.data);
+      }else{
+        setReceiver(context.patientDoctorInfo.userData);
+      }
 
-        const responseAllMessages = await axios.post('https://localhost:7130/api/Chat/getAllMessages', {
-          "first": context.userId,
-          "second": isReceiverPatient ? receiver : context.patientDoctorInfo.userId
+      const responseAllMessages = await axios.post('https://localhost:7130/api/Chat/getAllMessages', {
+        "first": context.userId,
+        "second": receiverId ? receiverId : context.patientDoctorInfo.userId
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      setMessages(responseAllMessages.data);
+      scrollToBottom();
+    } catch (error) {
+      console.error("Could not fetch messages:", error);
+    }
+  };
+
+  const handleSent = async (message) => {
+    try {
+        await axios.post('https://localhost:7130/api/Chat/send', {
+          "sender": context.userId,
+          "receiver": receiverId ? receiverId : context.patientDoctorInfo.userId,
+          "messageType": 0,
+          "text": message
         }, {
           headers: {
             'Content-Type': 'application/json'
           }
         });
-        setMessages(responseAllMessages.data);
-        scrollToBottom();
-      } catch (error) {
+        fetchMessages();
+    } catch (error) {
         console.error("Could not fetch messages:", error);
-      }
-    };
+    }
+  };
 
+  useEffect(() => {
     fetchMessages();
   }, [receiver]);
 
@@ -67,7 +85,7 @@ function Chat({receiverId=null, isReceiverPatient=false}) {
         ))}
         <div ref={messagesEndRef} />
       </Card.Body>
-      <MessageTextbox />
+      <MessageTextbox handleSent={handleSent}/>
     </Card>
   );
 };
