@@ -34,6 +34,11 @@ export default function DoctorPatientsList() {
                                         border: 1,
                                         padding: '0.4rem',
                                         backgroundColor: '#459BFF',
+                                    }} href={`${Paths.ChartsPage}?patient_id=${patient.patientId}`}>Графіки</Button>
+                                    <Button style={{
+                                        border: 1,
+                                        padding: '0.4rem',
+                                        backgroundColor: '#459BFF',
                                     }} href={`${Paths.PatientChat}?receiver_id=${patient.userId}`}>Перейти до чату</Button>
                                 </Stack>
                             </Stack>

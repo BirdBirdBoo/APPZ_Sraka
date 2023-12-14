@@ -20,6 +20,7 @@ function VerticalPatientNavbar() {
       <Button className="btn-style" href={ApplicationPaths.ProfilePage}>Профіль</Button>
       <Button className="btn-style" href={ApplicationPaths.PatientChat}>Зв'язатись з лікарем</Button>
       <Button className="btn-style" href={ApplicationPaths.AnalysisPage}>Аналізи</Button>
+      <Button className="btn-style" href={ApplicationPaths.ChartsPage}>Графіки</Button>
 
       {/* <Dropdown as={ButtonGroup} show={showDropdown} style={{ width: '100%' }} onToggle={() => setShowDropdown(!showDropdown)} onSelect={handleSelect}>
         <Dropdown.Toggle className="btn-style" id="dropdown-custom-components">
