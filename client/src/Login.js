@@ -99,10 +99,10 @@ export class LoginForm extends React.Component {
 
                         {/* place buttons side by side */}
                         <Row className='mb-3 mx-1'>
-                            <button type="submit" className='btn-style-small submit'>Увійти</button>
+                            <button type="submit" className='btn-style small submit'>Увійти</button>
                         </Row>
                         <Row className='mx-1'>
-                            <Button className='btn-style-small'
+                            <Button className='btn-style small'
                                     type="button"
                                     href={ApplicationPaths.RegisterPage}>
                                 Реєстрація

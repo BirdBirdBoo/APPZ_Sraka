@@ -1,9 +1,7 @@
 import './App.css';
-import VerticalDoctorNavbar from './APPZComponents/VerticalDoctorNavbar';
 import {Row, Col, Image, Card} from 'react-bootstrap';
-import DoctorProfile from './APPZComponents/DoctorProfile';
 import UserProfile from './APPZComponents/UserProfile';
-import VerticalPatientNavbar from './APPZComponents/VerticalPatientNavbar';
+import VerticalNavbar from './APPZComponents/VerticalNavbar';
 import Chat from './APPZComponents/Chat';
 import Calendar from './APPZComponents/Calendar';
 import {useCallback, useContext, useEffect, useState} from "react";
@@ -36,7 +34,7 @@ function App() {
         if (location.search) {
             const params = new URLSearchParams(location.search);
             const receiverId = params.get('receiver_id');
-            
+
             if (receiverId) {
                 return <Chat receiverId={receiverId}/>;
             }
@@ -46,14 +44,8 @@ function App() {
 
     return (
         <Row className="MOVIcontainer" style={{margin: '0px', height: '100%'}}>
-            <Col xs={3} className="side-menu" style={{
-                backgroundColor: '#B5D7FF',
-                display: 'flex',
+            <VerticalNavbar/>
 
-            }}>
-                {!context.isDoctor && <VerticalPatientNavbar/>}
-                {context.isDoctor && <VerticalDoctorNavbar/>}
-            </Col>
             <Col className="content" style={{margin: '0px', height: '100%', paddingRight: 0}}>
                 {targetLocation.isPatientProfile && <UserProfile/>}
                 {targetLocation.isPatientChat && getChat()}
