@@ -1,6 +1,5 @@
 ﻿import React, {useContext} from 'react';
 import {Row, Col, Image, Card, Button} from 'react-bootstrap';
-import VerticalPatientNavbar from './VerticalPatientNavbar';
 import AuthContext from "../AuthContext";
 import authContext from "../AuthContext";
 import ApplicationPaths from "../paths";
@@ -56,6 +55,7 @@ function UserProfile() {
                     </>}
                     <Button className="btn-style" style={{width:'300px'}}>Редагувати Профіль</Button>
                 </Col>
+                </Row>
             </Card.Body>
         </Card>
     );
