@@ -13,6 +13,7 @@ import ApplicationPaths from "./paths";
 import MedicalCharts from "./some-f-ing-chatrs/MedicalCharts";
 import BloodAnalysisTable from './APPZComponents/BloodAnalysis';
 import UrineAnalysisTable from './APPZComponents/UrineAnalysis';
+import AnalysisList from './APPZComponents/AnalysisList';
 
 import "./styles/styles.css";
 
@@ -42,6 +43,7 @@ function App() {
                 {targetLocation.isPatientProfile && <PatientProfile/>}
                 {targetLocation.isPatientChat && <Chat/>}
                 {targetLocation.isStatsPage && <MedicalCharts/>}
+                {targetLocation.isAnalysisPage && <AnalysisList/>}
             </Col>
         </Row>
     )
@@ -55,6 +57,7 @@ function parseTargetLocation(location) {
         isPatientProfile: pathname === ApplicationPaths.PatientProfile,
         isPatientChat: pathname === ApplicationPaths.PatientChat,
         isStatsPage: pathname === ApplicationPaths.StatsPage,
+        isAnalysisPage: pathname === ApplicationPaths.AnalysisPage,
     }
 }
 

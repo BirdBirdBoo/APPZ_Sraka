@@ -8,7 +8,8 @@ const ApplicationPaths = {
     UserInfoPage: `${RootPath}/userInfo`,
     PatientProfile: `${RootPath}/patientProfile`,
     PatientChat: `${RootPath}/patientChat`,
-    StatsPage: `${RootPath}/statsPage`
+    StatsPage: `${RootPath}/statsPage`,
+    AnalysisPage: `${RootPath}/analysisPage`
 }
 
 Object.seal(ApplicationPaths);
