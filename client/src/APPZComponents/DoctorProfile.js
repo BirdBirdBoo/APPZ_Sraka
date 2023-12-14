@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import {Row, Col, Image, Card } from 'react-bootstrap';
 import VerticalDoctorNavbar from './VerticalDoctorNavbar';

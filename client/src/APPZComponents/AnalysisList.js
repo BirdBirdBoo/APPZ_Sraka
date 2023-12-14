@@ -1,12 +1,16 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Button, Card, Modal} from "react-bootstrap";
 import AnalysisCard from "./AnalysisCard";
 import AnalysisTable from "./AnalysisTable";
 import axios from "axios";
+import AuthContext from "../AuthContext";
 
 function AnalysisList() {
     const [analyzes, setAnalyzes] = useState([]);
     const [analysisProps, setAnalysisProps] = useState([]);
+    
+    let authContext = useContext(AuthContext);
+
 
     function AddAnalysis() {
 
@@ -30,8 +34,12 @@ function AnalysisList() {
             .catch(err => console.log(err));
     }
 
-    function fetchPreviewAnalyzes() {
-        axios.get("https://localhost:7130/api/Analysis/getAnalyzes")
+    function fetchPreviewAnalyzes(patientId) {
+        axios.get("https://localhost:7130/api/Analysis/getAnalyzes", {
+            params: {
+                "patientId": patientId
+            }
+        })
             .then(res => {
                 const allAnalyzes = res.data;
                 setAnalyzes(allAnalyzes);
@@ -41,7 +49,8 @@ function AnalysisList() {
     }
 
     useEffect(() => {
-        fetchPreviewAnalyzes();
+        console.log(authContext.userAsPatientInfo.patientId)
+        fetchPreviewAnalyzes(authContext.userAsPatientInfo.patientId);
     }, []);
 
     const [showModal, setShowModal] = useState(false);

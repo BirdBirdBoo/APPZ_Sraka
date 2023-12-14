@@ -44,6 +44,18 @@ function App() {
         return <Chat/>;
     }
 
+    function getAnalyzes() {
+        if (location.search) {
+            const params = new URLSearchParams(location.search);
+            const receiverId = params.get('patient_id');
+            
+            if (receiverId) {
+                return <Chat receiverId={receiverId}/>;
+            }
+        }
+        return <Chat/>;
+    }
+
     return (
         <Row className="MOVIcontainer" style={{margin: '0px', height: '100%'}}>
             <Col xs={3} className="side-menu" style={{

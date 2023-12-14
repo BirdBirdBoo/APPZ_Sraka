@@ -9,6 +9,6 @@ public interface IAnalysisRepository
 
     Task<AnalysisEntity?> GetAnalysis(AnalysisId id, CancellationToken cancellationToken);
 
-    Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken cancellationToken);
+    Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(PatientId patientId, CancellationToken cancellationToken);
     IQueryable<AnalysisEntity> GetAllAnalyzesQueryable();
 }

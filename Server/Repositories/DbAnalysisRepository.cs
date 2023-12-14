@@ -42,11 +42,13 @@ public class DbAnalysisRepository : IAnalysisRepository
         return result.Entity;
     }
 
-    public async Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(CancellationToken cancellationToken)
+    public async Task<IEnumerable<AnalysisPreviewDto>> GetAllAnalyzes(PatientId patientId, CancellationToken cancellationToken)
     {
         var analyzes = await _appDbContext.Analyzes
-                                          .Select(a => a.ToPreview())
-                                          .ToListAsync();
+            .Include(a => a.Patient)
+            .Where(a => a.Patient.PatientId == patientId)
+            .Select(a => a.ToPreview())
+            .ToListAsync(cancellationToken: cancellationToken);
         return analyzes;
     }
 

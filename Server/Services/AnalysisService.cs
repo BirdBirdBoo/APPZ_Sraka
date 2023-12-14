@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Server.Migrations;
 using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
@@ -23,9 +24,9 @@ namespace Server.Services
             return analysis!;
         }
 
-        public async Task<IEnumerable<AnalysisPreviewDto>> GetAll(CancellationToken ct)
+        public async Task<IEnumerable<AnalysisPreviewDto>> GetAll(PatientId patientId, CancellationToken ct)
         {
-            return await _analysisRepository.GetAllAnalyzes(ct);
+            return await _analysisRepository.GetAllAnalyzes(patientId, ct);
         }
 
         public async Task<IEnumerable<AnalysisDto>> Get(AnalysisId analysisId, CancellationToken ct)
