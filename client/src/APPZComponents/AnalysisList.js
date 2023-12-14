@@ -97,6 +97,23 @@ function AnalysisList()
         </Modal>
         </>
     )
+
+    // return (
+    //     <div className="wrapper">
+    //       {posts.length > 0 ? (
+    //         <div className="content">
+    //           {posts.map((post) => (
+    //             <div className="post">
+    //               <h2>{post.title}</h2>
+    //               <p>{post.body}</p>
+    //             </div>
+    //           ))}
+    //         </div>
+    //       ) : (
+    //         <p className="loading">Loading... </p>
+    //       )}
+    //     </div>
+    //   );
 }
 
 export default AnalysisList;
