@@ -72,6 +72,7 @@ function App() {
                 {targetLocation.isStatsPage && <MedicalCharts/>}
                 {targetLocation.isPatientsPage && <DoctorPatientsList/>}
                 {targetLocation.isAnalysisPage && getAnalyzes()}
+                {targetLocation.isCalendarPage && <Calendar/>}
             </Col>
         </Row>
     )
@@ -87,6 +88,7 @@ function parseTargetLocation(location) {
         isStatsPage: pathname === ApplicationPaths.ChartsPage,
         isPatientsPage: pathname === ApplicationPaths.PatientsPage,
         isAnalysisPage: pathname === ApplicationPaths.AnalysisPage,
+        isCalendarPage: pathname === ApplicationPaths.CalendarPage,
     }
 }
 

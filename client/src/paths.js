@@ -10,6 +10,7 @@ const ApplicationPaths = {
     PatientChat: `${RootPath}/patientChat`,
     ChartsPage: `${RootPath}/chartsPage`,
     PatientsPage: `${RootPath}/patientsPage`,
+    CalendarPage: `${RootPath}/calendarPage`,
     AnalysisPage: `${RootPath}/analysisPage`
 }
 

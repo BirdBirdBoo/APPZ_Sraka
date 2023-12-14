@@ -9,7 +9,7 @@ html, body, #root {
 }
 
 
-.dropdown-item {
+/* .dropdown-item {
     color: black;
     background-color: #849FFF;
     text-align: center;
@@ -20,7 +20,7 @@ html, body, #root {
     padding: 10px;
     border-radius: 8px;
     margin: 20px;
-}
+} */
 
 
 .dropdown-item:hover, .dropdown-item:focus {
