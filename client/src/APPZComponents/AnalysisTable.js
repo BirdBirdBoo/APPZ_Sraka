@@ -26,8 +26,8 @@ function AnalysisTable(props){
                     {props.data.map((analysisProps) => (
                     <tr style={analysisProps.isCritical ? { backgroundColor: '#ff6673' }:{ backgroundColor: '#9FC5E8' }}>
                         <td style={{padding:'10px'}}>{analysisProps.nameOfProperty}</td>
-                        <td style={{padding:'10px'}}>{analysisProps.number}</td>
-                        <td style={{padding:'10px'}}>{analysisProps.delta}</td>
+                        <td style={{padding:'10px'}}>{analysisProps.number}{analysisProps.metric}</td>
+                        <td style={{padding:'10px'}}>{analysisProps.delta}{analysisProps.metric}</td>
                     </tr>
                     ))}
                 </tbody>
