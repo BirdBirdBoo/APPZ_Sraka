@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Button, Card, InputGroup, Modal} from "react-bootstrap";
 import AnalysisCard from "./AnalysisCard";
 import AnalysisTable from "./AnalysisTable";
@@ -6,28 +6,30 @@ import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import AuthContext from "../AuthContext";
 
-function AnalysisList() {
+function AnalysisList({patientId}) {
+    let context = useContext(AuthContext);
     const [analyzes, setAnalyzes] = useState([]);
     const [analysisProps, setAnalysisProps] = useState([]);
 
-    let [sortBy, setSortBy] = useState('');
-    let [critical, setCritical] = useState(false);
-    let [sortBy2, setSortBy2] = useState(0);
-    let [date1, setDate1] = useState('');
-    let [date2, setDate2] = useState('');
-    let [type, setType] = useState('');
+    let [sortByName, setSortByName] = useState(null);
+    let [critical, setCritical] = useState(null);
+    let [sortByOrder, setSortByOrder] = useState(null);
+    let [date1, setDate1] = useState(null);
+    let [date2, setDate2] = useState(null);
+    let [type, setType] = useState(null);
 
-    const handleSortByChange = (event) => {
-        setSortBy(event.target.value);
+    const handleSortByNameChange = (event) => {
+        setSortByName(event.target.value);
     };
 
     const handleCriticalByChange = (event) => {
         setCritical(event.currentTarget.checked);
     };
 
-    const handleSortBy2Change = (event) => {
-        setSortBy2(event);
+    const handleSortByOrderChange = (event) => {
+        setSortByOrder(event);
     };
 
     const handleDate1ByChange = (event) => {
@@ -57,7 +59,67 @@ function AnalysisList() {
             .catch(err => console.log(err));
     }
 
-    function fetchPreviewAnalyzes() {
+    function formPromt() {
+        let requestData = {}
+        
+        if(patientId){
+            requestData = {
+                ...requestData,
+                "patientId": patientId ? patientId : context.userAsPatientId,
+            }
+        }
+        if(sortByName){
+            requestData = {
+                ...requestData,
+                "name": sortByName,
+            }
+        }
+        if(date1){
+            requestData = {
+                ...requestData,
+                "firstDate": date1,
+            }
+        }
+        if(date2){
+            requestData = {
+                ...requestData,
+                "lastDate": date2,
+            }
+        }
+        if(type){
+            requestData = {
+                ...requestData,
+                "type": type,
+            }
+        }
+        if(critical){
+            requestData = {
+                ...requestData,
+                "onlyBeyondNorm": critical,
+            }
+        }
+        if(sortByOrder){
+            requestData = {
+                ...requestData,
+                "orderByDateType": Number(sortByOrder)
+            }
+        }
+
+        axios.post('https://localhost:7130/api/Analysis/filter', requestData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+          })
+            .then(res => {
+                const allAnalyzes = res.data.analysisPreviews;
+                setAnalyzes(allAnalyzes);
+                console.log(allAnalyzes);
+            })
+            .catch(err => console.log(err));
+    }
+
+    function fetchPreviewAnalyzes()
+    {
         axios.get("https://localhost:7130/api/Analysis/getAnalyzes")
             .then(res => {
                 const allAnalyzes = res.data;
@@ -65,16 +127,6 @@ function AnalysisList() {
                 console.log(allAnalyzes);
             })
             .catch(err => console.log(err));
-    }
-
-    function formPromt()
-    {
-        console.log(sortBy);
-        console.log(critical);
-        console.log(sortBy2);
-        console.log(date1);
-        console.log(date2);
-        console.log(type);
     }
 
     useEffect(() => {
@@ -98,20 +150,20 @@ function AnalysisList() {
             <Card style={{
                 border: 'none',
                 boxShadow: 'none',
-                height: '100%', // Ensure the Card takes up the full height of its container
-                display: 'flex', // Use flex layout
+                height: '100%', 
+                display: 'flex', 
                 flexDirection: 'column'
             }}>
                 <Card.Body>
                     <InputGroup className="mb-3">
-                        <Form.Control size="lg" type="text" value={sortBy} onChange={handleSortByChange} placeholder="Аналіз..." />
+                        <Form.Control size="lg" type="text" value={sortByName} onChange={handleSortByNameChange} placeholder="Аналіз..." />
                         <InputGroup.Text id="inputGroup-sizing-sm">Критичні:</InputGroup.Text>
                         <InputGroup.Checkbox aria-label="Показувати лише критичні" checked={critical} onChange={handleCriticalByChange}/>
                         <DropdownButton
                         variant="outline-secondary"
                         title="Сортувати за..."
                         id="input-group-dropdown-1"
-                        onSelect={handleSortBy2Change}>
+                        onSelect={handleSortByOrderChange}>
                         <Dropdown.Item eventKey={0}>За спаданнями</Dropdown.Item>
                         <Dropdown.Item eventKey={1}>За зростанням</Dropdown.Item>
                         </DropdownButton>
