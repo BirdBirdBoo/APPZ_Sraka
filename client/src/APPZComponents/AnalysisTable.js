@@ -25,7 +25,7 @@ function AnalysisTable(props){
                     <tr style={analysisProps.isCritical ? { backgroundColor: '#ff6673' }:{ backgroundColor: '#9FC5E8' }}>
                         <td style={{padding:'10px'}}>{analysisProps.nameOfProperty}</td>
                         <td style={{padding:'10px'}}>{analysisProps.number}{analysisProps.metric}</td>
-                        <td style={{padding:'10px'}}>{analysisProps.delta}{analysisProps.metric}</td>
+                        <td style={{padding:'10px'}}>{Number(analysisProps.delta.toPrecision(4))}{analysisProps.metric}</td>
                     </tr>
                     ))}
                 </tbody>

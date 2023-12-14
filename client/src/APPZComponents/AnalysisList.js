@@ -209,7 +209,7 @@ function AnalysisList({patientIdFromDoctor = null}) {
             </Card>
             <Modal size="lg" show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal Title</Modal.Title>
+                    <Modal.Title>Результати аналізу</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p>{analysisData}</p>
