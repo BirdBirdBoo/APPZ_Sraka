@@ -1,6 +1,7 @@
 // Calendar.js
 import React, {useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { formatDate } from '../dateFormatter';
 
 function Calendar(){
   // Example data
@@ -65,7 +66,7 @@ function Calendar(){
               {Object.keys(allAppointments).map((date) => (
                   <Row key={date} className="mt-4">
                   <Col>
-                      <h3>{date}</h3>
+                      <h3>{formatDate(date)}</h3>
                       {allAppointments[date].map((appointment) => (
                       <Card key={appointment.id} className="mb-2">
                           <Card.Body>

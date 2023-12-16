@@ -1,12 +1,13 @@
-import {useContext, useState} from 'react';
+import { useContext, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ApplicationPaths from '../paths';
+import { Route, Routes, NavLink } from 'react-router-dom';
 
 import '../styles/styles.css';
 import AuthContext from "../AuthContext";
-import {Col} from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 function VerticalNavbar() {
     const [expandSideBar, setExpandSideBar] = useState(false);
@@ -23,20 +24,33 @@ function VerticalNavbar() {
             display: 'flex',
         }}>
             <ButtonGroup vertical size="md" className="button-group-wrapper">
-
-                <Button className="btn-style" href={ApplicationPaths.ProfilePage}>Профіль</Button>
+                <NavLink to={ApplicationPaths.ProfilePage}>
+                    <Button className="btn-style">Профіль</Button>
+                </NavLink>
                 {context.isPatient && <>
-                    <Button className="btn-style" href={ApplicationPaths.PatientChat}>Зв'язатись з лікарем</Button>
-                    <Button className="btn-style" href={ApplicationPaths.AnalysisPage}>Аналізи</Button>
-                    <Button className="btn-style" href={ApplicationPaths.ChartsPage}>Графіки</Button>
+                    <NavLink to={ApplicationPaths.PatientChat}>
+                        <Button className="btn-style">Зв'язатись з лікарем</Button>
+                    </NavLink>
+                    <NavLink to={ApplicationPaths.AnalysisPage}>
+                        <Button className="btn-style">Аналізи</Button>
+                    </NavLink>
+                    <NavLink to={ApplicationPaths.ProfilePage}>
+                        <Button className="btn-style">Графіки</Button>
+                    </NavLink>
                 </>}
 
                 {context.isDoctor && <>
-                    <Button className="btn-style" href={ApplicationPaths.PatientsPage}>Пацієнти</Button>
-                    <Button className="btn-style" href={ApplicationPaths.CalendarPage}>Записи на прийом</Button>
+                    <NavLink to={ApplicationPaths.PatientsPage}>
+                        <Button className="btn-style">Пацієнти</Button>
+                    </NavLink>
+                    <NavLink to={ApplicationPaths.CalendarPage}>
+                        <Button className="btn-style">Записи на прийом</Button>
+                    </NavLink>
                 </>}
 
-                <Button className='btn-style danger' href={ApplicationPaths.LogoutPage}>Вийти</Button>
+                <NavLink to={ApplicationPaths.LogoutPage}>
+                    <Button className="btn-style danger">Вийти</Button>
+                </NavLink>
             </ButtonGroup>
         </Col>
     );
