@@ -175,7 +175,7 @@ html, body, #root {
 
 .card-text-incoming, .card-text-outcoming {
     color: #000000;
-    margin-left: 15%;
+    margin-left: 18%;
     padding-bottom: 10px;
 }
 
@@ -190,4 +190,13 @@ html, body, #root {
     border-radius: 4px;
     background-color: #B5D7FF;
     padding: 0.25rem;
+}
+
+.outgoing-annotation-link, .ingoing-annotation-link {
+    position: absolute;
+    right: 2%;
+    top: 10%;
+    text-decoration: none;
+    font-size: 0.85rem;
+    color: #000000;
 }
