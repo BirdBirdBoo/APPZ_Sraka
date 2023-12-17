@@ -34,7 +34,7 @@ function VerticalNavbar() {
                     <NavLink to={ApplicationPaths.AnalysisPage}>
                         <Button className="btn-style">Аналізи</Button>
                     </NavLink>
-                    <NavLink to={ApplicationPaths.ProfilePage}>
+                    <NavLink to={ApplicationPaths.ChartsPage}>
                         <Button className="btn-style">Графіки</Button>
                     </NavLink>
                 </>}
