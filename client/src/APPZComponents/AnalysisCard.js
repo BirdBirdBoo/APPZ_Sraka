@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardGroup } from "react-bootstrap";
-
+import { formatDate } from "../dateFormatter";
 
 function AnalysisCard(props) {
 
@@ -19,11 +19,6 @@ function AnalysisCard(props) {
         justifyContent: 'space-between',
         alignItems: 'center',
       };
-    const formatDateString = (dateString) => {
-    const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
-    return formattedDate;
-    };
 
     console.log(icons[props.type])
 
@@ -42,7 +37,7 @@ function AnalysisCard(props) {
             </Card>
             <Card>
                 <Card.Body style={{...cardBodyStyle, cursor:'pointer'}}>
-                    <Card.Text style={{ ...cardTextStyle}}>{formatDateString(props.date)}</Card.Text>
+                    <Card.Text style={{ ...cardTextStyle}}>{formatDate(props.date)}</Card.Text>
                 </Card.Body>
             </Card>
         </CardGroup>

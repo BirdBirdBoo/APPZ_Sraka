@@ -4,13 +4,11 @@ import UserProfile from './APPZComponents/UserProfile';
 import VerticalNavbar from './APPZComponents/VerticalNavbar';
 import Chat from './APPZComponents/Chat';
 import Calendar from './APPZComponents/Calendar';
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import AuthContext from "./AuthContext";
 import {Navigate, useLocation} from "react-router-dom";
 import ApplicationPaths from "./paths";
 import MedicalCharts from "./some-f-ing-chatrs/MedicalCharts";
-import BloodAnalysisTable from './APPZComponents/AnalysisTable';
-import UrineAnalysisTable from './APPZComponents/UrineAnalysis';
 import AnalysisList from './APPZComponents/AnalysisList';
 
 import "./styles/styles.css";

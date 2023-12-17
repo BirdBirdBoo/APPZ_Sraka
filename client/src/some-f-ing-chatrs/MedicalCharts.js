@@ -202,7 +202,7 @@ const timeChart = [
     realisticBodyTemperatureData
 ]
 
-export default function MedicalCharts({patient_id: patientid}) {
+export default function MedicalCharts({patientid}) {
     let authContext = useContext(AuthContext);
     let [charts, setCharts] = useState([]);
 
