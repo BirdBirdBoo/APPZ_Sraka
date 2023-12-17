@@ -102,7 +102,7 @@ export class LoginForm extends React.Component {
                             <button type="submit" className='btn-style small submit'>Увійти</button>
                         </Row>
                         <Row className='mx-1'>
-                            <NavLink to={ApplicationPaths.RegisterPage}>
+                            <NavLink to={ApplicationPaths.RegisterPage} className='p-0' >
                                 <Button 
                                 className='btn-style small'
                                 type="button">Реєстрація</Button>

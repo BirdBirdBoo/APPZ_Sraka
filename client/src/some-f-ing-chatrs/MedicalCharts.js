@@ -248,29 +248,29 @@ export default function MedicalCharts({patientid}) {
             return celsiusTimeFormat;
         }
 
-        return (time, value) => [`${value}`, `Time: ${moment(time).format("HH:MM")}`];
+        return (time, value) => [`${value}`, `Time: ${moment(time).format("HH:mm")}`];
     }
 
     function celsiusTimeFormat(time, value) {
-        return [`${value} °C`, `Time: ${moment(time).format("HH:MM")}`];
+        return [`${value} °C`, `Time: ${moment(time).format("HH:mm")}`];
     }
-    
+
     const exportPDF = async () => {
         const input = document.getElementById('charts-container');
         const inputChildrens = input.children;
         const pdf = new jsPDF();
-        
+
         for (let i = 0; i < inputChildrens.length; i++) {
             const children = inputChildrens[i];
             const canvas = await html2canvas(children, {windowHeight: '1200px'});
             const imgData = canvas.toDataURL('image/png');
             pdf.addImage(imgData, 'PNG', 0, 0);
-    
+
             if (i < inputChildrens.length - 1) {
                 pdf.addPage();
             }
         }
-        
+
         pdf.save("download.pdf");
     }
 
@@ -292,7 +292,7 @@ export default function MedicalCharts({patientid}) {
                         const tooltipFormatFunc = selectTooltipFmt(units);
                         console.log(data)
                         return (
-                            <TimeSeriesChart key={index} getData={data} title={title +" Дата збору даних: "+ formatDate(date)}
+                            <TimeSeriesChart key={index} getData={data} title={title +"\nДата збору даних: "+ formatDate(date)}
                                              tooltipFormatFunc={tooltipFormatFunc}
                                              unitFormatFunc={unitFormatFunc}/>
                         )

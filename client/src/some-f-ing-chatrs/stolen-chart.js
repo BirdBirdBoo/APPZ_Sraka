@@ -92,7 +92,7 @@ export const DateSeriesChart = (
     return (
         <Col style={{minWidth: "24vw", maxWidth: "24vw", height: "40vh", marginBottom: 64}}
              className='py-2'>
-            <h5 className='ms-4'>{title}</h5>
+            {title.split("\n").map((line, i) => <h5 key={i} className='ms-4'>{line}</h5>)}
             <ResponsiveContainer>
                 <ScatterChart>
                     <XAxis
@@ -180,7 +180,7 @@ export const TimeSeriesChart = (
 
     if (endTime === undefined) {
         if (formattedData.length > 0) {
-            endTime = moment();
+            endTime = moment(max(formattedData, ({time}) => time));
         } else {
             endTime = moment();
         }
@@ -197,14 +197,14 @@ export const TimeSeriesChart = (
     return (
         <Col style={{minWidth: "24vw", maxWidth: "24vw", height: "40vh", marginBottom: 64}}
              className='py-2'>
-            <h5 className='ms-4'>{title}</h5>
+            {title.split("\n").map((line, i) => <h5 key={i} className='ms-4'>{line}</h5>)}
             <ResponsiveContainer>
                 <ScatterChart>
                     <XAxis
                         dataKey="time"
                         domain={["auto", "auto"]}
                         name="Time"
-                        tickFormatter={unixTime => moment(unixTime).format("HH:MM")}
+                        tickFormatter={unixTime => moment(unixTime).format("HH:mm")}
                         type="number"
                     />
                     <YAxis dataKey="value" name="Value" tickFormatter={unitFormatFunc}/>
@@ -248,6 +248,6 @@ export const TimeSeriesChart = (
 
     function defaultTimeFormat(time, value) {
         console.log("value", value, "time", time)
-        return [`Amt: ${value}`, `Date: ${moment(time).format("HH:MM")}`];
+        return [`Amt: ${value}`, `Date: ${moment(time).format("HH:mm")}`];
     }
 };

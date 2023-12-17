@@ -3,7 +3,7 @@ import { Button, Form, Row, ThemeProvider } from "react-bootstrap";
 import $ from "jquery";
 import { registerUrl, setStoredToken } from "./api";
 import AppNavbar from "./AppNavbar";
-import { Navigate } from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import AuthContext from "./AuthContext";
 import ApplicationPaths from "./paths";
 
@@ -131,8 +131,8 @@ export class RegisterForm extends React.Component {
                                 <button type="submit" className='btn-style small submit'>Зареєструватись</button>
                             </Row>
                             <Row className='mx-1'>
-                                <NavLink to={ApplicationPaths.LoginPage}>
-                                    <Button className="btn-style small" type="button">Увійти</Button>
+                                <NavLink to={ApplicationPaths.LoginPage} className='p-0'>
+                                <Button className="btn-style small" type="button">Увійти</Button>
                                 </NavLink>
                             </Row>
                         </Form.Group>
