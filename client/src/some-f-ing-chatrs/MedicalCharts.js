@@ -6,6 +6,11 @@ import axios from "axios";
 import AnalysisTable from "../APPZComponents/AnalysisTable";
 import moment from "moment";
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+import "../styles/styles.css"
+
 const someData = [
     {
         id: 1,
@@ -248,6 +253,25 @@ export default function MedicalCharts({patientid}) {
     function celsiusTimeFormat(time, value) {
         return [`${value} °C`, `Time: ${moment(time).format("HH:MM")}`];
     }
+    
+    const exportPDF = async () => {
+        const input = document.getElementById('charts-container');
+        const inputChildrens = input.children;
+        const pdf = new jsPDF();
+        
+        for (let i = 0; i < inputChildrens.length; i++) {
+            const children = inputChildrens[i];
+            const canvas = await html2canvas(children, {windowHeight: '1200px'});
+            const imgData = canvas.toDataURL('image/png');
+            pdf.addImage(imgData, 'PNG', 0, 0);
+    
+            if (i < inputChildrens.length - 1) {
+                pdf.addPage();
+            }
+        }
+        
+        pdf.save("download.pdf");
+    }
 
     return (
         <>
@@ -257,8 +281,7 @@ export default function MedicalCharts({patientid}) {
                 height: '100%'
             }}>
                 <h1 className="p-3">Графіки показників</h1>
-
-                <Row>
+                <Row id="charts-container">
                     {charts.map((c, index) => {
                         let title = c.name;
                         const data = c.properties;
@@ -273,6 +296,9 @@ export default function MedicalCharts({patientid}) {
                         )
                     })}
                 </Row>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <button className="btn-style-pdf-export" onClick={exportPDF}>Експортувати у PDF</button>
+                </div>
             </Col>
         </>
     );
