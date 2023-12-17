@@ -200,3 +200,21 @@ html, body, #root {
     font-size: 0.85rem;
     color: #000000;
 }
+
+.link-icon-incoming {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    right: -12%;
+    bottom: 1%;
+}
+
+.link-icon-outcoming {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: absolute;
+    left: -12%;
+    bottom: 1%;
+}
