@@ -4,7 +4,7 @@ import $ from "jquery";
 import { authUrl, setStoredToken } from "./api";
 import AppNavbar from "./AppNavbar";
 import AuthContext from "./AuthContext";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import ApplicationPaths from "./paths";
 
 export class LoginForm extends React.Component {

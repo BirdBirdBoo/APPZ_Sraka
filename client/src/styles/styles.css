@@ -95,6 +95,27 @@ html, body, #root {
     border-color: #459BFF;
 }
 
+.btn-style-pdf-export {
+    background-color: #6D9EEB;
+    border: 1px solid #6D9EEB !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    color: white;
+    box-shadow: none;
+    padding: 0.25rem !important;
+    font-size: 1.25rem !important;
+    text-align: center;
+    width: 25%;
+    margin-top: 1rem;
+    margin-right: 1.1rem;
+}
+
+.btn-style-pdf-export:hover, .btn-style-pdf-export:focus {
+    background-color: #459BFF;
+    text-decoration: none;
+    border-color: #459BFF;
+}
+
 .button-group-wrapper {
     margin: 0;
     padding: 0.75rem 0.25rem 0.25rem;
