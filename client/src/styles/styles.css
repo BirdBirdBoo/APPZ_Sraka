@@ -43,7 +43,7 @@ html, body, #root {
     box-shadow: none !important;
     color: black;
     box-shadow: none;
-    padding: 0.25rem !important;
+    padding: 0.25rem 0.5rem !important;
     font-size: 1.25rem !important;
     text-align: center;
     width: 100%;
