@@ -8,6 +8,7 @@ import moment from "moment";
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { formatDate } from "../dateFormatter";
 
 import "../styles/styles.css"
 
@@ -284,16 +285,18 @@ export default function MedicalCharts({patientid}) {
                 <Row id="charts-container">
                     {charts.map((c, index) => {
                         let title = c.name;
+                        let date = c.date;
                         const data = c.properties;
                         const units = data[0].metric;
                         const unitFormatFunc = selectUnitFmt(units);
                         const tooltipFormatFunc = selectTooltipFmt(units);
                         console.log(data)
                         return (
-                            <TimeSeriesChart key={index} getData={data} title={title}
+                            <TimeSeriesChart key={index} getData={data} title={title +" Дата збору даних: "+ formatDate(date)}
                                              tooltipFormatFunc={tooltipFormatFunc}
                                              unitFormatFunc={unitFormatFunc}/>
                         )
+
                     })}
                 </Row>
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
