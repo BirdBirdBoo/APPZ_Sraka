@@ -1,0 +1,16 @@
+.analysis-table-row:hover {
+    background-color: lightgray;
+}
+
+.analysis-table-row:hover .add-annotation-button {
+    display: inline-block;
+}
+
+.add-annotation-button {
+    display: none;
+    /* transition: fill 0.3s; */
+}
+
+.add-annotation-button:hover {
+    cursor: pointer;
+}

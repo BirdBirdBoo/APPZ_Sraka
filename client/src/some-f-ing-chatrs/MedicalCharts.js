@@ -1,9 +1,8 @@
-import {DateSeriesChart, TimeSeriesChart} from "./stolen-chart";
+import {TimeSeriesChart} from "./stolen-chart";
 import {Col, Row} from "react-bootstrap";
 import {React, useContext, useEffect, useState} from "react";
 import AuthContext from "../AuthContext";
 import axios from "axios";
-import AnalysisTable from "../APPZComponents/AnalysisTable";
 import moment from "moment";
 
 const someData = [

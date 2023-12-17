@@ -1,4 +1,5 @@
-﻿using Server.Models.Entities;
+﻿using Server.Models.Dtos;
+using Server.Models.Entities;
 using Server.Models.Requests;
 
 namespace Server.Services;
@@ -10,5 +11,5 @@ public interface IAnnotationService
     Task<AnnotationEntity> Update(AnnotationEntity annotation, CancellationToken cancellationToken);
     Task<bool> Delete(int annotationId, CancellationToken cancellationToken);
     IQueryable<AnnotationEntity> GetAllAnnotationsQueryable();
-    Task<AnnotationEntity[]> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken cancellationToken);
+    Task<AnnotationDto[]> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken cancellationToken);
 }

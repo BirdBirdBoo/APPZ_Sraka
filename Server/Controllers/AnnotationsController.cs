@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Services;
@@ -41,7 +42,7 @@ namespace Server.Controllers
         //[Authorize]
         public async Task<IActionResult> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken token)
         {
-            AnnotationEntity[] annotations = await _annotationService.GetAllAnnotationsForAnalysis(analysisId, token);
+            AnnotationDto[] annotations = await _annotationService.GetAllAnnotationsForAnalysis(analysisId, token);
 
             return Ok(annotations);
         }

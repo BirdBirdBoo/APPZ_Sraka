@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Server.Contexts;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Repositories;
@@ -30,10 +31,10 @@ namespace Server.Services
                 Send = DateTime.Now,
                 Sender = message.Sender,
                 Text = message.Text,
-                Receiver= analysis!.Patient.UserId,
+                Receiver = analysis!.Patient.UserId,
             }, cancellationToken);
             annotation.MessageId = messageCreated.Id;
-            
+
             var annotationCreated = _qualityLifeDbContext.Annotations.Add(annotation);
             await _qualityLifeDbContext.SaveChangesAsync(cancellationToken);
 
@@ -61,9 +62,23 @@ namespace Server.Services
             return message!;
         }
 
-        public async Task<AnnotationEntity[]> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken cancellationToken)
+        public async Task<AnnotationDto[]> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken cancellationToken)
         {
-            return await _qualityLifeDbContext.Annotations.Where(a => a.AnalysisId == analysisId).ToArrayAsync(cancellationToken: cancellationToken);
+            var annotationEntities = await _qualityLifeDbContext.Annotations
+                .Where(a => a.AnalysisId == analysisId).ToArrayAsync(cancellationToken: cancellationToken);
+
+            var annotationDtos = new List<AnnotationDto>();
+            foreach (var a in annotationEntities)
+            {
+                annotationDtos.Add(new AnnotationDto()
+                {
+                    AnalysisId = a.AnalysisId,
+                    NameOfProperty = a.NameOfProperty,
+                    Message = (await _messageRepository.Get(a.MessageId, cancellationToken)).Text
+                });
+            }
+
+            return annotationDtos.ToArray();
         }
 
         public IQueryable<AnnotationEntity> GetAllAnnotationsQueryable()
