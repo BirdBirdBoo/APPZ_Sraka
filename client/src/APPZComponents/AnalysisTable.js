@@ -1,9 +1,10 @@
-import { React, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import ButtonAddAnnotation from './Buttons/ButtonAddAnnotation';
 import "../styles/analysisTable.css"
 import ButtonInfo from './Buttons/ButtonInfo';
 import AnnotationModal from './Modals/AnnotationModal';
+import AuthContext from '../AuthContext';
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -13,6 +14,7 @@ import "../styles/styles.css"
 function AnalysisTable(props) {
     const [data, setData] = useState([]);
     const [nameOfCurrentProperty, setNameOfCurrentProperty] = useState('');
+    let authContext = useContext(AuthContext);
 
     useEffect(() => {
         console.log(props.data);
@@ -104,7 +106,7 @@ function AnalysisTable(props) {
 
                                                 findValueByName(props.annotations, analysisProps.nameOfProperty) === null
                                                     ?
-                                                    <ButtonAddAnnotation addAnnotation={
+                                                    authContext.isDoctor && <ButtonAddAnnotation addAnnotation={
                                                         () => {
                                                             handleAnnotationModalShow()
                                                             setNameOfCurrentProperty(analysisProps.nameOfProperty)
