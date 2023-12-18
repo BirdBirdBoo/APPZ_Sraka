@@ -41,7 +41,6 @@ function VerticalNavbar() {
                         <Button className="btn-style">Графіки</Button>
                     </NavLink>
 
-                    //mock
                     <NavLink to={ApplicationPaths.ChartsPage}>
                         <Button className="btn-style">Пройти опитування</Button>
                     </NavLink>
