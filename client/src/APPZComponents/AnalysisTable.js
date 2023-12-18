@@ -30,7 +30,7 @@ function AnalysisTable(props) {
         const result = findValueByName(props.annotations, nameToCheck);
 
         if (result !== null) {
-            return (<>{result}</>);
+            return (<>{`${props.annotations[result].author}: ${props.annotations[result].message}`}</>);
         }
         else {
             return (<></>);
@@ -40,10 +40,21 @@ function AnalysisTable(props) {
     function findValueByName(arr, nameToFind) {
         for (let i = 0; i < arr.length; i++) {
             if (arr[i].nameOfProperty === nameToFind) {
-                return arr[i].message;
+                return i;
             }
         }
         return null;
+    }
+
+    function drawAnnotationPart(analysisProps) {
+        if(findValueByName(props.annotations, analysisProps.nameOfProperty) !== null){
+            return(
+            <tr className='analysis-table-row bg-secondary'>
+                <td colSpan={4}>
+                    <p className="text-light m-2">{checkAndDisplayAnnotation(analysisProps.nameOfProperty)}</p>
+                </td>
+            </tr>)
+        }
     }
 
     const [showAnnotationModal, setShowAnnotationModal] = useState(false);
@@ -90,17 +101,7 @@ function AnalysisTable(props) {
                                         </td>
                                     </tr>
                                     { //this is annotation part
-                                        findValueByName(props.annotations, analysisProps.nameOfProperty) !== null
-                                            ?
-                                            <tr>
-                                                <td colSpan={4}>
-                                                    <div className="container bg-secondary p-1">
-                                                        <p className="text-light">{checkAndDisplayAnnotation(analysisProps.nameOfProperty)}</p>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            :
-                                            <></>
+                                        drawAnnotationPart(analysisProps)
                                     }
                                 </>
 

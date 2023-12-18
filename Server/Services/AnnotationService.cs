@@ -11,12 +11,16 @@ namespace Server.Services
     public class AnnotationService : IAnnotationService
     {
         private IMessageRepository _messageRepository;
+        private IUserService _userService;
         private QualityLifeDbContext _qualityLifeDbContext;
 
-        public AnnotationService(QualityLifeDbContext dbContext, IMessageRepository messageRepository)
+        public AnnotationService(QualityLifeDbContext dbContext, 
+            IMessageRepository messageRepository, 
+            IUserService userService)
         {
             _qualityLifeDbContext = dbContext;
             _messageRepository = messageRepository;
+            _userService = userService;
         }
         public async Task<AnnotationEntity> Create(CreateAnnotationRequest request, CancellationToken cancellationToken)
         {
@@ -70,11 +74,15 @@ namespace Server.Services
             var annotationDtos = new List<AnnotationDto>();
             foreach (var a in annotationEntities)
             {
+                var message = (await _messageRepository.Get(a.MessageId, cancellationToken));
+                var sender = await _userService.GetUserInfo(message.Sender, cancellationToken);
+
                 annotationDtos.Add(new AnnotationDto()
                 {
                     AnalysisId = a.AnalysisId,
                     NameOfProperty = a.NameOfProperty,
-                    Message = (await _messageRepository.Get(a.MessageId, cancellationToken)).Text
+                    Message = message.Text,
+                    Author = $"{sender!.FirstName} {sender!.SecondName}"
                 });
             }
 
