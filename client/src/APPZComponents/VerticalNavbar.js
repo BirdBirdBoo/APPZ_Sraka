@@ -31,11 +31,18 @@ function VerticalNavbar() {
                     <NavLink to={ApplicationPaths.PatientChat}>
                         <Button className="btn-style">Зв'язатись з лікарем</Button>
                     </NavLink>
+                    <NavLink to={ApplicationPaths.PatientChat}>
+                        <Button className="btn-style">Записатись на прийом</Button>
+                    </NavLink>
                     <NavLink to={ApplicationPaths.AnalysisPage}>
                         <Button className="btn-style">Аналізи</Button>
                     </NavLink>
                     <NavLink to={ApplicationPaths.ChartsPage}>
                         <Button className="btn-style">Графіки</Button>
+                    </NavLink>
+
+                    <NavLink to={ApplicationPaths.ChartsPage}>
+                        <Button className="btn-style">Пройти опитування</Button>
                     </NavLink>
                 </>}
 
