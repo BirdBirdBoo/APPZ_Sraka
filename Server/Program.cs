@@ -21,7 +21,7 @@ IConfigProvider configProvider = new ConfigProvider(builder.Configuration);
 // Add services to the container.
 builder.Services.AddDbContext<QualityLifeDbContext>(opts =>
 {
-    opts.UseSqlServer(builder.Configuration.GetConnectionString("local-sql-server"));
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("sql-server"));
 });
 
 builder.Services.AddScoped<IUserService, UserService>();

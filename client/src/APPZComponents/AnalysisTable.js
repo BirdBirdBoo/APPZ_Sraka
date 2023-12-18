@@ -52,13 +52,13 @@ function AnalysisTable(props) {
     }
 
     function drawAnnotationPart(analysisProps) {
-        if(findValueByName(props.annotations, analysisProps.nameOfProperty) !== null){
-            return(
-            <tr className='analysis-table-row bg-secondary'>
-                <td colSpan={4}>
-                    <p className="text-light m-2">{checkAndDisplayAnnotation(analysisProps.nameOfProperty)}</p>
-                </td>
-            </tr>)
+        if (findValueByName(props.annotations, analysisProps.nameOfProperty) !== null) {
+            return (
+                <tr className='analysis-table-row bg-secondary'>
+                    <td colSpan={4}>
+                        <p className="text-light m-2">{checkAndDisplayAnnotation(analysisProps.nameOfProperty)}</p>
+                    </td>
+                </tr>)
         }
     }
 
@@ -69,30 +69,30 @@ function AnalysisTable(props) {
     const exportPDF = () => {
         const input = document.getElementById('table-container');
         html2canvas(input)
-          .then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            pdf.addImage(imgData, 'PNG', 0, 0);
-            pdf.save("download.pdf");
-          });
-      }
-  return (
-    <>
-    <Card style={{
-      border: 'none', 
-      boxShadow: 'none' 
-  }}>
-        <Card.Body id='table-container'>
-            <table style={{borderRadius: '10px', overflow: 'hidden', width:'100%'}}>
-                <thead>
-                    <tr style={{ backgroundColor: '#6D9EEB', color: 'white'}}>
-                    <th style={{padding:'10px'}}>Показник</th>
-                    <th style={{padding:'10px'}}>Результати</th>
-                    <th style={{padding:'10px'}}>Відхилення</th>
-                    <th style={{ padding: '10px' }}></th>
-                    </tr>
-                </thead>
-                <tbody>
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'PNG', 0, 0);
+                pdf.save("download.pdf");
+            });
+    }
+    return (
+        <>
+            <Card style={{
+                border: 'none',
+                boxShadow: 'none'
+            }}>
+                <Card.Body id='table-container'>
+                    <table style={{ borderRadius: '10px', overflow: 'hidden', width: '100%' }}>
+                        <thead>
+                            <tr style={{ backgroundColor: '#6D9EEB', color: 'white' }}>
+                                <th style={{ padding: '10px' }}>Показник</th>
+                                <th style={{ padding: '10px' }}>Результати</th>
+                                <th style={{ padding: '10px' }}>Відхилення</th>
+                                <th style={{ padding: '10px' }}></th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {data.map((analysisProps, index) => (
                                 <>
                                     <tr key={index} className='analysis-table-row' style={analysisProps.isCritical ? { backgroundColor: '#ff6673' } : { backgroundColor: '#9FC5E8' }}>
@@ -122,18 +122,18 @@ function AnalysisTable(props) {
 
                             ))}
                         </tbody>
-            </table>
-        </Card.Body>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <button className="btn-style-pdf-export" onClick={exportPDF}>Експортувати у PDF</button>
-        </div>
-    </Card>
-                <AnnotationModal
+                    </table>
+                </Card.Body>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <button className="btn-style-pdf-export" onClick={exportPDF}>Експортувати у PDF</button>
+                </div>
+            </Card>
+            <AnnotationModal
                 showModal={showAnnotationModal}
                 handleClose={handleAnnotationModalClose}
                 onSave={createAnnotation} />
         </>
-  );
+    );
 };
 
 export default AnalysisTable;

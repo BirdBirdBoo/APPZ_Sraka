@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Server.Contexts;
 using Server.Models.Dtos;
 using Server.Models.Entities;
@@ -92,6 +93,12 @@ namespace Server.Services
         public IQueryable<AnnotationEntity> GetAllAnnotationsQueryable()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<AnalysisId> GetAnalysisIdByMessageId(int messageId, CancellationToken cancellationToken)
+        {
+            var annotation = await _qualityLifeDbContext.Annotations.FirstOrDefaultAsync(a => a.MessageId == messageId, cancellationToken);
+            return annotation.AnalysisId;
         }
 
         public async Task<AnnotationEntity> Update(AnnotationEntity annotationEntity, CancellationToken cancellationToken)

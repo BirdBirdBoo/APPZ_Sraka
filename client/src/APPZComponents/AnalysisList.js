@@ -11,7 +11,7 @@ import AnnotationModal from "./Modals/AnnotationModal";
 import { Navigate } from "react-router-dom";
 import ApplicationPaths from "../paths";
 
-function AnalysisList({ patientIdFromDoctor = null }) {
+function AnalysisList({ patientIdFromDoctor = null, analysisIdFromChat = null }) {
     // let context = useContext(AuthContext);
     const [analyzes, setAnalyzes] = useState([]);
 
@@ -29,6 +29,11 @@ function AnalysisList({ patientIdFromDoctor = null }) {
     let [type, setType] = useState(null);
 
     useEffect(() => {
+        if (analysisIdFromChat !== null) {
+            fetchAnalysisFromChat(analysisIdFromChat)
+            return
+        }
+
         const patientIdDoctorOrPatientView = patientIdFromDoctor ? patientIdFromDoctor : authContext.userAsPatientInfo.patientId;
         console.log(patientIdDoctorOrPatientView)
         fetchPreviewAnalyzes(patientIdDoctorOrPatientView);
@@ -163,6 +168,21 @@ function AnalysisList({ patientIdFromDoctor = null }) {
             .then(res => {
                 const allAnalyzes = res.data;
                 setAnalyzes(allAnalyzes);
+                console.log(allAnalyzes);
+            })
+            .catch(err => console.log(err));
+    }
+
+    function fetchAnalysisFromChat(id) {
+        axios.get("https://localhost:7130/api/Analysis/getAnalysisPreview", {
+            params: {
+                "id": id
+            }
+        })
+            .then(res => {
+                const allAnalyzes = [res.data];
+                setAnalyzes(allAnalyzes);
+                console.log("analysis from chat")
                 console.log(allAnalyzes);
             })
             .catch(err => console.log(err));

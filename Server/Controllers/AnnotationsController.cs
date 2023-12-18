@@ -38,6 +38,16 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [Route("getAnalysisId")]
+        //[Authorize]
+        public async Task<IActionResult> GetAnalysisIdByMessageId(int messageId, CancellationToken token)
+        {
+            var result = await _annotationService.GetAnalysisIdByMessageId(messageId, token);
+
+            return Ok(result);
+        }
+
+        [HttpGet]
         [Route("getAllAnnotations")]
         //[Authorize]
         public async Task<IActionResult> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken token)
