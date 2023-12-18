@@ -44,9 +44,14 @@ function App() {
         if (location.search) {
             const params = new URLSearchParams(location.search);
             const patientId = params.get('patient_id');
+            const analysisId = params.get('analysis_id');
             
             if (patientId) {
                 return <AnalysisList patientIdFromDoctor={patientId}/>;
+            }
+
+            if (analysisId) {
+                return <AnalysisList analysisIdFromChat={analysisId}/>;
             }
         }
         return <AnalysisList/>;

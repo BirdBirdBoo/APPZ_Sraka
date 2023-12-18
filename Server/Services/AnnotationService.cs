@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Server.Contexts;
+using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
 using Server.Repositories;
@@ -10,12 +12,16 @@ namespace Server.Services
     public class AnnotationService : IAnnotationService
     {
         private IMessageRepository _messageRepository;
+        private IUserService _userService;
         private QualityLifeDbContext _qualityLifeDbContext;
 
-        public AnnotationService(QualityLifeDbContext dbContext, IMessageRepository messageRepository)
+        public AnnotationService(QualityLifeDbContext dbContext, 
+            IMessageRepository messageRepository, 
+            IUserService userService)
         {
             _qualityLifeDbContext = dbContext;
             _messageRepository = messageRepository;
+            _userService = userService;
         }
         public async Task<AnnotationEntity> Create(CreateAnnotationRequest request, CancellationToken cancellationToken)
         {
@@ -30,10 +36,10 @@ namespace Server.Services
                 Send = DateTime.Now,
                 Sender = message.Sender,
                 Text = message.Text,
-                Receiver= analysis!.Patient.UserId,
+                Receiver = analysis!.Patient.UserId,
             }, cancellationToken);
             annotation.MessageId = messageCreated.Id;
-            
+
             var annotationCreated = _qualityLifeDbContext.Annotations.Add(annotation);
             await _qualityLifeDbContext.SaveChangesAsync(cancellationToken);
 
@@ -61,14 +67,38 @@ namespace Server.Services
             return message!;
         }
 
-        public async Task<AnnotationEntity[]> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken cancellationToken)
+        public async Task<AnnotationDto[]> GetAllAnnotationsForAnalysis(AnalysisId analysisId, CancellationToken cancellationToken)
         {
-            return await _qualityLifeDbContext.Annotations.Where(a => a.AnalysisId == analysisId).ToArrayAsync(cancellationToken: cancellationToken);
+            var annotationEntities = await _qualityLifeDbContext.Annotations
+                .Where(a => a.AnalysisId == analysisId).ToArrayAsync(cancellationToken: cancellationToken);
+
+            var annotationDtos = new List<AnnotationDto>();
+            foreach (var a in annotationEntities)
+            {
+                var message = (await _messageRepository.Get(a.MessageId, cancellationToken));
+                var sender = await _userService.GetUserInfo(message.Sender, cancellationToken);
+
+                annotationDtos.Add(new AnnotationDto()
+                {
+                    AnalysisId = a.AnalysisId,
+                    NameOfProperty = a.NameOfProperty,
+                    Message = message.Text,
+                    Author = $"{sender!.FirstName} {sender!.SecondName}"
+                });
+            }
+
+            return annotationDtos.ToArray();
         }
 
         public IQueryable<AnnotationEntity> GetAllAnnotationsQueryable()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<AnalysisId> GetAnalysisIdByMessageId(int messageId, CancellationToken cancellationToken)
+        {
+            var annotation = await _qualityLifeDbContext.Annotations.FirstOrDefaultAsync(a => a.MessageId == messageId, cancellationToken);
+            return annotation.AnalysisId;
         }
 
         public async Task<AnnotationEntity> Update(AnnotationEntity annotationEntity, CancellationToken cancellationToken)

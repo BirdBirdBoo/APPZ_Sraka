@@ -12,7 +12,7 @@ public enum MessageType
 public class MessageEntity
 {
     [Key]
-    [JsonIgnore]
+    //[JsonIgnore]
     public int Id { get; set; }
     public MessageType MessageType { get; set; }
     public UserId Sender { get; set; } 

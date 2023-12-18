@@ -1,13 +1,13 @@
-import React, {useEffect, useRef, useState, useContext} from 'react';
+import React, { useEffect, useRef, useState, useContext } from 'react';
 import axios from "axios";
-import {Container, Row, Col} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import IncomingMessageComponent from './IncomingMessageComponent';
 import OutgoingMessageComponent from './OutgoingMessageComponent';
 import MessageTextbox from './MessageTextbox';
-import {Card} from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import AuthContext from "../AuthContext";
 
-function Chat({receiverId = null}) {
+function Chat({ receiverId = null }) {
     let context = useContext(AuthContext);
 
     const [messages, setMessages] = useState([]);
@@ -15,7 +15,7 @@ function Chat({receiverId = null}) {
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     const fetchMessages = async () => {
@@ -28,10 +28,10 @@ function Chat({receiverId = null}) {
                 const patient = allPatients.find(patient => patient.userId === receiverId);
                 receiverUserData = patient.userData;
             } else {
-                const response = await axios.get('https://localhost:7130/api/Login/getInfo', {params: {userId: receiverId}});
+                const response = await axios.get('https://localhost:7130/api/Login/getInfo', { params: { userId: receiverId } });
                 receiverUserData = response.data;
             }
-            
+
             setReceiver(receiverUserData);
 
             const responseAllMessages = await axios.post('https://localhost:7130/api/Chat/getAllMessages', {
@@ -71,9 +71,9 @@ function Chat({receiverId = null}) {
         fetchMessages();
 
         const interval = setInterval(fetchMessages, 5000);
-        
+
         return () => clearInterval(interval);
-    }, [receiver, receiverId]); 
+    }, [receiver, receiverId]);
 
 
     return (
@@ -91,18 +91,22 @@ function Chat({receiverId = null}) {
             }}>
                 {messages.map((msg, index) => (
                     msg.sender === context.userId
-                        ? <OutgoingMessageComponent key={index}
-                                                    senderName={context.userData.firstName + " " + context.userData.secondName}
-                                                    message={msg.text}
-                                                    messageType={msg.messageType}/>
-                        : <IncomingMessageComponent key={index}
-                                                    senderName={receiver.firstName + " " + receiver.secondName}
-                                                    message={msg.text}
-                                                    messageType={msg.messageType}/>
+                        ? <OutgoingMessageComponent
+                            key={index}
+                            messageId={msg.id}
+                            senderName={context.userData.firstName + " " + context.userData.secondName}
+                            message={msg.text}
+                            messageType={msg.messageType} />
+                        : <IncomingMessageComponent
+                            key={index}
+                            messageId={msg.id}
+                            senderName={receiver.firstName + " " + receiver.secondName}
+                            message={msg.text}
+                            messageType={msg.messageType} />
                 ))}
-                <div ref={messagesEndRef}/>
+                <div ref={messagesEndRef} />
             </Card.Body>
-            <MessageTextbox handleSent={handleSent}/>
+            <MessageTextbox handleSent={handleSent} />
         </Card>
     );
 };

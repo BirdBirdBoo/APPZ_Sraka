@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Models.Dtos;
 using Server.Models.Entities;
 using Server.Models.Requests;
+using Server.Repositories;
 using Server.Services;
 
 namespace Server.Controllers;
@@ -13,11 +14,13 @@ public class AnalysisController : ControllerBase
 {
     private readonly IAnalysisService _analysisService;
     private readonly IAnalysisFilterService _analysisFilterService;
+    private readonly IAnalysisRepository _analysisRepository;
 
-    public AnalysisController(IAnalysisService analysisService, IAnalysisFilterService analysisFilterService)
+    public AnalysisController(IAnalysisService analysisService, IAnalysisFilterService analysisFilterService, IAnalysisRepository analysisRepository)
     {
         _analysisService = analysisService;
         _analysisFilterService = analysisFilterService;
+        _analysisRepository = analysisRepository;
     }
 
     [HttpPost]
@@ -36,6 +39,16 @@ public class AnalysisController : ControllerBase
     public async Task<IActionResult> GetAnalysis(AnalysisId id, CancellationToken token)
     {
         IEnumerable<AnalysisDto> analysis = await _analysisService.Get(id, token);
+
+        return Ok(analysis);
+    }
+
+    [HttpGet]
+    [Route("getAnalysisPreview")]
+    //[Authorize]
+    public async Task<IActionResult> GetAnalysisPreview(AnalysisId id, CancellationToken token)
+    {
+        var analysis = await _analysisRepository.GetAnalysis(id, token);
 
         return Ok(analysis);
     }

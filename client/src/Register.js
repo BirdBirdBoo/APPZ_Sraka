@@ -3,7 +3,7 @@ import { Button, Form, Row, ThemeProvider } from "react-bootstrap";
 import $ from "jquery";
 import { registerUrl, setStoredToken } from "./api";
 import AppNavbar from "./AppNavbar";
-import {Navigate, NavLink} from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import AuthContext from "./AuthContext";
 import ApplicationPaths from "./paths";
 
