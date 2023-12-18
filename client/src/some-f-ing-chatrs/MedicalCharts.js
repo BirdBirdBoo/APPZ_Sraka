@@ -5,6 +5,12 @@ import AuthContext from "../AuthContext";
 import axios from "axios";
 import moment from "moment";
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import {formatDate} from "../dateFormatter";
+
+import "../styles/styles.css"
+
 const someData = [
     {
         id: 1,
@@ -241,11 +247,30 @@ export default function MedicalCharts({patientid}) {
             return celsiusTimeFormat;
         }
 
-        return (time, value) => [`${value}`, `Time: ${moment(time).format("HH:MM")}`];
+        return (time, value) => [`${value}`, `Time: ${moment(time).format("HH:mm")}`];
     }
 
     function celsiusTimeFormat(time, value) {
-        return [`${value} °C`, `Time: ${moment(time).format("HH:MM")}`];
+        return [`${value} °C`, `Time: ${moment(time).format("HH:mm")}`];
+    }
+
+    const exportPDF = async () => {
+        const input = document.getElementById('charts-container');
+        const inputChildrens = input.children;
+        const pdf = new jsPDF();
+
+        for (let i = 0; i < inputChildrens.length; i++) {
+            const children = inputChildrens[i];
+            const canvas = await html2canvas(children, {windowHeight: '1400px'});
+            const imgData = canvas.toDataURL('image/png');
+            pdf.addImage(imgData, 'PNG', 0, 0);
+
+            if (i < inputChildrens.length - 1) {
+                pdf.addPage();
+            }
+        }
+
+        pdf.save("download.pdf");
     }
 
     return (
@@ -256,20 +281,25 @@ export default function MedicalCharts({patientid}) {
                 height: '100%'
             }}>
                 <h1 className="p-3">Графіки показників</h1>
-
-                <Row>
+                <Col>
+                    <button className="btn-style w-auto ms-3 mb-3 px-4" onClick={exportPDF}>Експортувати у PDF</button>
+                </Col>
+                <Row id="charts-container">
                     {charts.map((c, index) => {
                         let title = c.name;
+                        let date = c.date;
                         const data = c.properties;
                         const units = data[0].metric;
                         const unitFormatFunc = selectUnitFmt(units);
                         const tooltipFormatFunc = selectTooltipFmt(units);
                         console.log(data)
                         return (
-                            <TimeSeriesChart key={index} getData={data} title={title}
+                            <TimeSeriesChart key={index} getData={data}
+                                             title={title + "\nДата збору даних: " + formatDate(date)}
                                              tooltipFormatFunc={tooltipFormatFunc}
                                              unitFormatFunc={unitFormatFunc}/>
                         )
+
                     })}
                 </Row>
             </Col>

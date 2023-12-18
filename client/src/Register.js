@@ -131,8 +131,8 @@ export class RegisterForm extends React.Component {
                                 <button type="submit" className='btn-style small submit'>Зареєструватись</button>
                             </Row>
                             <Row className='mx-1'>
-                                <NavLink to={ApplicationPaths.LoginPage}>
-                                    <Button className="btn-style small" type="button">Увійти</Button>
+                                <NavLink to={ApplicationPaths.LoginPage} className='p-0'>
+                                <Button className="btn-style small" type="button">Увійти</Button>
                                 </NavLink>
                             </Row>
                         </Form.Group>

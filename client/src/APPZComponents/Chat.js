@@ -93,10 +93,12 @@ function Chat({receiverId = null}) {
                     msg.sender === context.userId
                         ? <OutgoingMessageComponent key={index}
                                                     senderName={context.userData.firstName + " " + context.userData.secondName}
-                                                    message={msg.text}/>
+                                                    message={msg.text}
+                                                    messageType={msg.messageType}/>
                         : <IncomingMessageComponent key={index}
                                                     senderName={receiver.firstName + " " + receiver.secondName}
-                                                    message={msg.text}/>
+                                                    message={msg.text}
+                                                    messageType={msg.messageType}/>
                 ))}
                 <div ref={messagesEndRef}/>
             </Card.Body>
