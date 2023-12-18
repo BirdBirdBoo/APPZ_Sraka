@@ -49,12 +49,23 @@ export default function DoctorPatientsList() {
                                 }
                             }>
                                 {/*<Stack className='align-self-end ms-auto' direction='horizontal' gap={3}>*/}
+                                //mock
+                                <NavLink style={navLinkStyle} to={`${Paths.AnalysisPage}?patient_id=${patient.patientId}`}>
+                                    <Button style={smallActionButtonStyle}>Поточний стан</Button>
+                                </NavLink>
+
                                 <NavLink style={navLinkStyle} to={`${Paths.AnalysisPage}?patient_id=${patient.patientId}`}>
                                     <Button style={smallActionButtonStyle}>Аналізи</Button>
                                 </NavLink>
                                 <NavLink style={navLinkStyle} to={`${Paths.ChartsPage}?patient_id=${patient.patientId}`}>
                                     <Button style={smallActionButtonStyle}>Графіки</Button>
                                 </NavLink>
+
+                                //mock
+                                <NavLink style={navLinkStyle} to={`${Paths.ChartsPage}?patient_id=${patient.patientId}`}>
+                                    <Button style={smallActionButtonStyle}>Результати опитувань</Button>
+                                </NavLink>
+                                
                                 <NavLink style={navLinkStyle} to={`${Paths.PatientChat}?receiver_id=${patient.userId}`}>
                                     <Button style={smallActionButtonStyle}>Перейти до чату</Button>
                                 </NavLink>
