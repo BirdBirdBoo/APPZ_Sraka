@@ -8,7 +8,7 @@ import {useContext, useEffect, useState} from "react";
 import AuthContext from "./AuthContext";
 import {Navigate, useLocation} from "react-router-dom";
 import ApplicationPaths from "./paths";
-import MedicalCharts from "./some-f-ing-chatrs/MedicalCharts";
+import MedicalCharts from "./some-charts/MedicalCharts";
 import AnalysisList from './APPZComponents/AnalysisList';
 
 import "./styles/styles.css";
